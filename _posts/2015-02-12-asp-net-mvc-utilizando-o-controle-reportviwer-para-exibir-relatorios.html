@@ -1,0 +1,187 @@
+---
+layout: post
+title: ASP.NET MVC - Utilizando o controle ReportViwer do webforms para exibir relatórios
+date: 2015-02-12 18:03:57.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+- C#
+- ReportViwer
+tags:
+- Relatório
+- ReportViwer
+meta:
+  geo_public: '0'
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo certo?</p>
+<p>A ideia desse post surgiu à algumas semanas atrás, ao acompanhar uma <a href="https://www.facebook.com/groups/aspnetmvcbr/777269225684359/?notif_t=group_comment_follow" target="_blank">dúvida </a>postada pelo<a href="http://duanbrito.net/" target="_blank"> Duan Brito</a>.</p>
+<p>A dúvida era como utilizar o controle ReportViwer em uma página asp.net mvc, sugeri ao Duan exibir o relatório em .pdf, pois, o controle não seria possível, uma vez que ele faz parte do WebForms. Mas isso era o que eu pensava, até que o <a href="http://www.devmedia.com.br/autor/fabio-galante-mans/8496" target="_blank">Fabio Galante</a> e o <a href="https://www.facebook.com/costa.jose.romu?fref=ufi" target="_blank">José Romualdo</a> sugeriram uma solução. Achei interessante, logo criei um teste, e funcionou perfeitamente, resolvi compartilhar e aqui estou.</p>
+<p>Em uma discussão sobre asp.net mvc x webforms surgiu a seguinte questão:</p>
+<blockquote><p>Em qual cenário poderíamos usar uma página webforms em um projeto asp.net mvc?</p></blockquote>
+<p>A ideia desse post seria um cenário?</p>
+<p>Esse post não tem o objetivo de mostrar recursos do ReportViwer, mas como utilizar o controle ReportViwer do webforms em um projeto asp.net mvc.<br />
+<!--more--></p>
+<p><b>Criando a aplicação</b></p>
+<p>Os exemplos aplicados nesse post foram feitos utilizando o Visual Studio 2013 com uma aplicação asp.net mvc 5.</p>
+<p>Para começar, crie um novo projeto no visual studio, com o nome <strong>UtilizandoControleReportViwer, </strong>do tipo <strong>C#  &gt;&gt;  Web  &gt;&gt;  ASP.NET Web Application  &gt;&gt;  MVC</strong>.</p>
+<p>Na pasta <strong>Models, </strong>crie uma nova classe chamada <strong>ProdutoModels </strong>e insira o código da Listagem 1.</p>
+<p>[sourcecode language="csharp"]<br />
+namespace UtilizandoControleReportViwer.Models<br />
+{<br />
+ public class ProdutoModels<br />
+ {<br />
+  public int Codigo { get; set; }<br />
+  public string Nome { get; set; }<br />
+  public double Preco { get; set; }<br />
+  public double QtdEmEstoque { get; set; }<br />
+ }<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 1 - Código da classe ProdutoModels.</strong></p>
+<p>Na pasta Controllers, abra o controller Home e insira o código da Listagem 2 ao já existente nesse arquivo.</p>
+<p>[sourcecode language="csharp"]<br />
+public void Relatorio()<br />
+{<br />
+ Response.Redirect(&quot;~/Relatorio/Relatorio.aspx&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 2 - Inserindo novo método no controller Home.</strong></p>
+<p>Crie uma nova pasta em seu projeto com nome <strong>Relatorio</strong>. Feito isso, botão direito na pasta criada <strong>Add New Item  &gt;&gt;  Web  &gt;&gt;  WebForms  &gt;&gt;  WebForm</strong>. Dê o nome de <strong>Relatorio.</strong></p>
+<p>[caption id="attachment_1701" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-1.png"><img class="size-full wp-image-1701" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-1.png" alt="Figura 1 - Add New Item &gt;&gt; Web &gt;&gt; WebForms &gt;&gt; WebForm" width="1600" height="853" /></a> Figura 1 - Add New Item &gt;&gt; Web &gt;&gt; WebForms &gt;&gt; WebForm[/caption]</p>
+<p>Abra o aquivo Relatorio.aspx que acabamos de criar. Nele iremos adicionar o controle ReportViwer e um ScriptManager, encontramos ambos na toolbox em Reporting e AjaxExtensions respectivamente. Após adicionados, o arquivo Relatório.aspx deverá estar da seguinte forma:</p>
+<p>[sourcecode language="html"]</p>
+<p>&lt;%@ Page Language=&quot;C#&quot; AutoEventWireup=&quot;true&quot; CodeBehind=&quot;Relatorio.aspx.cs&quot; Inherits=&quot;UtilizandoControleReportViwer.Views.Produto.Relatorio&quot; %&gt;<br />
+&lt;%@ Register Assembly=&quot;Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91&quot; Namespace=&quot;Microsoft.Reporting.WebForms&quot; TagPrefix=&quot;rsweb&quot; %&gt;</p>
+<p>&lt;!DOCTYPE html&gt;</p>
+<p>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br />
+&lt;head runat=&quot;server&quot;&gt;<br />
+ &lt;title&gt;&lt;/title&gt;<br />
+&lt;/head&gt;<br />
+&lt;body&gt;<br />
+  &lt;form id=&quot;form1&quot; runat=&quot;server&quot;&gt;<br />
+   &lt;asp:ScriptManager ID=&quot;ScriptManager1&quot; runat=&quot;server&quot;&gt;&lt;/asp:ScriptManager&gt;<br />
+  &lt;div&gt;<br />
+   &lt;rsweb:ReportViewer ID=&quot;ReportViewer1&quot; runat=&quot;server&quot; Width=&quot;722px&quot;&gt;&lt;/rsweb:ReportViewer&gt;<br />
+  &lt;/div&gt;<br />
+  &lt;/form&gt;<br />
+ &lt;/body&gt;<br />
+&lt;/html&gt;<br />
+[/sourcecode]</p>
+<p><strong> Listagem 3 - Código da página Relatorio.aspx</strong></p>
+<p>Ainda na pasta Relatorio, adicionaremos mais dois itens, sendo eles, um DataSet e um arquivo rdlc.</p>
+<p>Para adicionar o DataSet, botão direito na pasta Relatorio <strong>Add New Item  &gt;&gt;  Data  &gt;&gt;  DataSet</strong>. Dê o nome de dsProduto.xsd</p>
+<p>[caption id="attachment_1821" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-3.png"><img class="size-full wp-image-1821" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-3.png" alt="Figura 2 - Criando um DataSet" width="1600" height="856" /></a> Figura 2 - Criando um DataSet[/caption]</p>
+<p>Após criar o DataSet, abra-o. Ao abri-lo, iremos visualizar uma tela de design. Nessa tela, clique com o botão direito em qualquer local, <strong>Add  &gt;&gt;  DataTable.</strong></p>
+<p>[caption id="attachment_1831" align="alignnone" width="818"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-4.png"><img class="wp-image-1831" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-4.png" alt="Figura 4 - Criando um DataTable no dataset." width="818" height="433" /></a> Figura 3 - Criando um DataTable no dataset.[/caption]</p>
+<p>&nbsp;</p>
+<p>Renomeie o DataTable para <strong>dsProduto. </strong>Adicione as seguintes colunas nesse DataTable:</p>
+<ul>
+<li>Codigo</li>
+<li>Nome</li>
+<li>Preco</li>
+<li>QtdEmEstoque</li>
+</ul>
+<p>As colunas adicionadas ao DataTable são referentes a classe produto. Vale ressaltar que deve estar escrito exatamente igual ao nome das propriedades da classe. Dando continuidade, vamos criar o arquivo rdlc. Botão direito na pasta Relatorio <strong>Add New Item  &gt;&gt;  Reporting  &gt;&gt;  Report</strong>. Dê o nome de ListaProduto.rdlc</p>
+<p>[caption id="attachment_1811" align="alignnone" width="1313"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-2.png"><img class="size-full wp-image-1811" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-2.png" alt="Figura 2 - Adicionando o arquivo rdlc." width="1313" height="857" /></a> Figura 4 - Adicionando o arquivo rdlc.[/caption]</p>
+<p>Ao criar o arquivo rdlc abra seu modo design dando dois click's em ListaProduto.rdlc. Com o modo design aberto, clique com o botão direito em qualquer local e insira uma Table.</p>
+<p>[caption id="attachment_1851" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-5.png"><img class="size-full wp-image-1851" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-5.png" alt="Figura 5 - Inserindo uma table no report." width="1600" height="857" /></a> Figura 5 - Inserindo uma table no report.[/caption]</p>
+<p>Após clicar em Insert  &gt;&gt;  Table, a janela <strong>DataSet Properties </strong>será aberta para selecionarmos o data source que usaremos nessa tabela. Defina a opção <b>Name </b>como <strong>dsProduto. </strong>Na opção <strong>data source </strong>selecione o dataset <strong>dsProduto </strong>que criamos.</p>
+<p>[caption id="attachment_1861" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-6.png"><img class="size-full wp-image-1861" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-6.png" alt="Figura 6 - Configurando o dataset da table." width="1600" height="857" /></a> Figura 6 - Configurando o data source da table.[/caption]</p>
+<p>Nesse momento, a table está vinculada ao dataset dsProduto. Só precisamos informar em qual coluna cada dado será apresentado. Para isso, coloque o mouse na segunda linha da table e clique no canto superior direito da célula para que sejam mostradas as opções disponíveis.</p>
+<p>[caption id="attachment_1871" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-7.png"><img class="size-full wp-image-1871" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-7.png" alt="Figura 7 - Configurando dados na table." width="1600" height="855" /></a> Figura 7 - Configurando dados na table.[/caption]</p>
+<p>Apresente os dados na seguinte ordem:</p>
+<ol>
+<li>Codigo</li>
+<li>Nome</li>
+<li>Preco</li>
+<li>QtdEmEstoque</li>
+</ol>
+<p>Agora precisamos inserir dados no dataset dsProduto e vincula-lo ao controle ReportViwer. Antes de fazer isso, iremos baixar e referenciar a dll do reportviwer webforms no projeto, iremos fazer isso através do nugget. Abra o package manager console e execute o seguinte comando:</p>
+<blockquote><p>Install-Package MicosoftReportViewerWebForms</p></blockquote>
+<p>Ao finalizar a instalação, abra o codebehind da página Relatorio.aspx (botão direito no arquivo  &gt;&gt;  View Code). Feito isso, insira o seguinte código:</p>
+<p>[sourcecode language="csharp"]<br />
+using Microsoft.Reporting.WebForms;<br />
+using System;<br />
+using System.Collections.Generic;<br />
+using UtilizandoControleReportViwer.Models;</p>
+<p>namespace UtilizandoControleReportViwer.Views.Produto<br />
+{<br />
+ public partial class Relatorio : System.Web.UI.Page<br />
+ {<br />
+  protected void Page_Load(object sender, EventArgs e)<br />
+  {<br />
+   if (!IsPostBack)<br />
+   {<br />
+    var listaProduto = new List&lt;ProdutoModels&gt;()<br />
+    {<br />
+     new ProdutoModels{Codigo = 1, Nome = &quot;Teclado&quot;, Preco = 31.50, QtdEmEstoque = 100},<br />
+     new ProdutoModels{Codigo = 2, Nome = &quot;Mouse&quot;, Preco = 20, QtdEmEstoque = 75},<br />
+     new ProdutoModels{Codigo = 3, Nome = &quot;Monitor&quot;, Preco = 350.99, QtdEmEstoque = 83},<br />
+     new ProdutoModels{Codigo = 4, Nome = &quot;Fone de ouvido&quot;, Preco = 59.60, QtdEmEstoque = 18},<br />
+     new ProdutoModels{Codigo = 5, Nome = &quot;Mousepad&quot;, Preco = 8.30, QtdEmEstoque = 33},<br />
+     new ProdutoModels{Codigo = 6, Nome = &quot;Notebook&quot;, Preco = 2500.70, QtdEmEstoque = 20},<br />
+     new ProdutoModels{Codigo = 7, Nome = &quot;HD SSD 120 GB&quot;, Preco = 240, QtdEmEstoque = 17},<br />
+     new ProdutoModels{Codigo = 8, Nome = &quot;Placa de vídeo&quot;, Preco = 999, QtdEmEstoque = 42},<br />
+     new ProdutoModels{Codigo = 9, Nome = &quot;Gabinete&quot;, Preco = 60, QtdEmEstoque = 23},<br />
+     new ProdutoModels{Codigo = 10, Nome = &quot;Iphone 6&quot;, Preco = 3000, QtdEmEstoque = 50}<br />
+    };</p>
+<p>    var reportDS = new ReportDataSource();<br />
+    reportDS.Name = &quot;dsProduto&quot;;<br />
+    reportDS.Value = listaProduto;</p>
+<p>    ReportViewer1.LocalReport.DataSources.Add(reportDS);<br />
+    ReportViewer1.LocalReport.ReportPath = &quot;Relatorio/ListaProduto.rdlc&quot;;<br />
+    }<br />
+   }<br />
+  }<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 4 - CodeBehind da página Relatorio.aspx</strong><br />
+O código da listagem 4 é bem simples, basicamente o que está sendo feito é popular uma lista de produto e adicionar essa lista a um objeto ReportDatasource. Esse objeto também está sendo vinculado ao dataset <strong>dsProduto </strong>através da propriedade <strong>Name. </strong>Após isso, adiciono o objeto ReportDatasource ao controle ReportViwer1 e informo o caminho do arquivo rdlc.</p>
+<p>Estamos com 99% do projeto exemplo pronto, só precisamos adicionar o link na tela inicial que nos redirecione para a página Relatorio.aspx. Abra a <strong>pasta Views  &gt;&gt;  Home</strong> e dê um duplo clique na <strong>View Index</strong>. Apague todo o conteúdo dessa View e adicione o seguinte código:</p>
+<p>[sourcecode language="html"]</p>
+<p>@{<br />
+ ViewBag.Title = &quot;Home Page&quot;;<br />
+}</p>
+<p>&lt;a href=&quot;~/Relatorio/Relatorio.aspx&quot;&gt;Lista de Produtos&lt;/a&gt;</p>
+<p>[/sourcecode]</p>
+<p><strong>Listagem 5 - View Home Index</strong></p>
+<p>Na listagem 5 só estamos adicionando um link que nos redirecionará para a página Relatorio.aspx.</p>
+<p>Execute a aplicação e clique no link <strong>Lista de Produtos</strong>. Se tudo der certo, uma lista de produtos será apresentada no controle do ReportViwer.</p>
+<p>[caption id="attachment_1891" align="alignnone" width="759"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-8.png"><img class="size-full wp-image-1891" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-8.png" alt="Figura 8 - Lista de produtos no controle do ReportViwer" width="759" height="466" /></a> Figura 8 - Lista de produtos no controle do ReportViwer[/caption]</p>
+<p>Abrir relatórios na tela de navegação do usuário pode ser um tanto quanto ruim para usabilidade. Pensando nisso, podemos fazer a chamada da página Relatorio.aspx através do javascript. Para fazer isso altere o código da view Home Index, deixando-o dessa forma:</p>
+<p>[sourcecode language="html"]</p>
+<p>@{<br />
+ ViewBag.Title = &quot;Home Page&quot;;<br />
+}</p>
+<p>&lt;a id=&quot;linkRelatorio&quot;&gt;Lista de Produtos&lt;/a&gt;</p>
+<p>&lt;script src=&quot;~/Scripts/jquery-1.10.2.min.js&quot;&gt;&lt;/script&gt;</p>
+<p>&lt;script&gt;<br />
+ $(document).ready(function () {<br />
+  $(&quot;#linkRelatorio&quot;).on(&quot;click&quot;, function () {<br />
+   window.open(&quot;Relatorio/Relatorio.aspx&quot;, &quot;_blank&quot;, &quot;toolbar=no, scrollbars=yes, resizable=yes, width=600, height=600&quot;);<br />
+  });<br />
+ });<br />
+&lt;/script&gt;</p>
+<p>[/sourcecode]</p>
+<p><strong>Listagem 6 - Código para abrir a página Relatorio.aspx em janela.</strong></p>
+<p>Execute a aplicação novamente, agora a tela Relatorio.aspx será aberta em janela.</p>
+<p>[caption id="attachment_1901" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/UtilizandoReportViwer_Figura-9.png"><img class="size-full wp-image-1901" src="{{ site.baseurl }}/assets/img/UtilizandoReportViwer_Figura-9.png" alt="Figura 9 - Abrindo o relatório em janela." width="1600" height="814" /></a> Figura 9 - Abrindo o relatório em janela.[/caption]</p>
+<p>Você pode optar por não usar dataset e ter o mesmo resultado usando um dto, veja como em <a href="http://rafaelzaccanini.net.br/2011/04/05/criando-relatorios-report-viewer-em-aplicacoes-asp-net-mvc-parte-1-renderizacao-pelo-controller/" target="_blank">http://rafaelzaccanini.net.br/2011/04/05/criando-relatorios-report-viewer-em-aplicacoes-asp-net-mvc-parte-1-renderizacao-pelo-controller/</a></p>
+<p>E aê, tem uma opinião sobre essa abordagem? Consegue responder a pergunta feita no inicio do post?</p>
+<blockquote>
+<blockquote><p>Em qual cenário poderíamos usar uma página webforms em um projeto asp.net mvc?</p></blockquote>
+<p>A ideia desse post seria um cenário?</p></blockquote>
+<p><a href="https://github.com/WennderSantos/ControleReportViwerNoAspNetMVC" target="_blank">Baixe o código fonte aqui.</a></p>
+<p>Era isso que eu queria mostrar pessoal.</p>
+<p>Até o próximo post!</p>

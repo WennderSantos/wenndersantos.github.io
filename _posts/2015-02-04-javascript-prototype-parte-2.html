@@ -1,0 +1,134 @@
+---
+layout: post
+title: javaScript - Prototype - {Parte 2}
+date: 2015-02-04 20:08:50.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+tags:
+- herança
+- javascript
+- prototype
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo certo?</p>
+<p>Dando continuidade ao post <strong><a href="http://wenndersantos.net/2015/01/28/javascript-prototype-parte-1/" target="_blank">javaScript - Prototype  { Parte 1 }</a>, </strong>onde escrevi uma introdução sobre prototype, agora veremos alguns exemplos de como adicionar métodos e propriedades em objetos já existentes. Veremos também como sobrescrever métodos. No post passado eu comecei dizendo que cheguei no assunto prototype quando estava estudando para a <a href="https://www.microsoft.com/learning/pt-br/exam-70-480.aspx" target="_blank">prova de certificação 70-480 da Microsoft,</a> disse também que segundo o guia de estudos esse assunto não caia na prova, bom, após alguns feedback's de quem já fez a prova, gostaria de dizer para aqueles que estiverem se preparando para essa certificação que estude esse assunto sim :)</p>
+<p><!--more--></p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2014/12/javascript_logo-e1422419935852.png"><img class=" size-full wp-image-368 aligncenter" src="{{ site.baseurl }}/assets/img/javascript_logo-e1422419935852.png" alt="javascript_logo" width="200" height="200" /></a></p>
+<p>Todos os exemplos desse post foram testados utilizando o console do Google Chrome versão 40.0.2214.93 m.</p>
+<p><strong>Inserindo métodos e propriedades em objetos já existentes</strong></p>
+<p>Vamos inciar já com um pequeno snippet, veja a <strong>Listagem 1:</strong></p>
+<p>[sourcecode language="javascript"]<br />
+//criando um construtor para um tipo pessoa<br />
+//por convenção, utiliza-se um caractere uppercase na criação de construtores<br />
+function Pessoa(nome, sobrenome, idade){<br />
+ this.nome = nome;<br />
+ this.sobrenome = sobrenome;<br />
+ this.idade = idade;<br />
+}</p>
+<p>//criando uma instância de Pessoa<br />
+var wennder = new Pessoa('Wennder', 'Santos', 23);<br />
+[/sourcecode]</p>
+<p><strong>Listage 1 - Criando um construtor para um tipo Pessoa e criando uma nova instância de Pessoa.</strong></p>
+<p>Nosso objeto pessoa está muito "travado", vamos dar um pouco de ação a ele. Suponhamos que o objeto wennder queira cumprimentar outras pessoas, como fazer isso? Veja na <strong>Listagem 2:</strong></p>
+<p>[sourcecode language="javascript"]<br />
+wennder.cumprimentar = function(){<br />
+ alert(&quot;Olá&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 2 - Adicionando um método a um Objeto já existente.</strong></p>
+<p>Nesse momento, se chamarmos o método cumprimentar no objeto wennder teremos um alerta na tela.</p>
+<blockquote><p>wennder.cumprimentar();</p></blockquote>
+<p>Bem simples, mas, iremos fazer melhor do que isso. Continuando com o mesmo exemplo, vamos criar um novo objeto do tipo Pessoa, conforme mostra a <strong>Listagem 3.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+var fulano = new Pessoa('Fulano', 'da Silva', 21);<br />
+[/sourcecode]</p>
+<p><strong>Listagem 3 - Criando nova instância de Pessoa.</strong></p>
+<p>Criada nova instância de Pessoa, ao tentar chamar o método <strong>cumprimentar </strong>teremos como retorno o seguinte erro:</p>
+<p>[caption id="attachment_1391" align="alignnone" width="1900"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/Figura-1-prototype2.png"><img class="wp-image-1391 size-full" src="{{ site.baseurl }}/assets/img/Figura-1-prototype2.png" alt="Figura 1 - Uncaught TypeError: undefined is not a function" width="1900" height="750" /></a> Figura 1 - Uncaught TypeError: undefined is not a function[/caption]</p>
+<p>Isso indica que o objeto fulano não tem acesso ao método cumprimentar criado no objeto wennder, fica simples de entender se imaginarmos que os dois estão lado a lado na prototype chain.</p>
+<p>Para que todas as instâncias de Pessoa possuam o método cumprimentar, deveríamos ter criado esse método no objeto prototype de Pessoa, o que também é bem simples de se fazer. Para exemplificar, vamos adicionar ao prototype de Pessoa a habilidade de "falar seu nome completo". Veja a <strong>Listagem 4</strong>:</p>
+<p>[sourcecode language="javascript"]<br />
+Pessoa.prototype.nomeCompleto = function(){<br />
+alert(this.nome + ' ' + this.sobrenome);<br />
+}<br />
+[/sourcecode]</p>
+<p><strong> Listagem 4 - Adicionando método ao prototype de Pessoa.</strong></p>
+<p>Fácil de entender? Caso a resposta seja 'não', vamos relembrar:</p>
+<ol>
+<li>Prototype é um objeto;</li>
+<li>Eu consigo adicionar métodos e propriedades a objetos, até os já existentes;</li>
+<li>Herança no javascript é feita através do objeto prototype.</li>
+</ol>
+<p>Bom, nesse momento, ambos objetos fulano e wennder possuem acesso ao método <strong>nomeCompleto(). </strong></p>
+<blockquote><p>Espera ae, mesmo as instâncias que já foram criadas possuem acesso ao método que acabei de criar? Sim!</p></blockquote>
+<p>Ao chamar o método <strong>nomeCompleto()</strong> você receberá um alerta com o nome completo da pessoa, seja em novas instâncias de Pessoa ou nas que já existem.</p>
+<p>É possível também adicionar métodos aos prototypes de objetos nativos, por exemplo o <strong>String. </strong>Veja a <strong>Listagem 5</strong>:</p>
+<p>[sourcecode language="javascript"]<br />
+String.prototype.contarLetra = function(letra){<br />
+ var contador = 0;</p>
+<p> for(var i = 0; i &lt; this.length; i++){<br />
+  if (this[i] == letra){<br />
+   contador ++;<br />
+  }<br />
+ }<br />
+return contador;<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 5 - Criando um método no protoype de String.</strong></p>
+<p>O método <strong>contarLetra </strong>simplesmente retornará a quantidade de vezes que uma determinada letra, que deverá ser informada por parâmetro, aparece em uma string. Veja um exemplo de sua chamada e seu retorno na <strong>Listagem 6</strong>:</p>
+<p>[sourcecode language="javascript"]<br />
+&quot;Realizando um teste&quot;.contarLetra(&quot;e&quot;); //3<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 6 - Executando o método contarLetra.</strong></p>
+<p>Imagine que, após ter implementado  o método <strong>contarLetra </strong>surja a necessidade de fazer com que esse método não diferencie letras minúsculas de maiúsculas. Para exemplificar o segundo ponto desse post, vamos resolver essa situação sobrescrevendo o método <strong>contarLetra .</strong></p>
+<p>&nbsp;</p>
+<p><strong>Sobrescrever métodos</strong></p>
+<p>No javaScript, quando criamos dois métodos/propriedades com o mesmo nome nós não temos como retorno um erro. O que acontece é que a segunda declaração sobrescreverá a primeira. Simples assim. Veja o código da <strong>Listagem 7,</strong> onde estamos sobrescrevendo o método <strong>contarLetra.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+String.prototype.contarLetra = function(letra){<br />
+ var contador = 0;</p>
+<p> for(var i = 0; i &lt; this.length; i++){<br />
+  if (this[i] == letra){<br />
+   contador ++;<br />
+  }<br />
+ }<br />
+return contador;<br />
+}</p>
+<p>//este método irá sobrepor o anterior<br />
+String.prototype.contarLetra = function(letra){<br />
+var contador = 0;<br />
+var palavraMaiuscula = this.toUpper;<br />
+var letraMaiuscula = letra.toUpper;</p>
+<p>for(var i = 0; i &lt; this.length; i++){<br />
+  if (palavraMaiuscula[i] == letraMaiuscula){<br />
+   contador ++;<br />
+  }<br />
+ }<br />
+return contador;<br />
+}</p>
+<p>&quot;REALIZANDO UM TESTE&quot;.contarLetra(&quot;e&quot;); //3<br />
+&quot;realizando um teste&quot;.contarLetra(&quot;E&quot;); //3<br />
+[/sourcecode]</p>
+<p><strong>Listagem 7 - Sobrescrevendo o método contarLetra.</strong></p>
+<p>Na <strong>Listagem 7, </strong>foram declarados dois métodos contarLetra. A diferença entre os dois é que a primeira declaração diferencia letras maiúsculas de minúsculas. Ao declarar os dois métodos com o mesmo nome, como já dito anteriormente, não temos nenhum erro e sim uma sobreposição que pode ser vista na execução do mesmo. Ao executar o método <b>contarLetra</b> nesse momento, veremos que não está sendo mais diferenciado as letras maiúsculas de minúsculas.</p>
+<p>Pessoal, era isso que eu queria mostrar nessa publicação.</p>
+<p>Encontrou algum erro ou não concorda com algo? Deixe um comentário e vamos discutir isso para que todos possam acompanhar.</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><strong>Object.prototype</strong> - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype<br />
+</a></p>
+<p><strong>Understanding JavaScript Prototypes </strong><a href="https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/" target="_blank">- https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes</a>/</p>

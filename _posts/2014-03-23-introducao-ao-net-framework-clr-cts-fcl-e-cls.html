@@ -1,0 +1,80 @@
+---
+layout: post
+title: Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL e CLS
+date: 2014-03-23 04:02:14.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags: []
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Este é o segundo post sobre introdução ao .Net Framework. Com essa leitura você será capaz de ter uma ideia, superficial, da estrutura do .Net, falarei sobre Common Language Runtime, Framework Class Library, Common Type System e a Common Language Specification.<!--more--> Se você não leu o primeiro post, recomendo que leia, segue o link:</p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>&nbsp;</p>
+<p><b>Common Language Runtime (CLS)</b></p>
+<p><b>              </b>O CLR é o ambiente de execução de aplicações .Net, por isso, para executar um programa criado nessa plataforma o Framework deve estar instalado na máquina. O CLR não necessariamente acompanha a versão do .NET, por exemplo, hoje o .Net está em sua versão 4.5 e o CLR na sua versão 4. Grande parte de seus recursos podem ser utilizados por todas as linguagens de programação .NET. Veja alguns de recursos que o CLR oferece junto com a FCL.</p>
+<ul>
+<li>Modelo de programação consistente e simplificado</li>
+</ul>
+<p>Todos os serviços são oferecidos por meio de um modelo de programação orientado a objetos.</p>
+<ul>
+<li>Integração das linguagens de programação</li>
+</ul>
+<p>É possível fazer com que uma classe criada em VB derive de uma classe criada em C# e vice versa.</p>
+<ul>
+<li>Reutilização de código</li>
+</ul>
+<p>Você pode criar classes e facilmente torná-las um produto, ou seja, por que várias pessoas precisam escrever um código sendo que esse código pode ser criado uma vez só e utilizado por todos?</p>
+<ul>
+<li>Gerenciamento de memória automático</li>
+</ul>
+<p>Todo programador sabe que deve tomar cuidado com alocação e desalocação de memória, pois, isso interfere diretamente no desempenho de sua aplicação. No .Net o CLR monitora automaticamente o uso dos recursos do computador que serão ou que estão sendo usados pelo programa. (dedicarei um post para falar de uma ferramenta muito top do .Net que realiza a limpeza de memória, o Garbage Collector).`</p>
+<ul>
+<li>Rico Suporte a depuração</li>
+</ul>
+<p>Quando estamos utilizando código de linguagens diferente, não precisa se preocupar com debug, ele vai funcionar perfeitamente!</p>
+<p>Uma curiosidade, o CLR permite toda essa integração de linguagem, mas, quando chega o código pra ele, ele não faz ideia de qual linguagem veio, afinal o que chega pra ele é IL, lembram? Cada linguagem tem seu diferencial, aquilo que é tratado de uma forma melhor, a integração entre linguagens do .Net permite que utilizamos o melhor de cada linguagem em nossas aplicações, um recurso muito bom, porém pouco usado.</p>
+<p>Toda essa integração de linguagens só é possível por causa de um conjunto de regras definidos por dois ‘’caras’’, o <i>Common Type System</i> e o <i>Common Language Specification</i> , antes de falar sobre esses dois, irei apresentar o <i>Framework Class Library</i>.</p>
+<p><b>Framework Class Library</b></p>
+<p><b>            </b>O <i>Framework Class Library</i> (FCL) é um conjunto de assemblies que contém milhares de definições de tipos com funcionalidades distintas. Com o CLR e FCL é possível desenvolver aplicações web services, web e Windows forms, console para Windows, serviços Windows e biblioteca de componentes (DLL).</p>
+<p>Para facilitar a busca por um tipo, a FCL está muito bem organizada. Um conjunto de tipos que tem relação entre si estão dentro de um mesmo namespace. Veja na figura 1 um exemplo de declaração de um namespace utilizando a linguagem C#.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/exemplo1.png"><img class="alignnone size-medium wp-image-63" src="{{ site.baseurl }}/assets/img/exemplo1.png?w=300" alt="exemplo" width="300" height="152" /></a></p>
+<p>Figura 1 - Declaração de namespace</p>
+<p>Repare na solution  da Figura 1, criei um projeto do tipo Class Library com o nome de Utilitario e um do tipo Windows Form. No projeto Utilitario foi criado o Namespace Financeiro e dentro dele implementei uma classe Calcula e um método Soma. Para utilizar esse método primeiramente preciso adicionar uma referência do projeto Utilitario no projeto que eu desejo usá-lo. Após adicionadas as referências quando eu digitar calcula seguido de um ponto(.) todos os métodos do tipo Calcula estarão a minha disposição como mostra a Figura 2.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/exemplo.png"><img class="alignnone size-medium wp-image-62" src="{{ site.baseurl }}/assets/img/exemplo.png?w=300" alt="exemplo" width="300" height="152" /></a></p>
+<p>Figura 2 - Referenciado Namespace</p>
+<p>Deu pra ter uma ideia de como estão organizados os namespace da FCL né? Hehe muito top! Imaginem ter que procurar a classe Calcula dentro de assemblies com milhares de classes sem namespace? Quase impossível! Vocês notaram que apareceram mais métodos do que eu havia criado na variável que estava instanciando a classe Calcula?  Se não notaram vejam novamente a figura 2. Isso acontece por causa de um conceito básico da orientação objeto chamado herança. Todo namespace contém tipos parecidos com minha classe Soma e que podem ser usados por quase todas as aplicações. Existe um tipo pai que todos os outros tipos, até os que nós criarmos, herdam dele, esse é tipo Object que está no namespace System. Então, todos aqueles outros métodos que apareceram são métodos públicos (por enquanto você só precisa saber que um método publico não tem restrição de uso) do tipo System.Object.</p>
+<p>Até aqui você já deve estar ciente que o CLR se refere completamente a tipos. O mecanismo que permite que uma linguagem .Net converse com outra está no Common <i>Type System</i>.</p>
+<p><b>Common Type System</b></p>
+<p><b>            </b>A Common Type System (CTS) é uma especificação formal para descrever como os tipos são definidos e como se comportam. No CTS está definido o comportamento de campos, métodos, propriedades e eventos. As regras de visibilidade (Public, Private, Friend entre outros) também são definidas no CTS. Lembram que comentei sobre Herança? Sabe quem define as regras de herança? Se você disse “CTS” acertou!</p>
+<p>Algo importante que devemos saber, o CTS só rege as regras para uma coisa que é comum para todas as linguagens .NET, como assim? Por exemplo, a linguagem C++ suporta herança múltipla, já o CTS não! Ou seja, como o código criado para o CLR é gerenciado se você tentar usar herança múltipla o compilador do Visual C++ te informará um erro, entretanto é possível incluir um trecho de código não gerenciado, mas, não tocaremos nesse assunto, só é importante que saibam que “dá pra fazer”.</p>
+<p>Já sabemos como o código .Net é compilado, já sabemos como é organizada sua biblioteca de dados e acabamos de ver algumas das regras que constituem seus tipos e fazer com que todas as linguagens .Net entendam seus tipos. Mas, vimos também que linguagens de programação tem suas diferenças como, por exemplo, o C++ que foi dado o exemplo da herança múltipla. Então, nesse momento você saberia responder como funcionaria a conversa entre linguagens num caso desses? Eu te respondo, não funcionaria. Quem pretende criar tipos que serão utilizadas por várias linguagens devem seguir um conjunto de regras e padrões definidos pela <i>Common Language Specification</i>.</p>
+<p><b>A Common Language Specification</b></p>
+<p>Linguagens de programação são muito diferentes entre si, tanto em sintaxe como em padrões, algumas não diferenciam símbolos maiúsculos e minúsculos outras não dão suporte para números inteiros sem sinal.  Para ajudar os programadores a implementarem métodos que sejam compatíveis com todas as linguagens .Net a Microsoft definiu a <i>Common Language Specification </i>(CLS). A CLS especifica para os desenvolvedores de compiladores um conjunto mínimo de recursos que suas ferramentas deve suportar para gerar código para o CLR. Que fique bem claro que CLR/CTS suporta muito mais recursos do que o conjunto definido pelo CLS.</p>
+<p>Um programador só conseguirá utilizar todos os recursos oferecidos CLR/CTS se o mesmo estiver escrevendo código fonte em Assembly. Linguagens como C# e VB oferecem um subconjunto de recursos mais o conjunto mínimo definido pela CLS. A figura 3 deixará claro como funciona isso que eu disse.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/imagem-1-palestra.png"><img class="alignnone size-medium wp-image-61" src="{{ site.baseurl }}/assets/img/imagem-1-palestra.png?w=293" alt="imagem 1 palestra" width="293" height="300" /></a></p>
+<p>Figura 3 - Conjunto de regras e padrões em comum</p>
+<p><b>            </b>Visualizando a Figura 3 fica fácil de entender que cada linguagem tem seus tipos, métodos e padrões específicos, mas que todas suportam um conjunto mínimo de regras e padrões. Podemos ver também que os recursos do CLR/CTS não utilizados 100%.</p>
+<p>Bom pessoal, o segundo post termina aqui, espero que estejam curtindo saber um pouco mais sobre o .Net Framework. Nosso próximo assunto será sobre Tipos.</p>
+<p>Até o próximo post!</p>
+<p><strong>Referências</strong></p>
+<p><strong>          LivroProgramação Aplicada com MICROSOFT .NET FRAMEWORK – Jeffrey Ritchter</strong></p>
+<p><strong>         CLR (Common Language Runtime) - <a href="http://msdn.microsoft.com/pt-br/library/8bs2ecf4(v=vs.110).aspx">http://msdn.microsoft.com/pt-br/library/8bs2ecf4(v=vs.110).aspx</a></strong></p>

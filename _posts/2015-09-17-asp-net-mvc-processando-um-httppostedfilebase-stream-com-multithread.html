@@ -1,0 +1,87 @@
+---
+layout: post
+title: ASP.NET MVC - Processando um HttpPostedFileBase (Stream) com multithread
+date: 2015-09-17 04:39:56.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+tags:
+- HttpPostedFileBase
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo certo?</p>
+<p>Recentemente, tive um problema ao tentar processar um arquivo em uma <strong>thread </strong>separada da main thread da aplicação.</p>
+<p>Para vocês entenderem o que eu queria fazer, essa era a situação: O usuário faz o upload de um arquivo (.xlsx) e a aplicação faz diversos processamentos com as informações desse arquivo.</p>
+<p>Bom, a manipulação desse arquivo não é nada rápida e eu não queria travar a thread principal da aplicação, deixando o usuário "preso" com um load de vários minutos na tela. Tive duas ideias para resolver isso, são elas:</p>
+<p>Implementar um serviço fora da aplicação, que fosse chamado quando tivesse um novo arquivo para processar.</p>
+<p>A segunda ideia foi, na mesma aplicação, "startar" uma nova thread para fazer o trabalho. Escolhi a segunda alernativa, vejam o problema que tive e como resolvi.</p>
+<p><!--more--></p>
+<p><strong>O código inicial</strong></p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+[HttpPost]<br />
+public ActionResult Processo(HttpPostedFileBase arquivo)<br />
+{<br />
+ try<br />
+ {<br />
+  var stream = arquivo.InputStream;<br />
+  new Thread(() =&gt; ProcessarArquivo(stream)).Start();<br />
+  TempData[&quot;MensagemSucesso&quot;] = &quot;O arquivo está sendo processado.&quot;;<br />
+ }<br />
+ catch (Exception ex)<br />
+ {<br />
+  TempData[&quot;MensagemErro&quot;] = ex.Message;<br />
+ }<br />
+return RedirectToAction(&quot;MinhaView&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p>//Metodo que processa o arquivo</p>
+<p>[sourcecode language="csharp"]<br />
+private void ProcessarArquivo(Stream file)<br />
+{<br />
+ var arquivo = ExcelReaderFactory.CreateOpenXmlReader(file);</p>
+<p> //...<br />
+ //...<br />
+}<br />
+[/sourcecode]</p>
+<p>Ao executar o código acima, uma NullReferenceException estourava no método <strong>ProcessarArquivo. </strong>O interessante, é que a Exception hora acontencia em uma linha, hora em outra.</p>
+<p>Pesquisando o que poderia estar acontecendo, acabei encontrando <a href="http://stackoverflow.com/questions/21971467/why-cant-i-read-http-request-input-stream-twice" target="_blank">um problema parecido com o meu. </a>Aparentemente, a classe <strong>HttpPostedFileBase</strong> dá um <strong>Dispose()</strong> quando a action onde ela foi criada é finalizada. Como um outro processo começava a ser executado em parelelo, ao terminar de executar a <strong>action Processo</strong> que recebe o <strong>HttpPostedFileBase, </strong>o .net dava o Dispose e a aplicação perdia a referência do <strong>Stream </strong>que estava sendo manipulado. Por esse motivo, a exception não acontecia sempre no mesmo local, pois, o valor só era perdido quando a action Processo era finalizada.</p>
+<p><b>A resolução</b></p>
+<p>Ao descobrir o que estava acontecendo, ficou fácil pensar em soluções. A mais rápida e simples que veio em mente foi criar uma nova instância de Stream e copiar o valor que estava recebendo por parâmetro e passar essa cópia como argumento para o método <strong>ProcessarArquivo</strong>. E foi assim que fiz, veja:</p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+[HttpPost]<br />
+public ActionResult Processo(HttpPostedFileBase arquivo)<br />
+{<br />
+ try<br />
+ {<br />
+  var stream = arquivo.InputStream;<br />
+  var memoryStream = new MemoryStream();<br />
+  stream.CopyTo(memoryStream);<br />
+  new Thread(() =&gt; ProcessarArquivo(memoryStream)).Start();<br />
+  TempData[&quot;MensagemSucesso&quot;] = &quot;O arquivo está sendo processado.&quot;;<br />
+ }<br />
+ catch (Exception ex)<br />
+ {<br />
+  TempData[&quot;MensagemErro&quot;] = ex.Message;<br />
+ }<br />
+return RedirectToAction(&quot;MinhaView&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p>O método <strong>ProcessarArquivo </strong>não teve alteração. Com essa implementação, tudo funcionou lindo.</p>
+<p>Alguém precisou implementar algo parecido? Tem uma solução diferente? Compartilhe conosco nos comentários :)</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Link's úteis</strong></p>
+<p><a href="http://Excel Data Reader - Read Excel files in .NET" target="_blank">Excel Data Reader - Read Excel files in .NET</a></p>

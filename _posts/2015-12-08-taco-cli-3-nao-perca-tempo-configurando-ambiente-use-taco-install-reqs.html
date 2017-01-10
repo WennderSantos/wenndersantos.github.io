@@ -1,0 +1,65 @@
+---
+layout: post
+title: 'TACO CLI - #3 - Não perca tempo configurando ambiente, use taco install-reqs'
+date: 2015-12-08 04:27:20.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- Cordova
+- Mobile
+tags:
+- android
+- taco cli
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>E aê, pessoal!</p>
+<p>Se você ainda não conhece a command line <strong>Tools For Apache Cordova (TACO)</strong>, de uma olhada na <a href="http://taco.tools/docs/getting-started.html" target="_blank">documentação</a> e em outros dois posts (<a href="http://wenndersantos.net/2015/10/tools-for-apache-cordova-taco-1-introducao/" target="_blank">aqui</a> e <a href="http://wenndersantos.net/2015/12/taco-cli-unable-to-use-cordova-5-4-0-with-node-5-0-0/" target="_blank">aqui</a>) que escrevi alguns dias atrás.</p>
+<p>Quem desenvolve app's híbridos, ou até mesmo nativo, sabe o quão chato é ter que configurar ambiente. No meu caso, os projetos em que trabalho, tenho que dar suporte para android, ios e windos phone. Para cada uma dessa plataformas, é preciso fazer o download e instalação de sdk's e configurar variáveis de ambiente. Java, android, visual studio, xcode, etc. só de falar já da uma preguiça. Quando vou escrever código, quero simplesmente sentar na cadeira e codar!</p>
+<p>Para aqueles que usam o Visual Studio, isso já era possível desde o update 4 da versão 2013, uma vez que com alguns cliques tudo era instalado e configurado.</p>
+<p>Se você não usa o Visual Studio ou está em um mac (linux ainda não tem suporte), também pode ter essa facilidade usando o TACO. Veja como fazer isso<!--more--></p>
+<p>&nbsp;</p>
+<p><strong>Criando um projeto</strong></p>
+<p>Para criar um projeto usando o taco cli, utilize o seguinte comando:</p>
+<blockquote><p>taco create nome_do_projeto</p></blockquote>
+<p>Ao digitar o comando acima, o projeto será criado. A <strong>Figura 1 </strong>mostra o resultado do comando.</p>
+<p>[caption id="attachment_8146" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-create-success1.png"><img class="wp-image-8146 size-full" src="{{ site.baseurl }}/assets/img/taco-create-success1.png" alt="comando Taco create para criar um novo projeto" width="1024" height="576" /></a> Figura 1 - taco create[/caption]</p>
+<p>&nbsp;</p>
+<p>Reparem que, sempre a final de cada comando, uma lista de possíveis próximos comandos são mostrados.</p>
+<p>Com o projeto criado, entre dentro de seu diretório. Estando dentro do projeto, vamos adicionar a plataforma android com o seguinte comando:</p>
+<blockquote><p>taco platform add android</p></blockquote>
+<p>A <strong>Figura 2 </strong>mostra o resultado do comando acima.</p>
+<p>[caption id="attachment_8147" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-add-platform-android.png"><img class="wp-image-8147 size-full" src="{{ site.baseurl }}/assets/img/taco-add-platform-android.png" alt="comando taco add platform android" width="1024" height="576" /></a> Figura 2 - taco platform add android[/caption]</p>
+<p>&nbsp;</p>
+<p>Pronto, temos o projeto criado e a plataforma android adicionada. Agora, vamos tentar fazer o build do app, utilize o seguinte comando:</p>
+<blockquote><p>taco build android</p></blockquote>
+<p>Meu notebook não tem nada do que é necessário para fazer o build para android, após digitar o comando acima tive como retorno uma mensagem de erro dizendo que não tenho o ambiente necessário para fazer o build dessa plataforma.</p>
+<p>Bom, agora entra em ação o tema desse post, vamos usar o taco cli para configurar o ambiente com o comando install-reqs.</p>
+<p>&nbsp;</p>
+<p><b>Taco install-reqs</b></p>
+<p>O comando <strong>taco install-reqs</strong>, faz o download, instalação e configuração de todo o ambiente necessário para fazer o build de determinada plataforma. Como nesse caso estamos tentando fazer o build para android, o comando que usaremos sera o seguinte:</p>
+<blockquote><p>taco install-reqs android</p></blockquote>
+<p>Ao digitar o comando acima, um output te falará tudo o que será instalado, seu respectivo tamanho e perguntará se deseja continuar. Veja isso na <strong>Figura 3.</strong></p>
+<p>[caption id="attachment_8148" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-install-reqs-output1.png"><img class="size-full wp-image-8148" src="{{ site.baseurl }}/assets/img/taco-install-reqs-output1.png" alt="comando taco install-reqs android, para configurar o ambiente automaticamente" width="1024" height="576" /></a> Figura 3 – taco install-reqs output[/caption]</p>
+<p>&nbsp;</p>
+<p>Alguns minutos após aceitar a instalação, um output com o log das instalações será apresentado. No caso de sucesso, as mensagens "success" serão mostradas como na <strong>Figura 4.</strong></p>
+<p>[caption id="attachment_8149" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-install-reqs-success.png"><img class="size-full wp-image-8149" src="{{ site.baseurl }}/assets/img/taco-install-reqs-success.png" alt="output do comando taco install-reqs android" width="1024" height="576" /></a> Figura 4 – Taco install-reqs success[/caption]</p>
+<p>&nbsp;</p>
+<p>Com o ambiente configurado, tente usar o comando <strong>taco build android</strong> novamente. Agora, tudo deve funcionar.</p>
+<p>&nbsp;</p>
+<p>Era isso que queria mostrar :)</p>
+<p>&nbsp;</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><a href="http://taco.tools/docs/dependency-installer.html" target="_blank">Taco dependency installer</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

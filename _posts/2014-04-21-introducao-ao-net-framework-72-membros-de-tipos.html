@@ -1,0 +1,273 @@
+---
+layout: post
+title: Introdução ao .Net Framework – 7/2 – Membros de tipos - Métodos
+date: 2014-04-21 23:38:50.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- Construtores de instância
+- Construtores de tipos
+- Métodos
+- Sobrecarga
+- Sobreposição
+meta:
+  geo_public: '0'
+  _publicize_pending: '1'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Este post é uma continuação do anterior. Estamos falando sobre membros de tipos na série Introdução ao .Net Framework. Nessa publicação falarei sobre métodos. <!--more-->Para quem não está acompanhando, segue os links do que já foi falado até agora:</p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p>4 - <a href="http://wenndersantos.net/2014/04/04/introducao-ao-net-framework-conversaocasting-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 4 - Conversão/Casting de tipos.</a></p>
+<p>5 - <a href="http://wenndersantos.net/2014/04/08/introducao-ao-net-framework-parte-5-namespaces-e-assemblies/" target="_blank">Introdução ao .Net Framework - Parte 5 - Namespace e Assemblies.</a></p>
+<p>6 - <a href="http://wenndersantos.net/2014/04/11/introducao-ao-net-framework-parte-6-boxing-e-unboxing/" target="_blank">Introdução ao .Net Framework - Parte 6 - Boxing e Unboxing.</a></p>
+<p>7 - <a href="//wenndersantos.net/2014/04/14/introducao-ao-net-framework-parte-71-membros-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 7/1 - Membros de tipos - Constantes, Campos.</a></p>
+<p><strong>Introdução</strong></p>
+<p>No .net toda instrução é executada dentro de um método. A declaração de um método contém obrigatoriamente um modificador de acesso (que pode ser implícito), o nome do método e seu tipo de retorno, sendo que, existem métodos que não retornam nada, porém, isso também deve ser informado explicitamente através da palavra chave <strong> void</strong>. Veja abaixo um exemplo de declaração de método:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class Programa<br />
+public class Programa<br />
+{<br />
+   public void ExemploMetodo()<br />
+   {<br />
+     Console.WriteLine(&quot;Alo Mundo&quot;);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>No exemplo acima, o método <strong>ExemploMetodo()</strong> não possui retorno, este está chamando um outro método que escreverá uma string na tela. Outra obrigatoriedade dos métodos é que eles sejam criados dentro de uma classe/tipo ou struct. Agora, veja mais um exemplo de declaração de método:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class Programa<br />
+{<br />
+   public void ExemploMetodo(string Palavra)<br />
+   {<br />
+     Console.WriteLine(Palavra);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Veja que algo mudou na declaração de método do ultimo exemplo. Dentro dos parênteses do método foi declarado um tipo. Quando uma declaração é feita dessa maneira, quer dizer que para chamar esse método é necessário que uma informação seja passada para ele. Se compararmos o primeiro e o segundo exemplo, podemos ver que o segundo é mais flexível se pensarmos que agora podemos definir ou fazer com que o usuário defina o que será escrito na tela pelo método.  Vejamos outro exemplo de declaração de método:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class Programa<br />
+{<br />
+   public decimal ExemploMetodo(decimal Numero1, decimal Numero2)<br />
+   {<br />
+     return Numero1 + Numero2;<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Repare que nesse exemplo não estamos usando a palavra chave <strong>void</strong>, mas sim um tipo, <strong>decimal</strong>. Isso quer dizer que esse método obrigatoriamente deverá retornar um valor decimal. Outra diferença do exemplo anterior a esse é a quantidade de parâmetros, quando queremos que um método receba mais de um parâmetro, devemos separa-los por vírgula. Para fazer o retorno de informação usa-se a palavra chave <strong>return.</strong> É importante saber que ao usar um <strong>return</strong>, tudo que estiver abaixo não será executado e o método será finalizado.</p>
+<p><strong>Executando um método</strong></p>
+<p>Existe várias formas de executar um método, seria difícil listar todas aqui, aprendemos novas maneiras de acordo com a necessidade. Para utilizar um método que está no mesma classe/struct só precisamos informar sua assinatura seguido de parênteses e caso haja algum parâmetro obrigatório, deve-se informa-lo dentro dos parênteses e se requerido mais de um, esses devem ser separados por virgula. Veja abaixo um exemplo de chamada de método:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public void Calculadora()<br />
+{<br />
+   decimal N1 = 0, N2 = 0, Total;<br />
+   Total = Calculo(N1, N2);<br />
+}</p>
+<p>public decimal Calculo(decimal Numero1, decimal Numero2)<br />
+{<br />
+   return Numero1 + Numero2;<br />
+}<br />
+[/sourcecode]</p>
+<p>No código acima podemos observar que no método Calculadora() foram declaradas três variáveis do tipo decimal. Logo abaixo da declaração foi feita uma chamada ao método Calculo() que recebe dois parâmetros também do tipo decimal. Repare que não é necessário que os valores passados por parâmetro tenham o mesmo nome de declaração dos parâmetros. O método Calculo() executa uma soma entre os dois parâmetros recebidos e retorna o resultado desse calculo. O retorno desse método será armazenado na variável Total do método Calculadora(). É importante saber que nesse exemplo os valores das variáveis N1 e N2 não serão alterados após o calculo. Isso ocorre por dois motivos: primeiro, não está sendo atribuído nenhum valor a eles na execução do método. Segundo, eles foram passados por parâmetro de tipo valor. Parâmetro de tipo valor? Sim! Parâmetros podem ser por valor ou por referência.</p>
+<p><strong>Parâmetros por valor</strong></p>
+<p>Quando declaramos os parâmetros que um método receberá, se não informarmos se será um parâmetro por referencia ou valor por padrão, ele será por valor. Veja abaixo um exemplo de chamada de método com parâmetros por valor:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public void Inicio()<br />
+{<br />
+   string Mensagem = &quot;Alô&quot;;<br />
+   Console.WriteLine(AloMundo(Mensagem));<br />
+   Console.WriteLine(Mensagem);<br />
+}</p>
+<p>public string AloMundo(string Alo)<br />
+{<br />
+   Alo += &quot; Mundo&quot;;<br />
+   return Alo;<br />
+}<br />
+[/sourcecode]</p>
+<p>No exemplo acima estamos aprendendo duas novas formas de executar um método. Quando um método está em uma classe diferente da que estamos fazendo sua execução devemos criar uma nova instância da classe onde este método foi declarado. Quando um método é declarado como <strong>static</strong>, como no caso do WriteLine, para chama-lo só é necessário usar como prefixo a classe onde foi declarado, como mostrado no ultimo exemplo. Ainda analisando o ultimo código, veja que dentro do local onde deveríamos informar o parâmetro do método WriteLine foi chamado um outro método, AloMundo(). Nesse caso, o compilador entende que primeiro deverá ser executado o método AloMundo() e o retorno desse método será usado como parâmetro pelo WriteLine(). O método AloMundo() recebe por parâmetro um tipo string, como não foi informado explicitamente se é um parâmetro por valor ou por referência o compilador entende que é por valor. Dentro desse método está sendo realizada uma concatenação (entenda concatenação como uma junção de duas ou mais strings) ao valor recebido por parâmetro. O parâmetro recebido foi uma string com o valor “Alô” e dentro do método ela foi concatenada ao valor “Mundo” resultando em uma string com o valor “Alô Mundo”. Ao final da concatenação o valor do parâmetro foi retornado. Repare que método Inicio() foram feitas duas chamadas do método WriteLine propositalmente para mostrar a saída desse método, veja na Figura 1.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/imagem1.png"><img class="alignnone size-medium wp-image-157" src="{{ site.baseurl }}/assets/img/imagem1.png?w=300" alt="imagem1" width="300" height="151" /></a></p>
+<p>Figura 1 - Saída do exemplo anterior</p>
+<p>A primeira chamada do método WriteLine tem a saída “Alô Mundo”, a segunda chamada tem a saída “Alô”. Nesse exemplo foi mostrado claramente que parâmetros de valor não sofrem alteração na execução de um método. Mas, essa regra tem uma exceção. Se passarmos um objeto por referência a um método, mesmo que essa referência seja por valor, os valores desse objeto que forem alterados dentro do método será mantido, isso ocorre por que um objeto é uma referência a um ponteiro que aponta direto para o local de armazenamento dos valores, lembram?  Agora veremos como funcionam os parâmetros por referência.</p>
+<p><strong>Parâmetros por referência</strong></p>
+<p>Diferente dos parâmetros por valor, quando criamos um método que recebe parâmetros por referência, toda alteração realizada nos valores desses parâmetros serão refletidos em seus valores informados na chamada do método. Por exemplo, vejamos o exemplo anterior, agora com parâmetros por referência:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public void Inicio()<br />
+{<br />
+   string Mensagem = &quot;Alô&quot;;<br />
+   Console.WriteLine(AloMundo(ref Mensagem));<br />
+   Console.WriteLine(Mensagem);<br />
+}</p>
+<p>public string AloMundo(ref string Alo)<br />
+{<br />
+   Alo += &quot; Mundo&quot;;<br />
+   return Alo;<br />
+}<br />
+[/sourcecode]</p>
+<p>Repare no parâmetro da declaração de método AloMundo(), ref Mensagem. Quando usamos a palavra chave <strong>ref </strong>em c# ou <strong>ByRef </strong>em Vb.Net antes do tipo do parâmetro, estamos indicando que aquele é um parâmetro por referência. Veja na Figura 2 a saída do ultimo exemplo:</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-21.png"><img class="alignnone size-medium wp-image-158" src="{{ site.baseurl }}/assets/img/figura-21.png?w=300" alt="figura 2" width="300" height="152" /></a></p>
+<p>Figura 2 - Saída do exemplo anterior</p>
+<p>Observando a Figura 2 fica claro entender que a variável Mensagem teve seu valor alterado dentro do método AloMundo().</p>
+<p>Agora que já nos familiarizamos com métodos, vamos entender um pouco sobre alguns métodos com finalidades específicas e que são muito usados.</p>
+<p><strong>Métodos construtores de instância</strong></p>
+<p><strong>            </strong>Um construtor é um método que é executado automaticamente toda vez que uma nova instância de uma classe ou struct é criada. Em C# o nome de um método construtor corresponde ao nome do tipo onde ele foi declarado. Vale lembrar que em VB.Net o nome dos construtores são definidos como <strong>new, </strong>sendo assim, é possível que sejam declarados métodos com o mesmo nome do tipo, porém, não é uma boa prática. Uma classe/estrutura pode ter um ou mais construtores. Se uma classe/estrutura for criada sem um método construtor o próprio compilador cria um por default. Mas qual a função desse construtor? É bem simples, métodos construtores permitem que uma classe ou estrutura já seja iniciada com valores padrões. Se o construtor for construído pelo compilador, os valores padrões também serão definidos por ele. Para saber os valores padrões definidos pelo compilador para cada tipo consulte o link <a href="http://msdn.microsoft.com/pt-br/library/83fhsxwc.aspx">http://msdn.microsoft.com/pt-br/library/83fhsxwc.aspx</a>. Veja um exemplo de método construtor:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class ExemploConstrutor<br />
+{<br />
+   public int Id { get; set; }<br />
+   public string Nome { get; set; }<br />
+   public string Descricao { get; set;</p>
+<p>   public ExemploConstrutor()<br />
+   {<br />
+     Descricao = &quot;Sem descrição&quot;;<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Podemos observar no código acima que na classe ExemploConstrutor foram declaradas três propriedades, falarei sobre propriedades ainda na explicação de membros de tipos, por enquanto você precisa saber que propriedades são informações de um tipo.  Duas das três propriedades criadas não tem valor definido, sendo assim, um valor padrão será atribuído a elas. Já para a propriedade descrição foi atribuído o valor “Sem descrição”, isso quer dizer que, sempre que a classe ExemploContrutor for instanciada essa propriedade será carregada com esse valor.</p>
+<p>Podemos também criar um construtor mais dinâmico, permitindo que, parâmetros sejam passados no momento da criação de uma instância do tipo. Veja abaixo um exemplo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class ExemploConstrutorParametro<br />
+{<br />
+   public int Id { get; set; }<br />
+   public string Nome { get; set; }<br />
+   public string Descricao { get; set; }</p>
+<p>   public ExemploConstrutorParametro(string Descric)<br />
+   {<br />
+     Descricao = Descric;<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>A diferença do exemplo acima com o anterior é que em um os valores que serão atribuídos as propriedades são fixos e no outro, já existe uma flexibilidade de definir os valores através de parâmetros. Um tipo pode ter mais que um construtor e o que os difere são suas assinaturas, ou seja, a quantidade e o tipo de seus parâmetros. Imagine um tipo com dois construtores, sendo que, um recebe um parâmetro do tipo Int32 e o outro um parâmetro do tipo string, quando uma instância desse tipo for criada passando um parâmetro do tipo Int32 o compilador saberá qual construtor deverá ser executado. Esta forma de criar métodos é chamada de sobrecarga.</p>
+<p>Sobre métodos construtores, falamos até agora sobre construtores de tipo-referência, mas, também existem construtores de tipo-valor, porém, não entrarei a fundo sobre construtores de tipos-valor, mas, é importante saber que a maioria dos compiladores que geram códigos para o CLR não permite que sejam criados construtores sem parâmetros para tipo-valor, entretanto, o CLR permite.</p>
+<p><strong>Construtores de tipo</strong></p>
+<p>Além de construtores de instância o CLR também suporta construtores de tipo. A função dos dois é basicamente a mesma, inicializar um tipo com valores pré-definidos ou dinâmicos. No caso dos construtores de tipos, valores dinâmicos não seriam possíveis, pois, métodos construtores de tipos não podem ser declarados com parâmetros. Veja abaixo um método construtor de tipo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class ExemploConstrutorTipo<br />
+{<br />
+   static string NomeProgramador;</p>
+<p>   static ExemploConstrutorTipo()<br />
+   {<br />
+     NomeProgramador = &quot;Wennder Santos&quot;;<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>A assinatura de um construtor de tipo é bem parecida com a de um construtor de instância. A diferença entre construtores de instância e de tipo é que, o primeiro inicializa o estado inicial de uma instância de tipo, já o segundo inicializa o estado inicial do tipo. Por padrão, construtores de tipo são privados, ou seja, não pode ser acessado fora do arquivo onde foi declarado, se tentarmos alterar isso o compilador nos retornará um erro, mesmo se colocarmos explicitamente como private, o mesmo erro será retornado. Diferente de construtores de instância, um construtor de tipo é único. Um construtor de tipo é chamado somente uma vez durante a execução de uma aplicação, dessa forma, toda vez que a propriedade inicializada pelo construtor for acessada terá o mesmo valor, quem define o melhor momento para o método ser executado é o compilador, que por sua vez, insere essa informação nos metadados para que o CLR possa verificar. Observe o código abaixo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class ExemploConstrutorTipo<br />
+{<br />
+   static string NomeProgramador = &quot;Wennder Santos&quot;;<br />
+}<br />
+[/sourcecode]</p>
+<p>Veja que não foi definido nenhum construtor para o tipo criado no código acima. Quando isso acontece o próprio compilador cria implicitamente um construtor de tipo, assim, o código acima ficaria exatamente como o exemplo anterior a esse.</p>
+<p><strong>Métodos de sobrecarga</strong></p>
+<p>O .Net é totalmente orientado a objeto, sendo assim, possui herança de tipos. Quando um tipo herda outro existe, a possibilidade de alterar um método na classe pai para que quando a classe filha for instanciada o método alterado seja usado, isso se chama sobreposição/sobrecarga de métodos. Veja um exemplo de sobreposição:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class ExemploSobreposicao<br />
+{<br />
+   public virtual void ImprimirTexto(string Nome)<br />
+   {<br />
+     Console.WriteLine(Nome);<br />
+   }<br />
+}</p>
+<p>public class HerdandoExemploSobreposicao : ExemploSobreposicao<br />
+{<br />
+   public override void ImprimirTexto(int a, int b)<br />
+   {<br />
+     Console.WriteLine(a + b);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>No código acima temos a classe <strong>ExemploSobreposicao </strong>que possui o método <strong>ImprimirTexto()</strong> que recebe um parâmetro do tipo string e imprime na tela esse parâmetro. Logo abaixo foi criado a classe <strong>HerdandoExemploSobreposicao </strong>que herda a classe <strong>ExemploSobreposicao</strong>. Dentro da classe <strong>HerdandoExemploSobreposicao </strong>foi criado um método <strong>ImprimirTexto </strong>que sobrepõe o método de mesmo nome da classe <strong>ExemploSobreposição. </strong>Neste exemplo, quando o programador criar uma instância da classe <strong>HerdandoExemploSobreposicao</strong> e usar o método <strong>ImprimirTexto</strong>, ele usará o método definido na classe filha. Se você reparou na diferença de declaração de método em ambas as classes você é esperto! Na classe pai foi usada a palavra chave <strong>virtual, </strong> essa palavra chave é querida para dizer que o método poderá ser sobreposto em classes filha. Na declaração do método na classe filha também foi usada uma palavra chave, <strong>override.</strong> Essa palavra chave é usada quando queremos indicar que um método irá sobrepor outro. Além de sobrepor métodos, é possível também sobrepor operadores.</p>
+<p><strong>Métodos de sobrecarga de operadores</strong></p>
+<p>Cada compilador define o que cada operador realizará. Alguns compiladores permitem que seja definido como um operador será manipulado dentro de uma instância, essa prática é chamada de sobrecarga de operadores.</p>
+<p>Em C#, quando utilizamos o operador <strong>“+”</strong> em tipos numéricos o compilador gerará código que somará os números. Se o mesmo operador for usado com tipos de texto, o compilador gerará código que realizará a concatenação desses. O CLR não entende os operadores como nós entendemos. O CLR trata a sobrecarga de operadores como simples métodos, cada compilador define se suportará ou não esse tipo de método. Para exemplificar um exemplo de sobrecarga de operadores imagine que em uma aplicação seja necessário somar dois objetos do mesmo tipo diversas vezes. Eu poderia fazer isso conforme o exemplo abaixo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class SobreCargaOperador<br />
+{<br />
+   public decimal a, b;</p>
+<p>   public SobreCargaOperador()<br />
+   {</p>
+<p>   }<br />
+}</p>
+<p>public class SomandoObjeto<br />
+{<br />
+   public void Somando()<br />
+   {<br />
+     SobreCargaOperador Ex1 = new SobreCargaOperador();<br />
+     Ex1.a = 1;<br />
+     Ex1.b = 1;</p>
+<p>     SobreCargaOperador Ex2 = new SobreCargaOperador();<br />
+     Ex1.a = 1;<br />
+     Ex1.b = 1;</p>
+<p>     SobreCargaOperador Ex3 = new SobreCargaOperador();<br />
+     Ex3.a = Ex1.a + Ex2.a;<br />
+     Ex3.b = Ex1.b + Ex2.b;</p>
+<p>     Console.WriteLine(Ex3.a + &amp;amp;quot;, &amp;amp;quot; + Ex3.b);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Veja uma outra forma de se fazer a soma feita no exemplo acima, utilizando a sobrecarga de operadores:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class SobreCargaOperador<br />
+{<br />
+   public decimal a, b;</p>
+<p>   public SobreCargaOperador()<br />
+   {</p>
+<p>   }</p>
+<p>   //Sobrecarregando o operador '+'<br />
+   public static SobreCargaOperador operator +(SobreCargaOperador Ex1, SobreCargaOperador Ex2)<br />
+   {<br />
+     SobreCargaOperador Ex3 = new SobreCargaOperador();<br />
+     Ex3.a = Ex1.a + Ex2.a;<br />
+     Ex3.b = Ex2.b + Ex2.b;</p>
+<p>     return Ex3;<br />
+   }<br />
+}</p>
+<p>class Program<br />
+{<br />
+   static void Main(string[] args)<br />
+   {<br />
+     SobreCargaOperador i = new SobreCargaOperador(10, 20, 30);<br />
+     SobreCargaOperador j = new SobreCargaOperador(5, 10, 15);</p>
+<p>     SobreCargaOperador k = new SobreCargaOperador();<br />
+     k = i + j;</p>
+<p>     Console.WriteLine( k.a + &amp;amp;quot;,&amp;amp;quot; + k.b + &amp;amp;quot;,&amp;amp;quot; + k.c);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Da forma mostrada acima, deixamos o código mais organizado, principalmente em um caso onde essa operação será realizada diversas vezes. Deve-se tomar cuidado ao usar sobreposição de operador quando estamos criando tipos que serão consumidos por outras linguagens, não são todas as linguagens que fornecem código para o CLR que permitem a sobreposição de operadores. Também existem as linguagens que aceitam, porém, a chamada do método será diferente de acordo com a linguagem que foi criado o método, mais pra frente farei uma publicação explicando essas diferenças pelo menos nas principais linguagens.</p>
+<p>É isso aê pessoal! Finalizo esse post aqui.</p>
+<p>Até o próximo post!</p>
+<p><strong>REFERÊNCIAS</strong></p>
+<p>Métodos (Guia de Programação em C#) - <a href="http://msdn.microsoft.com/pt-br/library/ms173114.aspx">http://msdn.microsoft.com/pt-br/library/ms173114.aspx</a></p>
+<p>Programação aplicada com Microsoft .Net Framework – Jeffrey Richter</p>

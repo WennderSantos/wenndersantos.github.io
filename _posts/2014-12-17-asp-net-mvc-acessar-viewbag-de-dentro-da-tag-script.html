@@ -1,0 +1,168 @@
+---
+layout: post
+title: ASP.NET MVC - Acessando o conteúdo de um ViewBag de dentro da tag script
+date: 2014-12-17 21:44:39.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+- C#
+- JavaScript
+tags:
+- Asp.net mvc
+- C#
+- javascript
+- Razor
+- Usar ViewBag no javascript
+- ViewBag
+meta:
+  geo_public: '0'
+  _publicize_pending: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=216725684&stype=M&topic=5951130869619056640&type=U&a=WyzW
+  _wpas_skip_9664417: '1'
+  _wpas_done_9664407: '1'
+  _publicize_done_external: a:1:{s:8:"linkedin";a:1:{s:10:"-h_g0derFz";b:1;}}
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _wpas_skip_9664407: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá, tudo bom?</p>
+<p>Pode parecer simples, na verdade é muito simples mesmo, mas me perguntaram como fazer isso e resolvi escrever. Estou falando do assunto do título desse post, como usar um <a href="http://eduardopires.net.br/2013/06/asp-net-mvc-viewdata-viewbag-tempdata/" target="_blank">ViewBag </a>de dentro de uma tag &lt;script&gt;, afinal, para acessar um ViewBag a partir de uma View usamos <a href="http://weblogs.asp.net/scottgu/introducing-razor" target="_blank">Razor</a>. É possível utilizar o Razor em conjunto com o javascript desde que você esteja dentro de uma View (arquivo com extensão .cshtml, .vbhtml) e não de um arquivo .js (isso é bem óbvio, certo?). O razor trabalha no servidor e, nesse caso, o javascript no client, ou seja, quando o javascript "for trabalhar" o ViewBag já vai ter sido "transformado" em texto pelo razor. Vamos ver alguns exemplos para entender isso. <!--more--></p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2014/12/asp-e1422120215486.png"><img class="  wp-image-409 aligncenter" src="{{ site.baseurl }}/assets/img/asp-300x300.png" alt="asp" width="200" height="200" /></a></p>
+<p><strong>Acessando um ViewBag de dentro de uma tag script</strong></p>
+<p>Para os exemplos eu utilizei C# em uma aplicação asp.net MVC 5 com o template Internet Application no Visual Studio 2013 e o navegador Chrome.</p>
+<p>Veja o exemplo 1:</p>
+<p>//Controller Home</p>
+<p>[sourcecode language="csharp"]<br />
+using System;<br />
+using System.Collections.Generic;<br />
+using System.Linq;<br />
+using System.Web;<br />
+using System.Web.Mvc;</p>
+<p>namespace MvcApplication1.Controllers<br />
+{<br />
+ public class HomeController : Controller<br />
+ {<br />
+  public ActionResult Index()<br />
+  {<br />
+   ViewBag.Message = &quot;Modify this template to jump-start your ASP.NET MVC application.&quot;;</p>
+<p>   return View();<br />
+  }</p>
+<p>  public ActionResult About()<br />
+  {<br />
+   ViewBag.Message = &quot;Your app description page.&quot;;</p>
+<p>   return View();<br />
+  }</p>
+<p>  public ActionResult Contact()<br />
+  {<br />
+   ViewBag.Message = &quot;Your contact page.&quot;;</p>
+<p>   return View();<br />
+  }<br />
+ }<br />
+}[/sourcecode]</p>
+<div class="line number32 index31 alt1"></div>
+<p>Perceba que eu não fiz nenhuma alteração no controller Home do template. No método <strong>Index</strong> podemos ver que existe um ViewBag (ViewBag.Message), vamos utilizá-lo para esse exemplo. Agora, abra a view /Home/Index.</p>
+<p>[caption id="attachment_383" align="alignnone" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/imagem11.png"><img class="size-full wp-image-383" src="{{ site.baseurl }}/assets/img/imagem11.png" alt="View Home/Index" width="646" height="346" /></a> Figura 1 - View Home/Index[/caption]</p>
+<p>Na Figura 1, podemos ver que também não houve alteração no que foi criado automaticamente. Ao final do html da view /Home/Index vamos adicionar uma tag script com o código para acessar o ViewBag.Message e mostrá-lo em um alert.</p>
+<p>//Snippet 1</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = @ViewBag.Message<br />
+ alert(texto);<br />
+&lt;/script&gt;[/sourcecode]</p>
+<p>Se executarmos nossa aplicação agora e abrirmos o <a href="https://developer.chrome.com/devtools" target="_blank">Chrome DevTools</a> (tecle F12 no navegador), veremos que houve um erro de sintaxe no javaScript conforme mostra a Figura 2:</p>
+<p>[caption id="attachment_388" align="alignnone" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-21.png"><img class="size-full wp-image-388" src="{{ site.baseurl }}/assets/img/figura-21.png" alt="Erro de sintaxe no JavaScript" width="646" height="336" /></a> Figura 2 -Erro de sintaxe no JavaScript[/caption]</p>
+<p>Por que o erro? Ainda com o Chrome DevTools aberto, no canto direito da linha onde está sendo descrito o erro é possível clicar no link para verificarmos o local exato onde ocorreu, conforme indicado na Figura 2. Ao clicar seremos redirecionados para a aba source no local onde o erro aconteceu, conforme mostra a Figura 3.</p>
+<p>[caption id="attachment_389" align="alignnone" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-3.png"><img class="size-full wp-image-389" src="{{ site.baseurl }}/assets/img/figura-3.png" alt="Local onde aconteceu o erro de sintaxe." width="646" height="335" /></a> Figura 3 - Local onde aconteceu o erro de sintaxe.[/caption]</p>
+<p>Ao analisar a Figura 3, fica fácil entender o porque do erro de sintaxe. O ViewBag.Message está armazenando uma string, entretanto, não estamos colocando-o entre aspas. Para corrigir este erro, basta colocarmos o @ViewBag.Message entre aspas, veja isso no Snippet 2.</p>
+<p>//Snippet 2</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = &quot;@ViewBag.Message&quot;;<br />
+ alert(texto);<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>Na figura 3, podemos analisar também  que não temos mais o "ViewBag.Message", mas somente o seu conteúdo, isso porque antes da view ser enviada para o browser o razor faz sua renderização (transforma tudo em html/texto). Nesse momento, ao executarmos a aplicação teremos o retorno esperado, um alerta com o conteúdo do ViewBag.Message. Veja isso na Figura 4:</p>
+<p>[caption id="attachment_391" align="alignnone" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-4.png"><img class="size-full wp-image-391" src="{{ site.baseurl }}/assets/img/figura-4.png" alt="Retorno esperado do exemplo 1." width="646" height="336" /></a> Figura 4 - Retorno esperado do exemplo 1.[/caption]</p>
+<p>Se o ViewBag.Message estivesse guardando um valor numérico ou um valor booleano não seria necessário as aspas.</p>
+<p>Vamos ver agora um segundo exemplo, como exibir um ViewBag que está armazenando um objeto json, dentro da tag script.</p>
+<p><strong>Acessar um objeto json armazenado dentro de um ViewBag no javaScript</strong></p>
+<p>Utilizando a mesma aplicação do exemplo 1. Nesse exemplo vamos instalar um <a href="https://www.nuget.org/packages/Newtonsoft.Json/" target="_blank">pacote </a>para nos auxiliar com a serialização de objetos para json. Vamos instalar esse pacote utilizando o <a href="https://www.nuget.org/" target="_blank">nuget</a>. No Visual Studio navegue até View &gt;&gt; Other Windows e clique em Package Manager Console.</p>
+<p>[caption id="attachment_398" align="aligncenter" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-5.png"><img class="size-full wp-image-398" src="{{ site.baseurl }}/assets/img/figura-5.png" alt="Abrindo o package manager console" width="646" height="346" /></a> Figura 5 - Abrindo o package manager console[/caption]</p>
+<p>No console que se abrirá, digite o seguinte comando e espere a mensagem de que a instalação foi concluída.</p>
+<blockquote><p>PM&gt; Install-Package Newtonsoft.Json</p></blockquote>
+<p>Vamos alterar o método Index do controller Home. Substitua o ViewBag.Message pelo ViewBag.obj e atribua a ele um <a href="http://msdn.microsoft.com/pt-br/library/bb397696.aspx" target="_blank">tipo anônimo</a> com as propriedades id, nome e sobrenome conforme mostra o snippet 3. Em seguida, utilizando a biblioteca que acabamos de instalar, vamos serializar o objeto anônimo antes de atribui-lo ao ViewBag.obj, veja como fazer isso no Snippet 4.</p>
+<p>//Snippet 3</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Index()<br />
+{<br />
+ ViewBag.obj = new { id=1, nome = &quot;Wennder&quot;, sobrenome = &quot;Santos&quot; };</p>
+<p> return View();<br />
+}<br />
+[/sourcecode]</p>
+<p>//Snippet 4</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Index()<br />
+{<br />
+  ViewBag.obj = Newtonsoft.Json.JsonConvert.SerializeObject(new { id=1, nome = &quot;Wennder&quot;, sobrenome = &quot;Santos&quot;});</p>
+<p> return View();<br />
+}<br />
+[/sourcecode]</p>
+<p>Não podemos esquecer de alterar também o javaScript que está acessando o ViewBag na View /Home/Index. Devemos trocar o "@ViewBag.Message" por "@ViewBag.obj", veja como ficou após a alteração no Snippet 5.</p>
+<p>//Snippet 5</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = &quot;@ViewBag.obj&quot;;<br />
+ alert(texto);<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>Lembrando que json é string, por isso continuo usando as aspas. Se executarmos a aplicação nesse momento ela funcionará, porém, não da forma esperada. O objeto anônimo será exibido no alert com o formato <a href="http://stackoverflow.com/questions/1812473/difference-between-url-encode-and-html-encode" target="_blank">html encode</a>, conforme mostra a Figura 6:</p>
+<p>[caption id="attachment_400" align="aligncenter" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-6.png"><img class="size-full wp-image-400" src="{{ site.baseurl }}/assets/img/figura-6.png" alt="Alert com o conteúdo do ViewBag.obj no formato html encode" width="646" height="337" /></a> Figura 6 - Alert com o conteúdo do ViewBag.obj no formato html encode[/caption]</p>
+<p>Isso acontece porque o método Index do controller Home é do tipo ActionResult e usa o método View() para fazer o retorno para quem o "chama", o método View() renderiza e retorna um html. No caso do ViewBag.obj, para não gerar confusão com tag's html alguns caracteres são substituídos por pequeno "códigos". Conseguimos ver isso de outra forma também, através do DevTools. Abra-o teclando F12, navegue até a aba Network e clique na requisição localhost, feito isso clique na aba Response, conforme mostra a Figura 7.</p>
+<p>[caption id="attachment_401" align="aligncenter" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-7.png"><img class="size-full wp-image-401" src="{{ site.baseurl }}/assets/img/figura-7.png" alt="Requisições da página /Home/Index" width="646" height="336" /></a> Figura 7 - Requisições da página /Home/Index[/caption]</p>
+<p>Após entendido o problema, vamos corrigi-lo. Para isso utilizaremos um <a href="http://www.dotnet-tricks.com/Tutorial/mvc/N50P050314-Understanding-HTML-Helpers-in-ASP.NET-MVC.html" target="_blank">html helper</a>, o <a href="http://msdn.microsoft.com/en-us/library/gg480740(v=vs.118).aspx" target="_blank">@html.raw</a>. Conforme diz a documentação, o @html.raw recebe como parâmetro uma string e a retorna sem encoding. É exatamente o que precisamos, certo? Pois bem, vamos alterar o javaScript da view /Home/Index e decodificar o conteúdo do ViewBag.obj. Veja o javaScript alterado no snippet 6.</p>
+<p>//Snippet 6</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = &quot;@Html.Raw(ViewBag.obj)&quot;;<br />
+ alert(texto);<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>Se executarmos a aplicação agora, conseguiremos ver o objeto anônimo criado no controller, entretanto, com um erro sintaxe gerado por conflito de aspas, veja isso na Figura 8:</p>
+<p>[caption id="attachment_404" align="aligncenter" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-8.png"><img class="size-full wp-image-404" src="{{ site.baseurl }}/assets/img/figura-8.png" alt="Erro de sintaxe provado por conflito de aspas" width="646" height="335" /></a> Figura 8 - Erro de sintaxe provado por conflito de aspas[/caption]</p>
+<p>Resolveremos isso de forma simples, basta trocar as aspas duplas, que "envelopam" o ViewBag.obj, por aspas simples. Veja essa alteração no snippet 7:</p>
+<p>//Snippet 7</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = '@Html.Raw(ViewBag.obj)';<br />
+ alert(texto);<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>Agora sim temos uma cadeia de caracteres no formato json, se rodarmos a aplicação já teremos um alert mostrando o objeto criado no controller no formato json. Vamos fazer uma ultima alteração para mostrarmos uma propriedade por linha. Para fazer isso, teremos que "falar" para o javaScript que o ViewBag.obj é um objeto, fazemos isso com o <a href="http://msdn.microsoft.com/pt-br/library/ie/cc836466%28v=vs.94%29.aspx" target="_blank">JSON.parse</a>. Veja essa alteração no snippet 8.</p>
+<p>//Snippet 8</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+ var texto = JSON.parse('@Html.Raw(ViewBag.obj)');<br />
+ alert(&quot;Id:&quot; + texto.id + &quot;\nNome: &quot; + texto.nome + &quot;\nSobrenome: &quot; + texto.sobrenome);<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>No alert estou concatenando o nome da propriedade com o seu valor e alguns "n" para quebra de linha. Veja o resultado na Figura 9:</p>
+<p>[caption id="attachment_406" align="aligncenter" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/figura-9.png"><img class="size-full wp-image-406" src="{{ site.baseurl }}/assets/img/figura-9.png" alt="Exibindo valores do objeto anônimo criado no controller" width="646" height="336" /></a> Figura 9 - Exibindo valores do objeto anônimo criado no controller[/caption]</p>
+<p>Pessoal, uma vez que, a variável <strong>texto </strong>for declarada em um escopo global ela estará disponível em todos os arquivos .js que estão sendo referenciados pela view.</p>
+<p>Espero ter sido claro nos exemplos.</p>
+<p>Outro artigo sobre esse assunto é o <a href="http://social.technet.microsoft.com/wiki/pt-br/contents/articles/28314.convertendo-objetos-para-o-padrao-json-em-views-do-asp-net-mvc.aspx" target="_blank">Convertendo objetos para o padrão json em views do asp.net mvc</a> do mestre <a href="http://rgroffe.wordpress.com/" target="_blank">Renato Groffe</a>.</p>
+<p>Seria legal que qualquer tipo de comentário fosse feito aqui no blog para que todos possam participar.</p>
+<p>Até o próximo post.</p>

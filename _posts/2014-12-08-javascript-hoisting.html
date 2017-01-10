@@ -1,0 +1,176 @@
+---
+layout: post
+title: JavaScript - Hoisting
+date: 2014-12-08 22:32:11.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+tags:
+- elevação
+- Hoisting
+- java script
+meta:
+  geo_public: '0'
+  _oembed_b6c6910ed75dbc2071976f441ade001e: '{{unknown}}'
+  _oembed_2a49e4d79a31173e6d54ff8643f41b78: '{{unknown}}'
+  _oembed_a9738b984c90eed51f3c5564a399485b: '{{unknown}}'
+  _oembed_7d4a42a7663af3f1e3d47c9f7fb5f581: '{{unknown}}'
+  _oembed_43f1509121d1cba4f77ec4e4e65c2700: '{{unknown}}'
+  _oembed_54d0077ee7261b85fd7ba8e74d13a774: '{{unknown}}'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _oembed_326d5335cf30cc944565333bc93c7fae: '{{unknown}}'
+  _oembed_83c49a47069cffa1d38b0e53750fa9b3: '{{unknown}}'
+  _oembed_3da59a865ac174c8ebcc0ea8292f2346: '{{unknown}}'
+  _wpas_skip_9664417: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Quando começamos a trabalhar, estudar, brincar ou qualquer outra relação com uma linguagem de programação é imprescindível sabermos como funciona alguns pontos, um desses pontos na minha opinião é a sua compilação/interpretação. Ao entender o que acontece nos bastidores das linguagens que usamos para desenvolver nossos programas evitamos bug’s e/ou conseguimos resolve-los de forma mais rápida. Nesse post explicarei um ponto do javaScript chamado <strong><em>Hoisting</em></strong>. <!--more--></p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2014/12/javascript_logo-e1422121321558.png"><img class=" size-full wp-image-368 aligncenter" src="{{ site.baseurl }}/assets/img/javascript_logo-e1422121321558.png" alt="javascript_logo" width="200" height="200" /></a></p>
+<p><strong>HOISTING</strong> <em>      </em></p>
+<p><em>  Hoisting </em>ou elevação é o nome dado a um comportamento no javaScript que faz com que todas as declarações, de variáveis ou de funções, sejam movidas para o inicio do <a style="font-weight: inherit;" href="http://www.w3schools.com/js/js_scope.asp">escopo </a>atual em tempo de execução. Veja o Exemplo 1:</p>
+<p>[sourcecode language="javascript"]<br />
+//Exemplo 1<br />
+function conhecendoHoisting(){</p>
+<p>  return x;</p>
+<p>    function x(){</p>
+<p>      return 5;</p>
+<p>    }</p>
+<p>}</p>
+<p>var y = conhecendoHoisting();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>No Exemplo 1, em um primeiro momento, poderíamos imaginar que a função <strong>conhecendoHoisting() </strong>retornaria <a style="font-weight: inherit;" href="http://www.w3schools.com/jsref/jsref_undefined.asp">undefined</a> ocasionando um erro. Porém, não é isso que acontece. Antes de explicar, veja na Figura 1 o retorno da execução do Exemplo 1 utilizando o console do Google Chrome 39.0.2171.71:</p>
+<p>[caption id="attachment_349" align="alignnone" width="653"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/imagem1.png"><img class=" wp-image-349" src="{{ site.baseurl }}/assets/img/imagem1.png" alt="Figura 1 - Retorno do exemplo anterior." width="653" height="200" /></a> Figura 1 - Retorno do exemplo 1 usando o console do Chrome.[/caption]</p>
+<p>Ao encontrar a função <strong>conhecendoHoisting()</strong> o compilador eleva para o topo do escopo tudo o que é declaração. E tudo o que é execução irá para o final do escopo de acordo com a ordem em que foi escrito. A ordem do escopo, de cima para baixo, fica assim:</p>
+<ol>
+<li>Declarações de variáveis;</li>
+<li>Declarações de funções; e</li>
+<li>Execuções.</li>
+</ol>
+<p>Sabendo disso, pode-se dizer que o Exemplo 1 foi compilado da seguinte maneira:</p>
+<p>[sourcecode language="javascript"]<br />
+function conhecendoHoisting(){</p>
+<p>  function x(){</p>
+<p>    return 5;</p>
+<p>  }</p>
+<p> return x;</p>
+<p>}</p>
+<p>var y = conhecendoHoisting();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>Vejamos um outro exemplo:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Exemplo 2<br />
+function segundoExemplo(){</p>
+<p>  function testeHoisting(){</p>
+<p>    return 1;</p>
+<p>  }</p>
+<p>return testeHoisting;</p>
+<p>  function testeHoisting(){</p>
+<p>    return 2;</p>
+<p>  }</p>
+<p>}</p>
+<p>var y = segundoExemplo();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>Veja na Figura 2 o retorno da execução do Exemplo 2:</p>
+<p>[caption id="attachment_352" align="alignnone" width="300"]<a href="http://wenndersantos.net/wp-content/uploads/2014/12/imagem2-e1422121504742.png"><img class="size-medium wp-image-352" src="{{ site.baseurl }}/assets/img/imagem2-e1422121504742-300x118.png" alt="Figura 2 - Retorno da execução do exemplo 2 no console do Chrome." width="300" height="118" /></a> Figura 2 - Retorno da execução do exemplo 2 no console do Chrome.[/caption]</p>
+<p>O que acontece no Exemplo 2 em partes é a mesma coisa que acontece no Exemplo 1. As declarações, nesse caso temos as duas funções, vão para o topo do escopo. A diferença aqui é que existem duas funções com o mesmo nome, como o compilador sabe qual deverá retornar? Nesse exemplo as duas funções não podem existir da forma que foram declaradas, não ocorrerá nenhum erro, mas quando o compilador encontrar a segunda declaração ele sobrescreverá a primeira. Sabendo disso, pode-se dizer que o código do Exemplo 2 foi compilado da seguinte maneira:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Exemplo 2<br />
+function segundoExemplo(){<br />
+  //esta função será sobrescrita<br />
+  function testeHoisting(){</p>
+<p>    return 1;</p>
+<p>  }</p>
+<p> //esta função sobrescreverá a função anterior que possui a mesma declaração<br />
+  function testeHoisting(){</p>
+<p>    return 2;</p>
+<p>  }</p>
+<p>return testeHoisting;</p>
+<p>}</p>
+<p>var y = segundoExemplo();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>Para mostrar o ultimo exemplo entraremos em um novo tópico.</p>
+<p><b>INICIALIZAÇÕES NÃO SÃO ELEVADAS</b></p>
+<p>Anteriormente, nesse mesmo post, comentei que somente as declarações são elevadas. Portanto, uma inicialização não será elevada. Para entender isso, veja os snippet's 1 e 2:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Snippet 1<br />
+function exemploInicializacao(){</p>
+<p>  function testeInicializao(){<br />
+   //...<br />
+  }<br />
+  //Inicialização<br />
+  var x = 1;<br />
+}<br />
+[/sourcecode]</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Snippet 2<br />
+function exemploInicializacao(){</p>
+<p>  function testeInicializao(){<br />
+   //...<br />
+  }<br />
+  var x;<br />
+  x = 1;<br />
+}<br />
+[/sourcecode]</p>
+<p>O Snippet 1 não sofrerá alteração em sua compilação. Já o Snippet 2, será compilado da seguinte maneira:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Snippet 2<br />
+function exemploInicializacao(){<br />
+  var x;<br />
+  function testeInicializao(){<br />
+   //...<br />
+  }</p>
+<p>  x = 1;<br />
+}<br />
+[/sourcecode]</p>
+<p>Entendendo isso, vamos ver o que acontece com as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function" target="_blank">function expression</a>. Veja o Exemplo 3:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Exemplo 3<br />
+function terceiroExemplo(){</p>
+<p>  return x;</p>
+<p>  var x = function(){</p>
+<p>    return 1;</p>
+<p>  }  </p>
+<p>}</p>
+<p>var y = terceiroExemplo();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>O Exemplo 3 tem certa semelhança com o Exemplo 1. Entretanto, nesse caso estamos usando uma function expression. Como vimos anteriormente, somente declarações são elevadas, sendo assim, na execução do Exemplo 3 teremos um erro. Antes de ver como será compilado, veja sua execução:</p>
+<p>[caption id="attachment_354" align="alignnone" width="646"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/12/imagem3.png"><img class="size-full wp-image-354" src="{{ site.baseurl }}/assets/img/imagem3.png" alt="Figura 3 - Retorno da execução do Exemplo 3 usando o console do Chrome." width="646" height="238" /></a> Figura 3 - Retorno da execução do Exemplo 3 usando o console do Chrome.[/caption]</p>
+<p>Agora veja como será compilado:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>//Exemplo 3<br />
+function terceiroExemplo(){</p>
+<p>var x;</p>
+<p>return x;</p>
+<p>x = function(){</p>
+<p>  return 1;</p>
+<p>}  </p>
+<p>}</p>
+<p>var y = terceiroExemplo();</p>
+<p>y();<br />
+[/sourcecode]</p>
+<p>Analisando o Exemplo 3, podemos verificar que a atribuição da function para a <strong>variável x</strong> será ignorada, uma vez que a função <strong>terceiroExemplo() </strong>será finalizada na linha <strong>return x; </strong>e desse modo a <strong>variável x </strong>terá o valor de <a href="http://www.w3schools.com/jsref/jsref_undefined.asp"><strong>undefined</strong> </a>no momento do retorno.</p>
+<p>Bom, espero ter conseguido ser claro nos meus exemplos sobre <strong>Hoisting</strong>.</p>
+<p>Até o próximo post!.</p>
+<p><strong>Referencias</strong></p>
+<p><a href="http://www.w3schools.com/js/js_hoisting.asp" target="_blank">http://www.w3schools.com/js/js_hoisting.asp</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function</a></p>

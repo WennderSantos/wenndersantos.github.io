@@ -1,0 +1,82 @@
+---
+layout: post
+title: Introdução ao .Net Framework – Parte 7/1 – Membros de tipos - Constantes, Campos
+date: 2014-04-14 23:52:12.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- Campos
+- Constantes
+meta:
+  geo_public: '0'
+  _publicize_pending: '1'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Este é o sétimo post da série introdução ao .Net Framework. Dividi esse artigo em quatro partes para que não ficasse tão maçante a explicação de todos os membros de tipos. Nesse post falarei sobre constantes e campos.<!--more-->Para quem não está acompanhando a série recomendo que leia as outras publicações, segue os links.</p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p>4 - <a href="http://wenndersantos.net/2014/04/04/introducao-ao-net-framework-conversaocasting-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 4 - Conversão/Casting de tipos.</a></p>
+<p>5 - <a href="http://wenndersantos.net/2014/04/08/introducao-ao-net-framework-parte-5-namespaces-e-assemblies/" target="_blank">Introdução ao .Net Framework - Parte 5 - Namespace e Assemblies.</a></p>
+<p>6 - <a href="http://wenndersantos.net/2014/04/11/introducao-ao-net-framework-parte-6-boxing-e-unboxing/" target="_blank">Introdução ao .Net Framework - Parte 6 - Boxing e Unboxing.</a></p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p>Como eu já disse em alguma publicação dessa série, todo compilador de linguagem que gera código para o CLR produz o mesmo resultado final. Quando o compilador executa um código fonte, independente da linguagem, ele produzira metadados para cada espécie de membro e código IL para cada método membro. Metadados são informações úteis para o CLR, essas informações ajudam a localizar / compreender IL em tempo de execução. Depois de compilar um código fonte, é possível examinar os metadados gerados pelo compilador através de uma ferramenta chamada ILDasm.</p>
+<p>Nos exemplos que utilizei durante as publicações desta série foram usados métodos e propriedades dentro de tipos criados. Métodos e propriedades são membros de tipos. Outros membros de tipos são:</p>
+<ul>
+<li>Constantes;</li>
+<li>Campos;</li>
+<li>Métodos;</li>
+<li>Propriedades; e</li>
+<li>Eventos.</li>
+</ul>
+<p>Estarei explicando simplificadamente cada membro a seguir.</p>
+<p><strong>CONSTANTES</strong></p>
+<p>Uma constante é um valor imutável, ou seja, um valor que nunca muda. Quando o compilador encontra no código uma constante ele salvará seu valor no metadado do módulo.Para definir uma constante usa-se o modificador <strong>const</strong>.Só é possível definir constantes para tipos primitivos. Em C# os tipos primitivos são: Boolean, Char, Byte, SByte, Decimal, Inte16, UInt16, Int32, UInt32, UInt64, Single, Double e String. Veja no exemplo abaixo a declaração de uma constante:</p>
+<p>[sourcecode language="csharp"]</p>
+<p>public class ExemploConstante<br />
+{<br />
+public const Int32 ValorImutavel = 2;</p>
+<p>}</p>
+<p>[/sourcecode]</p>
+<p>Como eu disse anteriormente, no momento da compilação os valores das constantes são salvos diretamente nos metadados, sendo assim, constantes não necessitam de alocação de memória em tempo de execução. Como não é alocada memória para uma constante fica claro que não possível obter seu endereço, como não é possível obter seu endereço também não possível passar uma constante por referência. O modificador <strong>const</strong> não pode ser usado em classes, structs, propriedades e métodos. O compilador não permite definir uma constante como statica, pois, a mesma já é implicitamente um valor estático. Somente devemos usar constantes quando temos certeza de que o valor atribuído não será alterado! Quando se trabalha com dll`s o controle de versão das constantes fica um tanto quanto “complicado” de se manter. Siga o raciocínio. O valor da constante é salvo somente em tempo de compilação. Se declararmos uma constante em uma dll que é consumida por uma aplicação, toda vez que o valor dessa constante precisar ser alterado, além do projeto dll precisar ser recompilado, o projeto da aplicação também deverá! Se não houver a necessidade de manter um valor durante todo o tempo de vida da aplicação é mais aconselhável que opte por usar campos.</p>
+<p><strong>CAMPOS</strong></p>
+<p>Um campo pode armazenar uma instância de um tipo-valor ou uma referência para um tipo-referência. Diferente de uma constante um campo não se limita aos tipos primitivos, podendo ser de qualquer tipo. Campos podem ser estáticos ou não. Quando definido como estático o campo pode ser chamado a qualquer momento, mesmo que nenhuma instância da classe seja criada. O CLR aloca memória para um campo estático quando um método que o referência é compilado pelo JIT. Já para o campo de instância a memória é alocada quando o tipo é construído. Costuma-se utilizar campos para armazenar informações que serão protegidas ou particulares de uma classe. Para fornecer informações para o lado cliente é recomendável utilizar propriedades, explicarei sobre propriedades jajá. Campos normalmente tem um tempo de vida maior do que métodos, se você precisa de uma variável que será usada somente por um método, utilize variáveis locais, se precisar de uma informação que será compartilhada por vários métodos da classe, crie um campo fora do escopo de qualquer método. Veja um exemplo de declaração de um campo.</p>
+<p>[sourcecode language="csharp"]</p>
+<p>public class ExemploCampo<br />
+{<br />
+//campo<br />
+private Int32 ExCampo = 13;</p>
+<p>public Int32 TesteSoma()<br />
+{<br />
+return ExCampo + 2;<br />
+}</p>
+<p>public Int32 TesteSubtracao()<br />
+{<br />
+return ExCampo - 2;<br />
+}</p>
+<p>}</p>
+<p>[/sourcecode]</p>
+<p>Não leve em consideração a utilidade dos métodos criados, só queria mostrar o conceito de um campo dentro de uma classe. Um campo pode ser somente leitura (ReadOnly) ou leitura e gravação. Um campo <em>ReadOnly </em>é comumente inicializado no construtor da classe, explicarei sobre métodos construtores jajá. O mais comum são campos de leitura e gravação, sendo que, dessa forma um campo pode ter seu valor alterado diversas vezes como mostrou o exemplo anterior. Os campos resolvem o problema gerado pela constante. Como uma constante só tem seu valor alterado em tempo de compilação, podemos usar campos na maioria das situações, já que seu valor é alterado em tempo de execução. Mesmo que um campo de uma classe dentro de uma dll seja estático, a aplicação reconhecerá a alteração de valor dele somente com a compilação da dll não havendo a necessidade de compilar a aplicação.</p>
+<p>A primeira parte deste post fica por aqui. O  próximo eu dedicarei somente para falar sobre métodos.</p>
+<p>Até o próximo post!</p>
+<p><strong>REFERÊNCIAS</strong></p>
+<p><strong>Constantes (Guia de Programação em C#)</strong> - <a href="http://msdn.microsoft.com/pt-br/library/ms173119.aspx">http://msdn.microsoft.com/pt-br/library/ms173119.aspx</a></p>
+<p><strong>Campos (Guia de Programação em C#)</strong> - <a href="http://msdn.microsoft.com/pt-br/library/ms173118.aspx?sentenceGuid=5622523e943d74dd86f94d88093dc1cc#mt1">http://msdn.microsoft.com/pt-br/library/ms173118.aspx?sentenceGuid=5622523e943d74dd86f94d88093dc1cc#mt1</a></p>
+<p><strong>Programação aplicada com Microsoft .Net Framework</strong> – Jeffrey Richter</p>

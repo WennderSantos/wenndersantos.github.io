@@ -1,0 +1,40 @@
+---
+layout: post
+title: IIS Express - Habilitando conexão remota
+date: 2015-03-27 05:27:07.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- IIS
+tags:
+- Asp.net mvc
+- iis
+- iis express
+meta:
+  _edit_last: '1'
+  _oembed_51e20306d67ef22736a486eece7cf0b8: '{{unknown}}'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo bom?</p>
+<p>Alguns dias atrás eu estava querendo testar uma aplicação asp.net MVC acessando-a do meu celular, ou seja, fora da máquina de desenvolvimento. É claro que já fazia esse tipo de teste antes, mas eu sempre criava um site no iis para tal. Funcionava, mas "estava usando um canhão para matar uma formiga".</p>
+<p>Após uma rápida pesquisada, encontrei uma forma bem simples para liberar o iis express para acesso externo. Veja como:<!--more--></p>
+<ol>
+<li> Abra o arquivo de configurações de host's do iis express (<strong>%userprofile%\Documents\IISExpress\config\applicationhost.config</strong>). Procure a tag <strong>sites </strong>e encontre a tag com o nome da aplicação que você quer liberar o acesso. Copie a tag <strong>&lt;binding&gt;, </strong>cole-a abaixo da já existente e altere <strong>localhost </strong>pelo ip da sua máquina. A <strong>Figura 1</strong> mostra como essa alteração ficou no meu pc. Salve o arquivo e feche-o.</li>
+</ol>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2015/03/imagem1.png"><img class="alignnone size-full wp-image-2291" src="{{ site.baseurl }}/assets/img/imagem1.png" alt="Figura 1 - Adicionando novo binding." width="1920" height="1016" /></a></p>
+<p>2.  Por default, quase todas as conexões externas são bloqueadas. Nesse caso, vamos liberar o acesso para essa aplicação. Abra o prompt de comando como administrador e execute o seguinte comando:</p>
+<blockquote><p>netsh http add urlacl url=http://192.168.0.12:17300/ user=todos</p></blockquote>
+<p>Não esqueça de executar o comando informando seu ip e a porta que sua aplicação está usando.</p>
+<p>3.  Crie uma regra de entrada no firewall para a porta em uso.</p>
+<p>Pronto, nesse momento ao subir sua aplicação no iisexpress ela já estará disponível dentro da sua rede. Basta digitar o ip que você configurou como host + a porta (192.168.0.12:17300).</p>
+<p>PS-1: Caso use algum anti-vírus, não esqueça de criar uma exceção para a porta nele também.</p>
+<p>PS-2: Ao finalizar os testes, remova as exceções do firewall, anti-vírus e remova a reserva de url com o seguinte comando:</p>
+<blockquote><p>netsh http delete urlacl url=http://192.168.0.12:17300/</p></blockquote>
+<p>Até o próximo post.</p>

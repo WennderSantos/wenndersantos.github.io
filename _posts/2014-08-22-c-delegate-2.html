@@ -1,0 +1,128 @@
+---
+layout: post
+title: C# - Delegate
+date: 2014-08-22 13:12:47.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- C#
+tags:
+- C#
+- Delegate
+meta:
+  _publicize_pending: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _oembed_34a02b4f26e9393fcbc0ff675b206296: '{{unknown}}'
+  geo_public: '0'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala pessoal, tudo bom?</p>
+<p>Nova categoria no blog, C#.  No primeiro post desse novo tópico vou falar sobre <em><strong>delegates</strong></em>. Antes de iniciarmos, aconselho a leitura da<a href="https://wenndersantos.wordpress.com/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank"> seguinte publicação que fala sobre tipos</a>. Para os exemplos foi utilizado o Visual Studio 2013 com uma Windows Forms Application.<!--more--></p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p>No decorrer do desenvolvimento de um sistema é muito comum que em algum momento surja a necessidade de criar um método que receba por parâmetro outro método, esse tipo de parâmetro é chamado de função de retorno de chamada ou simplesmente <em><strong>callback</strong></em>. Em algumas linguagens como C++ não gerenciado e javaScript bastaria criar o método e passa-lo por parâmetro que tudo estaria funcionando. Em C# temos que realizar alguns passos para que um método possa ser passado por parâmetro.</p>
+<p>Um método não é um tipo e C# é uma linguagem de código gerenciado, é preciso especificar o tipo de cada parâmetro que um método receberá para que o compilador realize validações nas chamadas desse método. Então podemos dizer que para passar um método por parâmetro este deverá ser de um tipo? Isso mesmo. O .NET Framework oferece um mecanismo que nos permite criar um tipo que referencie métodos, este mecanismo é chamado de <em><strong>delegate</strong></em>.</p>
+<p><strong> </strong></p>
+<p><strong>DELEGATE</strong></p>
+<p>Em C# um <em><strong>delegate</strong></em> é um tipo de referência que nos permite armazenar uma ou mais referência a método. A declaração de um <em><strong>delegate</strong></em><strong><em> </em></strong>funciona como uma espécie de assinatura, onde, devemos especificar como deverão ser os métodos que esse tipo referenciará, parece um pouco complicado, mas acredite, não é! Para provar isso, vamos começar a ver como funciona na prática. Veja a declaração de um <em><strong>delegate:</strong></em></p>
+<p>[sourcecode language="csharp"]</p>
+<p>public delegate void ExibirMensagem(string msg);</p>
+<p>[/sourcecode]</p>
+<p>Analisando a criação do <em><strong>delegate</strong></em>:</p>
+<ol>
+<li>public: Modificador de acesso;</li>
+<li>delegate:  Palavra chave para criação do tipo delegate;</li>
+<li>void: Especifica o tipo de retorno que o método deverá ter para que esse delegate seja capaz de armazenar sua referência, nesse caso é void, ou seja, sem retorno.</li>
+<li>ExibirMensagem: Definição de um nome para o tipo, a gosto do programador, desde que não seja uma palavra reservada.</li>
+<li>(string msg): Especifica quantidade e tipo de parâmetro que o método deverá ter para que esse delegate seja capaz de armazenar sua referência.</li>
+</ol>
+<p>Feita essa análise, podemos dizer que ao instanciarmos um objeto do tipo que acabamos de criar, este objeto poderá referenciar qualquer método que siga o padrão de nossa análise. O trecho de código a seguir mostra um método com esse padrão.</p>
+<p>[sourcecode language="csharp"]<br />
+//Criando um tipo delegate<br />
+  public delegate void ExibirMensagem(string msg);</p>
+<p>//Método com o mesmo padrão do tipo delegate criado acima.<br />
+public void EscreverNaTela(string texto)<br />
+{<br />
+ Console.WriteLine(texto);<br />
+}</p>
+<p>[/sourcecode]</p>
+<p>O método <strong>EscreverNaTela </strong>tem o tipo de retorno <strong>void</strong> e recebe um único parâmetro do tipo <strong>string,</strong> seguindo o mesmo padrão do tipo <em><strong>delegate</strong></em><strong> </strong>que criamos.</p>
+<p>Já temos em nosso exemplo um tipo <em><strong>delegate</strong></em> e um método com o mesmo padrão.  Agora vamos criar um objeto do tipo <strong>ExibirMensagem </strong>que receberá a referência do método <strong>EscreverNatela</strong>. Veja isso no trecho de código abaixo:</p>
+<p>[sourcecode language="csharp"]<br />
+//Criando um tipo delegate<br />
+  public delegate void ExibirMensagem(string msg);</p>
+<p>//Método com o mesmo padrão do tipo delegate criado acima.<br />
+public void EscreverNaTela(string texto)<br />
+{<br />
+  Console.WriteLine(texto);<br />
+}</p>
+<p>private Form1_Load(object sender, EventArgs e)<br />
+{<br />
+  //criando um objeto do tipo delegate ExibirMensagem<br />
+  ExbirMensagem MeuDelegate = new ExibirMensagem(EscreverNaTela);<br />
+}</p>
+<p>[/sourcecode]</p>
+<p>Criamos um objeto <strong>MeuDelegate </strong>do tipo <strong><em>delegate </em>ExbibirMensagem.</strong> Ao criarmos uma nova instância de <strong>ExibirMensagem</strong> passamos por parâmetro o método <strong>EscreverNaTela</strong>. Como assim "passamos por parâmetro"? Vou explicar rapidamente essa parte para não nos aprofundarmos muito, esse não é o objetivo. Quando o compilador encontra uma linha de código de criação de um tipo <em><strong>delegate, </strong></em>ele transforma essa linha em uma classe com quatro métodos, um desse métodos é o construtor da classe que recebe dois parâmetros. Um desses parâmetros é do tipo <strong>objetc</strong> e o outro do tipo <strong>int32</strong>. Bom, então se pensarmos bem, quando o trecho de código da figura 3 for executando algum erro ocorrerá, já que estamos passando somente um parâmetro para um construtor que pede dois, certo? Errado! O compilador saberá que está sendo criado um novo objeto <strong><em>delegate </em></strong>e cuidará de passar os parâmetros corretos, sendo, o objeto que está sendo criado para o <strong>object </strong>e uma espécie de token que identifica o método que está sendo referenciado para o <strong>int32.</strong></p>
+<p>Agora que já temos tudo pronto, vamos utilizar nosso objeto <em><strong>delegate .</strong></em> Veja um exemplo de chamada e da saída do nosso objeto no trecho de código a seguir:</p>
+<p>[sourcecode language="csharp"]<br />
+//Criando um tipo delegate<br />
+  public delegate void ExibirMensagem(string msg);</p>
+<p>//Método com o mesmo padrão do tipo delegate criado acima.<br />
+public void EscreverNaTela(string texto)<br />
+{<br />
+  Console.WriteLine(texto);<br />
+}</p>
+<p>private Form1_Load(object sender, EventArgs e)<br />
+{<br />
+  //criando um objeto do tipo delegate ExibirMensagem<br />
+  ExbirMensagem MeuDelegate = new ExibirMensagem(EscreverNaTela);</p>
+<p>  //Chamada do objeto delegate<br />
+  MeuDelegate(&quot;Introdução ao tipo delegate do C#&quot;);<br />
+}</p>
+<p>[/sourcecode]</p>
+<p>Podemos ver que quando tudo está pronto fica mais simples de se entender. Para a chamada, utilizamos o objeto <strong>MeuDelegate</strong> passando um parâmetro <strong>string</strong> que é o que ele espera. Na saída foi executado o método Console.WriteLine() que foi definido no método <strong>EscreverNaTela</strong>. Veja na Figura 1 a saída dessa chamada.</p>
+<p>[caption id="attachment_244" align="alignnone" width="1920"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/08/figura-4-copia.png"><img class="wp-image-244 size-full" src="{{ site.baseurl }}/assets/img/figura-4-copia.png" alt="Figura 1 - Chamada de um objeto delegate e sua saída" width="1920" height="1017" /></a> Figura 1 - Chamada de um objeto delegate e sua saída[/caption]</p>
+<p>Vamos ver agora o exemplo que foi citado no inicio do post "Passar um método por parâmetro". Para fazer isso, precisamos implementar um novo método que receberá por parâmetro um tipo <strong>ExibirMensagem. </strong>Veja essa implementação no trecho de código a seguir:</p>
+<p>[sourcecode language="csharp"]<br />
+//Criando um tipo delegate<br />
+  public delegate void ExibirMensagem(string msg);</p>
+<p>//Método com o mesmo padrão do tipo delegate criado acima.<br />
+public void EscreverNaTela(string texto)<br />
+{<br />
+  Console.WriteLine(texto);<br />
+}</p>
+<p>private Form1_Load(object sender, EventArgs e)<br />
+{<br />
+  //criando um objeto do tipo delegate ExibirMensagem<br />
+  ExbirMensagem MeuDelegate = new ExibirMensagem(EscreverNaTela);</p>
+<p>  //Passando por parâmetro um delegate que está referenciando um método<br />
+  Calculo(MeuDelegate);<br />
+}</p>
+<p>//Método que recebe um delegate por parâmetro<br />
+//O delegate está referenciando um método<br />
+public void Calculo(ExibirMensagem ExibirMsg)<br />
+{<br />
+ //Executando o delegate<br />
+ ExibirMsg((1+1).ToString());<br />
+}</p>
+<p>[/sourcecode]</p>
+<p>No trecho acima, podemos ver que diferente do exemplo anterior a esse nós não estamos fazendo a chamada do <em><strong>delegate </strong></em>diretamente, nós estamos enviado por parâmetro para um método e lá será feita a chamada desse <em><strong>delegate</strong></em>. Ao ser executado, esse programa mostrará na tela o resultado do calculo (1+1).</p>
+<p>Pessoal, estes foram exemplos bem simples, acredito que nunca serão usados no dia-a-dia. É importante saber como funcionam <strong><em>delegates, </em></strong>pois, vão existir situações onde o seu uso será a melhor opção. Um exemplo disso? Imagine que seu sistema precise de uma janela genérica para que o usuário insira alguma informação em algum momento (cpf, senha, código, cartão, etc), essas informações precisam ser validadas, como fazer isso? Criar uma janela para cada informação? Beleza, vai funcionar, mas, teremos uma aplicação bem poluída de forms. Outra opção, passar um parâmetro especificando qual informação deverá ser validada naquele momento, vai funcionar também, mas, imagine a quantidade de if's ou case's que precisarão ser implementadas? Na minha opinião, a melhor saída nessa situação seria o uso de um <em><strong>delegate. </strong></em>Crie uma instância de seu tipo <em><strong>delegate</strong></em> na sua janela e receba no construtor um <em><strong>delegate </strong></em> que fará referência a um método que validará a informação inserida. Conseguem entender que só se saberá o que será executado por esse <em><strong>delegate </strong></em>em tempo de execução? Se conseguirem entender isso esse post atingiu seu objetivo! :)</p>
+<p>[Editado 26/08/2014] Para complementar este estudo sobre <strong><em>delegates </em></strong>recomendo que leiam a publicação  <a title="http://www.andrealveslima.com.br/blog/index.php/2014/08/26/quando-utilizar-delegates-funcs-ou-actions-c/" href="http://www.andrealveslima.com.br/blog/index.php/2014/08/26/quando-utilizar-delegates-funcs-ou-actions-c/" target="_blank">Quando utilizar delegates, funcs ou actions no C#?</a> do <a title="http://www.andrealveslima.com.br/blog/" href="http://www.andrealveslima.com.br/blog/" target="_blank">MPV André Alves de Lima</a>. [/Editado]</p>
+<p>Espero ter ajudado a esclarecer um assunto que as vezes é tratado como se fosse de outro mundo.</p>
+<p>Até o próximo post!</p>
+<p><strong>REFERÊNCIAS</strong></p>
+<p><strong>Programação Aplicada com .Net Framework - </strong>Jeffrey Richter</p>
+<p><strong>Delegate (Refêrencia de C#) </strong><a title="http://msdn.microsoft.com/pt-br/library/900fyy8e.aspx" href="http://msdn.microsoft.com/pt-br/library/900fyy8e.aspx" target="_blank">- http://msdn.microsoft.com/pt-br/library/900fyy8e.aspx</a></p>

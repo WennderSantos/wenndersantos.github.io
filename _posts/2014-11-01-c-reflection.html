@@ -1,0 +1,127 @@
+---
+layout: post
+title: C# - Reflection
+date: 2014-11-01 23:09:53.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- C#
+tags:
+- C#
+- Pegar valor de propriedade
+- Percorrer propriedades
+- Reflection
+- System.Reflection
+meta:
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  geo_public: '0'
+  _publicize_pending: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala pessoal, tudo bom?</p>
+<p>Nesse post falarei sobre um recurso que o .NET Framework oferece e que em algumas situações me ajudou a desenvolver funcionalidades que precisavam saber como era a estrutura de uma classe em tempo de execução<strong>. </strong>Para fazer isso, usei reflection. <!--more--></p>
+<p><strong>Introdução</strong></p>
+<p>Todo desenvolvedor um dia precisará percorrer as propriedades de um objeto por algum motivo. Já passei por isso algumas vezes e se você ainda não passou, mais cedo ou mais tarde, chegará sua vez.</p>
+<p>Quando uma aplicação está em execução, nós já não temos mais nosso código c#, vb, etc., basicamente o que temos é linguagem intermediária (IL) e metadados que todo compilador de linguagem .NET gera, <a href="https://wenndersantos.wordpress.com/category/net-framework/" target="_blank">tenho uma serie de publicações onde você pode ler um pouco sobre esse assunto</a>. Bom, sendo assim, como fazer para ler a definição de uma classe em tempo de execução? Usando <strong>reflection</strong>!</p>
+<p><strong>System.Reflection</strong></p>
+<p>O namespace System.Reflection da <a href="https://wenndersantos.wordpress.com/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">FCL </a>contém várias classes que implementam métodos que são capazes de refletir metadados através de objetos, com isso, podemos, em tempo de execução, saber quais propriedades uma classe possui, os tipos dessas propriedades, também conseguimos consultar quais os eventos e interfaces que uma classe implementa, etc.  Vamos ver na prática como isso funciona.</p>
+<p><strong>Percorrendo as propriedades de uma classe </strong></p>
+<p>Aqueles que nunca precisaram percorrer as propriedades de uma classe provavelmente estão se perguntando “pra que eu precisaria fazer isso?” Algumas situações que eu precisei fazer isso foram:</p>
+<ul>
+<li>Criar query’s dinamicamente;</li>
+<li>Serializar dados.</li>
+</ul>
+<p>Precisei percorrer propriedades em tempo de execução para esses dois casos. Outro exemplo é o Entity Framework, que em alguns momentos utiliza reflection para criar classes em tempo de execução, <a href="https://entityframework.codeplex.com/SourceControl/latest" target="_blank">você pode ver o código do Entity Framework aqui</a>. Para mostrar um exemplo prático sobre reflection vou seguir o segundo caso, serializar dados. Em tempo de execução vamos serializar os dados de um objeto em json, formatando datas para o formato dd/mm/yyyy e decimais/doubles com duas casas após a virgula. Antes de iniciarmos o exemplo, vale lembrar que o que vamos fazer tem somente finalidade didática, pois, existem várias ferramentas que já fazem isso, uma delas é o <a href="https://www.nuget.org/packages/Newtonsoft.Json/" target="_blank">newtonsoft.json</a>. Mãos a obra!</p>
+<ul>
+<li>No Visual Studio, crie um novo projeto do tipo <strong>ConsoleApplication</strong>.</li>
+</ul>
+<p>[caption id="attachment_299" align="aligncenter" width="691"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/11/exemploreflection_1.png"><img class=" wp-image-299" src="{{ site.baseurl }}/assets/img/exemploreflection_1.png" alt="Figura 1 - Criando o projeto Console Application." width="691" height="427" /></a> Figura 1 - Criando o projeto Console Application.[/caption]</p>
+<ul>
+<li>Crie uma classe publica chamada <strong>Produto</strong> com algumas propriedades.</li>
+</ul>
+<p>[sourcecode language="csharp"]<br />
+using System;</p>
+<p>namespace ExemploReflection<br />
+{<br />
+  public class Produto<br />
+  {<br />
+    public int IdProduto { get; set; }<br />
+    public string Nome { get; set; }<br />
+    public decimal Preco { get; set; }<br />
+    public DateTime DataCadastro { get; set; }<br />
+    public bool Ativo { get; set; }<br />
+  }<br />
+}<br />
+[/sourcecode]</p>
+<ul>
+<li>Após criar a classe Produto, volte para a classe Program e crie um método chamado <strong>Serialize</strong>.</li>
+</ul>
+<p>[sourcecode language="csharp"]<br />
+public static string Serialize(object obj)<br />
+{<br />
+  var strSerializada = &quot;&quot;;<br />
+}<br />
+[/sourcecode]</p>
+<p>O método Serialize será o responsável por formatar e serializar os valores das propriedades de uma classe que será enviada por argumento. Um ponto a ser observado no método Serialize é o tipo do seu parâmetro, <strong>object</strong>. No .Net Framework, todos os tipos herdam de object. Nesse caso, usaremos o tipo object para que o método Serialize seja genérico. O método Serialize não precisa saber qual o tipo que será serializado, o que o método precisa saber é quais são os tipos das propriedades da classe do parâmetro, isso será feito em tempo de execução. Vamos agora finalizar o método Serialize e de fato percorrer as propriedades de uma classe.</p>
+<p>[sourcecode language="csharp"]<br />
+public static string Serialize(object obj)<br />
+{<br />
+  var strSerializada = &quot;&quot;;<br />
+  foreach (var prop in obj.GetType().GetProperties())<br />
+    {<br />
+      var valor = prop.GetValue(obj);<br />
+      if (prop.PropertyType == typeof (DateTime))<br />
+        {<br />
+          strSerializada += &quot;\&quot;&quot; + prop.Name + &quot;\&quot;:&quot; + &quot;\&quot;&quot; + String.Format(&quot;{0:dd/MM/yyyy}&quot;, valor) + &quot;\&quot;,&quot;;<br />
+        }<br />
+      else if (prop.PropertyType == typeof (Decimal) || prop.PropertyType == typeof (Double))<br />
+        {<br />
+          strSerializada += &quot;\&quot;&quot; + prop.Name + &quot;\&quot;:&quot; + &quot;\&quot;&quot; + String.Format(&quot;{0:N}&quot;, valor) + &quot;\&quot;,&quot;;<br />
+        }<br />
+      else<br />
+        {<br />
+          strSerializada += &quot;\&quot;&quot; + prop.Name + &quot;\&quot;:&quot; + &quot;\&quot;&quot; + valor + &quot;\&quot;,&quot;;<br />
+        }<br />
+    }</p>
+<p>  strSerializada = strSerializada.Substring(1, strSerializada.Length - 2);</p>
+<p>  return &quot;{\&quot;&quot; + strSerializada + &quot;}&quot;;<br />
+}<br />
+[/sourcecode]</p>
+<p>Analisando o método Serialize:</p>
+<p><strong>3ª linha:</strong> declarando a variável strSerializada, nessa variável montaremos um objeto json a partir do objeto que recebermos por parâmetro.</p>
+<p><strong>4ª linha:</strong> Inicio de um laço que percorrerá todas as propriedades de objeto recebido por parâmetro. O método<strong> GetType()</strong> retorna o tipo de um objeto e o método <strong>GetProperties()</strong> retorna um Array do tipo <strong>PropertyInfo</strong>, o tipo <strong>PropertyInfo</strong> faz parte do namespace <strong>System.Reflection</strong>. Pode ser que tenha surgido a seguinte dúvida: “Como estamos usando o tipo <strong>PropertyInfo</strong> sendo que nem referenciamos o namespace ao qual ele faz parte?” Bom, isso foi possível porque o retorno do método <strong>GetType()</strong> é um Type e o tipo <strong>Type</strong> implementa a interface <strong>IReflect</strong> que por sua vez possuí o contrato do método <strong>GetProperties()</strong>, veja isso nas Figuras 2 e 3.</p>
+<p>[caption id="attachment_302" align="aligncenter" width="660"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/11/exemploreflection_6.png"><img class="size-full wp-image-302" src="{{ site.baseurl }}/assets/img/exemploreflection_6.png" alt="Figura 2 - Classe Type implementando a interface IReflect." width="660" height="354" /></a> Figura 2 - Classe Type implementando a interface IReflect.[/caption]</p>
+<p>[caption id="attachment_303" align="aligncenter" width="660"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/11/exemploreflection_7.png"><img class="size-full wp-image-303" src="{{ site.baseurl }}/assets/img/exemploreflection_7.png" alt="Figura 3 - Contrato do método GetProperties na interface IReflection." width="660" height="354" /></a> Figura 3 - Contrato do método GetProperties na interface IReflection.[/caption]</p>
+<p><strong>6ª linha:</strong> Estamos criando a variável <strong>valor</strong> e atribuindo o valor da propriedade em questão no laço. Para recuperar o valor da propriedade foi utilizado o método <strong>GetValue()</strong> que faz parte do tipo <strong>PropertyInfo</strong>.</p>
+<p><strong>7ª a 18º linha:</strong> Nesse trecho de código está sendo feito algumas validações usando if/else. O método <strong>PropertyType</strong> retorna o tipo de uma propriedade. A função <strong>typeof</strong> retorna o tipo de um objeto. Quando uma propriedade é do tipo <strong>DateTime</strong> está sendo formatada para “dd/mm/yyyy” e quando uma propriedade é do tipo <strong>decimal</strong> ou <strong>double</strong> está sendo formatada para mostrar duas casas decimais. O método <strong>Name</strong> retorna uma <strong>string</strong> com o nome da propriedade. O restante são concatenações básicas. Repare nos trechos onde aparecem “’’”, é preciso colocar a “” quando queremos colocar aspas dentro de uma string.</p>
+<p><strong>21ª linha:</strong> Truncando a string <strong>strSerializada</strong> retirando o último caractere que é uma virgula “,”.</p>
+<p><strong>23ª linha:</strong> Retornando a string <strong>StrSerializada</strong> dentro de colchetes “{}”, um objeto json inicia com “{” e é finalizado com “}”</p>
+<p>No método <strong>Main</strong> vamos chamar o método <strong>Serialize</strong> passando como argumento um objeto <strong>Produto</strong>.</p>
+<p>[sourcecode language="csharp"]<br />
+static void Main(string[] args)</p>
+<p>{</p>
+<p>Serialize(new produto{ IdProduto = 1, Nome = &quot;Notebook&quot;, Preco = 1200, DataCadastro = DateTime.Now, Ativo = true});</p>
+<p>}[/sourcecode]</p>
+<p>Veja na Figura 4 o retorno do método Serialize.</p>
+<p>[caption id="attachment_304" align="aligncenter" width="660"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/11/exemploreflection_8.png"><img class="size-full wp-image-304" src="{{ site.baseurl }}/assets/img/exemploreflection_8.png" alt="Figura 4 - Retorno do método Serialize." width="660" height="317" /></a> Figura 4 - Retorno do método Serialize.[/caption]</p>
+<p>Utilizando um <a href="http://jsonlint.com/" target="_blank">validador de json</a>, vemos que o retorno é um json válido, como mostra a Figura 5.</p>
+<p>[caption id="attachment_305" align="aligncenter" width="660"]<a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/11/exemploreflection_9.png"><img class="size-full wp-image-305" src="{{ site.baseurl }}/assets/img/exemploreflection_9.png" alt="Figura 9 - Utilizando um validado json." width="660" height="344" /></a> Figura 5 - Utilizando um validado json.[/caption]</p>
+<p>Bom, por hoje era isso, uma visão superficial de reflection usando C#.</p>
+<p>Até o próximo post!</p>
+<p><strong>Referências</strong></p>
+<p>CLR via C# - Jeffrey Richter</p>

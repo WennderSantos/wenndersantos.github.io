@@ -1,0 +1,72 @@
+---
+layout: post
+title: Introdução ao .Net Framework - Parte 3 - Tipos
+date: 2014-03-27 22:51:11.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags: []
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera!!!</p>
+<p>Chegamos ao terceiro post sobre introdução ao .Net Framework. Nesta publicação falarei sobre tipos. Se você ainda não leu os dois primeiros segue os links:<!--more--></p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>&nbsp;</p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p>O Framework Class Library é composto por milhares de tipos que facilitam a vida dos desenvolvedores nas mais diversas situações. No .Net Framework todos os tipos (criados ou já existentes no framework) herdam o tipo System.Object, ou seja, todo objeto de um tipo possuirá um conjunto mínimo de métodos. A figura 1 mostra um exemplo em C# para deixar claro essa explicação.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/rr.png"><img class="alignnone size-medium wp-image-79" src="{{ site.baseurl }}/assets/img/rr.png?w=300" alt="rr" width="300" height="156" /></a></p>
+<p>Figura 1 - Exemplo de um tipo herdando indiretamente o tipo System.Object</p>
+<p>Na figura 1 foram criados dois tipos, Calculo e Principal. O tipo Calculo possui o método Soma que recebe dois parâmetros e retorna um cálculo entre esses. O segundo tipo, Principal, cria um objeto do tipo Calculo. Repare que ao usar o objeto do tipo Calculo além do método Soma criado, mais cinco métodos apareceram. Esses são os métodos públicos do tipo System.Object, todos os objetos em última instancia terão acesso a esses métodos.</p>
+<p>Ainda observando a Figura 1, repare que para criar um objeto do tipo Calculo eu usei o operador new. Você já se perguntou o porquê deve-se usar esse operador para declarar objetos de alguns tipos? (se não perguntou, deveria!).  Bom, antes de explicar o que operador new faz, você deve saber que o .Net possui dois grupos de tipos, que são os tipos-referência e os tipos-valor. Descreverei cada um deles para entendermos o ‘new’.</p>
+<p><strong>Tipos valor</strong></p>
+<p>Tipos valor são usados constantemente em uma aplicação, por esse motivo a maioria dos compiladores permite uma sintaxe simplificada em suas declarações. Por exemplo, o tipo int é um tipo valor (errado!) o correto é dizer que o tipo System.Int32 é um tipo de valor, int é uma palavra chave utilizada para mapear um tipo System.Int32. Veja na Figura 2 alguns exemplos de declaração de tipos System.Int32. Mesmo com declarações diferentes, todos eles irão gerar o mesmo código IL depois de compilados.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/figura2.png"><img class="alignnone size-medium wp-image-80" src="{{ site.baseurl }}/assets/img/figura2.png?w=300" alt="figura2" width="300" height="156" /></a></p>
+<p>Figura 2 - Exemplo de declarações de tipos de valor</p>
+<p>A Figura 2 nos mostrou as formas de declarar um tipo de valor. Só para deixar claro, o CLR requer que todos os tipos sejam criados com o operador new, entretanto, como disse anteriormente a grande maioria dos compiladores permitem uma sintaxe mais simplificada para declaração dos tipos valor. Imaginem toda vez que declarar um int ter que usar o operador new?</p>
+<p>É importante saber que algumas palavras chaves usadas para declarar tipos não são executadas da mesma forma em todas as linguagens .Net, isso porque não fazem parte da Common Language Specification (CLR), um exemplo disse é a palavra chave long que em c# mapeia o tipo System.Int64, mas,  em C++ é tratada como Int32.</p>
+<p><strong>Tipos referência</strong></p>
+<p><strong>            </strong>O .Net trabalha com dois tipos de memória que são denominadas Stack e Heap. Na memória stack são alocados os tipos por valor e a referência dos tipos referência. Como assim? Quando criamos uma variável, basicamente estamos dando nome a um local na memória aonde será armazenado o valor que será atribuído a ela. Veja na Figura 3 uma ilustração do que acontece quando é declarado um tipo valor.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/figura3.png"><img class="alignnone size-medium wp-image-81" src="{{ site.baseurl }}/assets/img/figura3.png?w=241" alt="figura3" width="241" height="300" /></a></p>
+<p>Figura 3 - Armazenando tipo valor</p>
+<p>Quando uma variável de tipo valor é declarada, é reservado uma quantidade de memória na <em>stack</em> para ela e quando é necessário utilizar o valor armazenado o .Net acessa diretamente o local aonde foi armazenada o valor referente a variável. Já na declaração de uma variável de tipo valor isso é um pouco diferente.</p>
+<p>Os valores referentes a objetos são armazenadas na <em>Heap</em>, entretanto, um valor do inteiro é armazenado na <em>stack</em> referenciando o local na memória <em>Heap</em> onde estão armazenados os valores referentes aquele objeto. Veja uma ilustração disso na Figura 4.<strong>         </strong></p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/figura4.png"><img class="alignnone size-medium wp-image-82" src="{{ site.baseurl }}/assets/img/figura4.png?w=241" alt="figura4" width="241" height="300" /></a></p>
+<p>Figura 4 - Armazenando um tipo referência</p>
+<p>Nesse ponto nós chegamos aonde queríamos que é saber o que o operador new faz. Sabemos que para declarar uma variável de tipo valor precisamos utilizar o new. Quando utilizado, este operador realiza três ações:</p>
+<ul>
+<li>Alocar memória na Heap;</li>
+<li>Inicializar os membros adicionais associados a instância criada ( utilizados pelo CLR para gerenciar o objeto), um desses membros é um ponteiro, na Figura 4 é o inteiro alocado na stack que armazena o endereço de memória na heap onde o objeto começa e</li>
+<li>Chama o construtor do tipo, caso não seja criado um construtor, o compilador chama o construtor do tipo pai.</li>
+</ul>
+<p>Após realizar essas operações o new retorna uma referência para o objeto criado. Caso alguém se pergunte “E se eu declarar um tipo valor sem utilizar o operador new?” Boa pergunta! Bom, acontece que será criada uma referência na memória stack, porém, seu valor será null, quando o compilador tentar executar isso ele acionará uma exception <strong>An unhandled exception of "System.NullReferenceException" occurred..., </strong>acho que todo mundo já deve ter passado por isso rs. Isso ocorre porque o compilador tentará usar a referência criada para encontrar o objeto heap, porém ainda não existe referência.</p>
+<p>Todo tipo criado utilizando a palavra chave class será armazenado na Heap, todo tipo criado utilizando a palavra chave struct será armazenado da stack. Veja a Figura 5, um importante conceito de atribuição de tipos de valor e tipos de referência.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/figura5.png"><img class="alignnone size-medium wp-image-83" src="{{ site.baseurl }}/assets/img/figura5.png?w=300" alt="figura5" width="300" height="156" /></a></p>
+<p>Figura 5 - Diferença na atribuição em tipos de valor e referência</p>
+<p>Na Figura 5 foi criado o tipo referência Casa com duas propriedades, nesse momento você só precisa saber que uma propriedade é uma informação referente a um tipo, chamadas de número do tipo inteiro e endereço do tipo string.</p>
+<p>Um outro tipo referência foi criado, TesteCasa, dentro desse tipo um método void, falarei mais sobre void mais pra frente nesse momento você só precisa saber que é um método que não tem retorno. Dentro desse método, chamado ExemploDeAtruibuicao, foram criadas duas instâncias do tipo Casa, sendo chamadas de NovaCasa e OutraCasa. A variável nova casa atribuiu valor as duas propriedades do tipo casa, entretanto esses valores são armazenados na Heap, lembram? O que está armazenado na variável NovaCasa é um inteiro referente ao endereço de memória aonde inicia o armazenamento desse objeto na Heap.</p>
+<p>Com a explicação do parágrafo anterior, chegamos a conclusão que, ao atribuir os dados da variável NovaCasa na variável OutraCasa, essa segunda possuíra o endereço de memória aonde foi armazenado o objeto na Heap, ou seja, as duas estão apontado para o mesmo lugar e qualquer alteração que for realizada nessa variáveis será reconhecida pelas duas igualmente.</p>
+<p>O segundo exemplo da Figura 5 mostra uma atribuição de tipos de valor. Duas variáveis de valor foram criadas, a e b. Na variável “a”foi atribuído o inteiro 3 e na variável “b” foi atribuído o valor de a, nesse momento as duas tem o mesmo valor, mas, diferente das variáveis do tipo referência as variáveis de tipo valor apontam diretamente para o local aonde estão sendo armazenados seus dados, ou seja, quando no exemplo foi atribuído o inteiro 2 para a variável “a” somente ela ficará com esse valor e “b” continuará com o valor 3.</p>
+<p>Alguém reparou que até agora só falamos em alocar memória? E para liberar essa memória para ser usada novamente quando um objeto não estiver mais sendo usado? O .Net tem um motor que faz uma coleta automática de “lixo”, mas, isso será tratado em outro post.</p>
+<p>Aqui finalizo o terceiro post da Introdução ao .Net Framework, espero que esteja sendo útil de alguma forma. No próximo post falarei sobre conversão (casting) de tipos.</p>
+<p>Até o próximo post!</p>
+<p><strong>Referências</strong></p>
+<p><strong>PROGRAMAÇÃO APLICADA COM MICROSOFT .NET FRAMEWORK – JEFFREY RICHTER</strong></p>
+<p><strong>.NET - Conceitos: memória da aplicação , Stack , Heap e variáveis</strong>. - <a href="http://www.macoratti.net/vbn_conc.htm">http://www.macoratti.net/vbn_conc.htm</a></p>

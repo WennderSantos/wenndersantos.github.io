@@ -1,0 +1,55 @@
+---
+layout: post
+title: Introdução ao .Net Framework - Parte 1 - Do que é composto, compilação.
+date: 2014-03-21 02:29:39.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags: []
+meta:
+  _publicize_pending: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Começa agora a primeira de uma série de publicações sobre o .<em>NET Framework</em>. Com essa leitura você será capaz de ter pelo menos uma ideia de como é composto o <em>Framework</em> .Net e como funciona a compilação das linguagens .Net.</p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p>O Microsoft<em> .Net Framework</em> ou simplesmente .Net é uma plataforma de desenvolvimento gerenciado que visa a criação e execução de programas e serviços. Seu lançamento foi em 13/02/2002, sua versão atual é a 4.5.  Essa poderosa ferramenta de desenvolvimento foi uma iniciativa da Microsoft para tornar o desenvolvimento de aplicações realmente fáceis.</p>
+<p>O .Net basicamente é composto por duas partes:</p>
+<ol>
+<li><em>Common Language Runtime</em> (CLR); e o</li>
+<li><em>Framework Class Library</em> (FCL)</li>
+</ol>
+<p>O CLR é o coração do .Net, ele é quem gerencia a execução das aplicações, dedicarei um post para falar somente do CLR posteriormente.</p>
+<p>A FCL é a biblioteca de classes do .Net, nela está contida praticamente tudo o que torna nossa programação mais rápida e fácil, são milhares de classes e métodos</p>
+<p>Essas duas grandes partes são a base do <em>Framework</em>. Net. Elas fornecem para os desenvolvedores um modelo de programação consistente e simplificado, os programadores não precisam mais entender de registros e ficar alocando, desalocando memória (puts, programar em C era tenso).</p>
+<p><b>COMPILANDO CÓDIGO</b></p>
+<p>Um conceito muito legal do .net é “Executou uma vez, executará sempre”, isso ocorre porque um programa desenvolvido na plataforma .net é compilado duas vezes! Como assim? É simples, cada linguagem desenvolvida para o .Net (atualmente existem mais de trinta) tem o seu próprio compilador, todos esses compiladores fazem a mesma coisa, que é transformar o código fonte que você digitou em uma linguagem intermediaria chamada Microsoft<em> Intermediate Language</em> (MSIL ou IL). Então, entende-se que todos esses compiladores geram código para o CLR. Além de gerar IL, cada compilador precisa também gerar metadados (resumidamente são tabelas com informações usadas pelo CLR para executar um código IL). Os metadados junto com a IL formam um módulo gerenciado, que nada mais é do que um arquivo portable executável (um exe gerenciado). Veja na ilustração da imagem 1 o processo de compilação de uma linguagem .Net e a geração do módulo gerenciado.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/03/teste.png"><img class="alignnone size-medium wp-image-49" src="{{ site.baseurl }}/assets/img/teste.png?w=300" alt="teste" width="300" height="97" /></a></p>
+<p>Figura 1 - Compilação de código para IL</p>
+<p>Observando a figura 1 fica claro entender como o .<em>Net Framework</em> suporta que uma mesma aplicação utilize código fonte de linguagens diferentes, no final tudo será transformado em IL, pois, é a linguagem que o CLR entende, e é a IL que é usada para a segunda compilação.</p>
+<p>Todos nós sabemos que o cpu só entende linguagem de máquina, certo? Certo! O CLR possui um compilador de IL chamado JIT (<em>just-in-time</em>). Fica por conta do JIT o trabalho de converter IL para linguagem de máquina. Como a própria referencia do nome diz, o JIT compila o código em tempo de execução, ou seja, a IL só é compilada quando for usada e isso acontece somente uma vez. Lembram do termo  “Executou uma vez, executara sempre”? Então, é aqui que ele se encaixa.</p>
+<p>O processo de compilação do JIT tem 6 passos, são eles:</p>
+<ol>
+<li>Procurar nos metadados o método que está sendo chamado.</li>
+<li>A partir dos metadados, trazer a IL referente a esse método.</li>
+<li>Alocar memória.</li>
+<li>Compile a IL para código de máquina e salve na memória alocada.</li>
+<li>Vá nos metadados novamente e troque a informação que me disse aonde estava a IL referente ao método em questão pela informação do endereço de memória alocado no passo3.</li>
+<li>Desvie para o agora código nativo que está salvo na memória.</li>
+</ol>
+<p>Simples né? Pra que ficar executando toda vez a mesma coisa sendo que eu posso salvar o que foi feito na primeira vez? Rs</p>
+<p>Aqui eu finalizo o primeiro post da serie .Net Framework, já temos uma noção do que é formado o <em>Framework</em> e como funciona a compilação das linguagens .Net. No próximo post eu falarei um pouco mais sobre CLR e FCL, consequentemente os assuntos tratados acarretarão na explicação do <em>Common Type System</em> (CTS) e da<em> Common Language Specification</em> (CLS).</p>
+<p>&nbsp;</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Refrências</strong></p>
+<p><strong>Livro Programação Aplicada com MICROSOFT .NET FRAMEWORK - Jeffrey Ritchter</strong></p>
+<p><strong>Guia de introdução do .Net - http://msdn.microsoft.com/pt-br/library/zw4w595w(v=vs.110).aspx</strong></p>
+<p>&nbsp;</p>

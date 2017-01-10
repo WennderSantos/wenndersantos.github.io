@@ -1,0 +1,59 @@
+---
+layout: post
+title: 'Azure Mobile Engagement - #1 - Introdução'
+date: 2016-07-27 04:08:13.000000000 -03:00
+description: 'Aumente o uso, retenção e monetização de aplicações mobile com Mobile Engagement'
+main-class: 'azure'
+color: '#3ea3c1'
+type: post
+published: true
+status: publish
+categories:
+- Azure
+tags:
+- mobile engagement
+twitter_text: 'Aumente o uso, retenção e monetização de aplicações mobile com Mobile Engagement'
+introduction: 'Aumente o uso, retenção e monetização de aplicações mobile com Mobile Engagement'
+---
+<p>Fala pessoal, tudo bom?</p>
+<p>Alguns dias atrás, publiquei um post falando sobre o que é <a href="http://wenndersantos.net/2016/07/mobile-engagement/" target="_blank">mobile engagement</a> e comentei que posteriormente falaria sobre uma ferramenta chamada <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-engagement-overview/" target="_blank">Azure Mobile Engagement</a>. Se você não leu o post que introduz o conceito, recomendo a leitura antes de continuar.</p>
+<p>No post de hoje, começarei uma série que falará sobre o que é o Azure Mobile Engagement e como ele facilita a implementação de algumas técnicas que visam o engajamento de usuários.</p>
+<p>Veja abaixo uma breve introdução e o que podemos fazer com essa ferramenta.</p>
+<p><!--more--></p>
+<h2>Introdução</h2>
+<p>Em 2014, a Microsoft <a href="https://azure.microsoft.com/pt-br/blog/announcing-the-acquisition-of-capptain/" target="_blank">anuncia a compra de uma empresa chamada Caaptain</a>. A Caaptain era uma empresa francesa que oferecia alguns serviços em nuvem como push e <em>analytics</em> em tempo real.</p>
+<p>Após a compra, a Microsoft integrou parte dos serviços oferecidos pela Caaptain no Azure, mas manteve o portal da antiga empresa que está em uso até hoje (07/16). Embora o portal tenha sido mantido, toda a stack foi renomeada para Azure Mobile Engagement (AME).</p>
+<p>O AME é um SaaS oferecido pelo <a href="https://azure.microsoft.com/pt-br/" target="_blank">Microsoft Azure</a> que possibilita uma fácil implementação de recursos de engagemento de usuários como <em>push notification, in-app message, analytics</em>, etc.</p>
+<p>A configuração de envio de <em>push</em> e <em>in-app message</em> podem ser feitos pelo portal e não necessitam código. Isso possibilita que pessoas não técnicas possam trabalhar criando campanhas de engagemento. Um bom exemplo de uma área que pode tirar proveito disso é o marketing.</p>
+<p>Com alguns cliques é possível configurar o envio de <em>push notification</em> segmentado, como por exemplo, para usuários que não acessam o aplicativo há 1 semana. Ou também, fazer com que uma mensagem apareça no app informando sobre uma <em>feature</em> que nunca foi usada por aquele usuário ou uma promoção relâmpago.</p>
+<p>Através do portal do AME, é possível obter informações em tempo real do comportamento dos usuários. Saiba aonde os usuários estão e o que estão fazendo utilizando os recursos de <em>event</em> e <em>activities</em> oferecidos pelo sdk da ferramenta.</p>
+<p>https://www.youtube.com/watch?v=eiW59wPfY9I</p>
+<p>&nbsp;</p>
+<h2>Integre com seu software de gestão</h2>
+<p>Caso você não queira usar a interface web do AME, é possível integrá-lo ao seu software.</p>
+<p>Através de <a href="https://msdn.microsoft.com/pt-br/library/mt683750.aspx" target="_blank">APIs rest</a> ou do <a href="https://www.nuget.org/packages/Microsoft.Azure.Management.Engagement" target="_blank">sdk para .net</a>, é possível criar campanhas e enviar push notifications. Imagine ter esse controle dentro do seu crm ou cms?</p>
+<p>&nbsp;</p>
+<h2>Principais recursos (na minha visão)</h2>
+<ul>
+<li><strong>Real time analytics:</strong> É possível ver em tempo real os usuários ativos no app e em qual tela eles estão.</li>
+<li><strong>Event track: </strong>Track de eventos em tempo real.</li>
+<li><strong>User path: </strong>Esse gráfico mostra uma arvore de navegação. Para quais tela o usuários vai quando está na tela x ou y.</li>
+<li><strong>Technicals: </strong>Informações sobre fabricante, versão dos s.o, rede de dados usada, etc. referente ao dispositivo.</li>
+<li><strong>Push notification: </strong>Com alguns cliques configure um serviço de push notification.</li>
+<li><strong>In-app message: </strong>Exibição de alertas em texto/html.</li>
+<li><strong>Segmentos de usuários:</strong><strong> </strong>Crie segmentos de usuários e envie push e campanhas para usuários específicos. Na minha opinião, esse é uma das principais features.</li>
+<li><strong>Pesquisas: </strong>Crie formulários de pesquisas que serão exibidos no app.</li>
+<li><strong>Estatísticas de campanhas e pesquisas: </strong>Visualize o resultado de pesquisas e campanhas através de gráficos ou integre com o PowerBI.</li>
+</ul>
+<p>Tem muitos outros recursos, mas esses são os que mais estou usando no momento. Nos próximos posts, vou mostrar todos os itens acima na prática.</p>
+<p>&nbsp;</p>
+<h2>Conclusão</h2>
+<p>Chegamos em um momento na tecnologia em que podemos ter serviços configurados com apenas alguns clicks. Serviços que antes levávamos horas, ou até dias, para implementar.</p>
+<p>A facilidade de implementação e configuração do Azure Mobile Engagement é imensa. Os dados que podem ser obtidos através dos gráficos de comportamento de usuário podem se transformar em informações que talvez seja o diferencial que possibilite sair na frente dos concorrentes.</p>
+<p>No próximo post da série, vou mostrar como criar um app no portal do azure.</p>
+<p>Por hoje é isso, até o próximo post!</p>
+<p>&nbsp;</p>
+<h2>Referências</h2>
+<p><a href="http://wenndersantos.net/2016/07/mobile-engagement/" target="_blank">Azure mobile engagement overview</a></p>
+<p><a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-engagement-key-features/" target="_blank">Azure Mobile Engagement Key Features</a></p>
+<p>&nbsp;</p>

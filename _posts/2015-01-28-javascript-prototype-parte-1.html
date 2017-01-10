@@ -1,0 +1,124 @@
+---
+layout: post
+title: JavaScript - Prototype - {Parte 1}
+date: 2015-01-28 04:04:24.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+tags:
+- herança
+- javascript
+- prototype
+meta:
+  geo_public: '0'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo bom?</p>
+<p>Há algumas semanas atrás eu comecei a estudar para uma prova de certificação da Microsoft, a <a href="https://www.microsoft.com/learning/pt-br/exam-70-480.aspx" target="_blank">70-480 Programming in HTML5 with JavaScript and CSS3</a>, segundo o <a href="https://www.microsoft.com/learning/pt-br/exam-70-480.aspx" target="_blank">guia de estudo oficial</a>, <del>não é requerido o assunto desse post</del>, mas acabei caindo nele em algumas pesquisas.</p>
+<p>Ao começar os estudos no JavaScript achei interessante o assunto <strong>prototype, </strong>e resolvi escrever esse post. Então, let's go!</p>
+<p><!--more--></p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2014/12/javascript_logo-e1422121321558.png"><img class="  aligncenter wp-image-368" src="{{ site.baseurl }}/assets/img/javascript_logo-e1422121321558.png" alt="javascript_logo" width="196" height="197" /></a></p>
+<p>Nos exemplos mostrados abaixo foi utilizado o console do Google Chrome versão 39.0.2171.99 para testa-los.</p>
+<p>Antes de começarmos, caso não esteja familiarizado com objects, aconselho a seguinte leitura:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">MDN - Working with objects</a></li>
+</ul>
+<p><strong>O que é prototype?</strong></p>
+<p>Prototype é um objeto que todos os objetos, por default, o possuem como propriedade e é partir dessa propriedade que trabalhamos com herança no javascript. Toda nova instância de um objeto herdará os comportamentos presentes na propriedade prototype definidas nesse objeto.</p>
+<p>Vejamos um primeiro exemplo na <strong>Listagem 1.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+var pessoa = {};<br />
+[/sourcecode]</p>
+<p><strong>Listagem 1 - Criando um novo objeto.</strong></p>
+<p>Reparem na <strong>Listagem 1, </strong>nenhum método ou propriedade foi adicionado a instância de Object pessoa. Entretanto, se analisarmos, veremos que essa instância já possui os seguintes métodos:</p>
+<ul>
+<li>constructor()</li>
+<li>hasOwnProperty()</li>
+<li>isPrototypeOf()</li>
+<li>propertyIsEnumerable()</li>
+<li>toLocaleString()</li>
+<li>toString()</li>
+<li>valueOf()</li>
+</ul>
+<p>Esses métodos também podem ser vistos através da <strong>Figura 1</strong>, onde estou criando a instância de Object pessoa no console do Chrome.</p>
+<p>[caption id="attachment_901" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/01/Prototype-imagem.png"><img class="size-full wp-image-901" src="{{ site.baseurl }}/assets/img/Prototype-imagem.png" alt="Figura 1 - Métodos do objeto pessoa." width="1600" height="649" /></a> Figura 1 - Métodos do objeto pessoa.[/caption]</p>
+<p>Bom, se eu não criei esses métodos, quem os criou? Logo teremos essa resposta.</p>
+<p>Ainda seguindo o exemplo da <strong>Listagem 1, </strong>criamos a instância de Object pessoa vazio (sem nenhum método ou propriedade) de uma forma denominada objetct literal notation. Como disse anteriormente, todo objeto possui uma propriedade chamada <strong>prototype </strong>que também é um objeto.<strong> </strong>Todo objeto prototype está diretamente ligado ao objeto prototype que está logo acima na <strong>prototype chain, </strong>dessa forma, herdando os métodos e propriedades de todos os objetos prototypes que estão acima de sua criação na <strong>prototype chain. </strong>Caso tenha ficado um pouco confuso, vamos ilustrar alguns exemplos de prototype chain.</p>
+<p><b>Prototype chain</b></p>
+<p>Para conseguirmos visualizar e entender de forma clara o que significa prototype chain, vamos relembrar o código da <strong>Listagem 1.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+var pessoa = {};<br />
+[/sourcecode]</p>
+<p>Nesse simples trecho de código, onde criamos uma instância de Object vazia chamada pessoa, podemos visualizar sua prototype chain da forma ilustrada na <strong>Figura 2</strong>.</p>
+<p>[caption id="attachment_972" align="alignnone" width="391"]<a href="http://wenndersantos.net/wp-content/uploads/2015/01/Prototype-prototype-chain1-e1422422348785.png"><img class="wp-image-972 " src="{{ site.baseurl }}/assets/img/Prototype-prototype-chain1-e1422422348785.png" alt="" width="391" height="330" /></a> Figura 2 - Prototype chain, Object.prototype, Array.prototype.[/caption]</p>
+<p>Como <strong>pessoa</strong> foi criado utilizando object literal notation, ele herda diretamente de Object.prototype. Vale frisar que, todo objeto, diretamente ou indiretamente herdará de Object.prototype, uma vez que Object.prototype está no topo da prototype chain.</p>
+<p>Para deixar claro que todo objeto herdará de Object.prototype, veja na <strong>Listagem 2 </strong>a criação de um objeto utilizando um tipo pré-definido no javascript, o Array.</p>
+<p>[sourcecode language="javascript"]<br />
+//eu poderia também ter criado da seguinte forma<br />
+//var arr = [];<br />
+//o resultado seria o mesmo<br />
+var arr = new Array();<br />
+[/sourcecode]</p>
+<p><strong>Listagem 2 - Criando um objeto do tipo Array.</strong></p>
+<p>O tipo Array, da mesma forma que Object, também possui métodos e propriedades pré-definidos em sua propriedade prototype. Os métodos e propriedades encontrados em Array.prototype são os seguintes:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/length" target="_blank">length</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/pop" target="_blank">pop()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/push" target="_blank">push()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/shift" target="_blank">shift()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse" target="_blank">reverse()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank">sort()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/splice" target="_blank">splice()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/join" target="_blank">join()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" target="_blank">reduce()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank">map()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/slice" target="_blank">slice()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift" target="_blank">unshift()</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/concat" target="_blank">concat()</a></li>
+<li>entre outros que você pode ver neste <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype" target="_blank">link</a>.  Uma dica para quando quiser pesquisar sobre algo no javascript, busque por <strong>mdn.io/{sua busca}. </strong>Exemplo <a href="mdn.io/pop" target="_blank">mdn.io/pop</a> ou <a href="mdn.io/push" target="_blank">mdn.io/push</a> e assim por diante. Recebi essa dica do mestre <a href="http://nomadev.com.br/" target="_blank">Suissa</a>.</li>
+</ul>
+<p>Para visualizar os métodos de Array.prototype, faça o mesmo teste ilustrado na <strong>Figura 1. </strong>Ao realizar esse teste, você verá que a instância de Array <strong>arr </strong>possui métodos e propriedades herdados tanto de Array.prototype quanto de Objetc.prototype. Porque isso? <strong>prototype chain! </strong>Veja na <strong>Figura 3</strong> uma nova ilustração de prototype chain dando continuidade a <strong>Figura 2.</strong></p>
+<p>[caption id="attachment_1081" align="alignnone" width="709"]<a href="http://wenndersantos.net/wp-content/uploads/2015/01/Prototype-prototype-chain2.png"><img class="wp-image-1081" src="{{ site.baseurl }}/assets/img/Prototype-prototype-chain2.png" alt="Figura 3 - Protoype chain, Object.prototype, Array.prototype." width="709" height="302" /></a> Figura 3 - Protoype chain, Object.prototype, Array.prototype.[/caption]</p>
+<p>Mais fácil entender quando se desenha? Espero que sim :)</p>
+<p>Antes de finalizar essa primeira parte sobre prototypes, vamos entender mais um ponto.</p>
+<p>Como já sabemos, a propriedade prototype é um objeto. Sabemos também que todo objeto possui uma propriedade prototype, certo? Se você se perguntou se a propriedade prototype também possui uma propriedade com esse nome, você raciocinou bem! Para ilustrar isso, vamos abrir o console do chrome e realizar alguns testes utilizando a propriedade <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto">__proto__</a>, </strong>conforme mostra a <strong>Listagem 3.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+var arr = new Array();<br />
+//undefined<br />
+arr.__proto__<br />
+//[]<br />
+arr.__proto__.__proto__<br />
+//Object {}<br />
+arr.__proto__.__proto__.__proto__<br />
+//null<br />
+[/sourcecode]</p>
+<p><strong> Listagem 3 - Navegando pela prototype chain</strong></p>
+<p>Analisando o código da <strong>Listagem 3, </strong>podemos ver que a propriedade __proto__ está nos retornando o objeto prototype da propriedade prototype que estamos acessando. No parágrafo que antecede esse,<strong> </strong>disse que todos os objetos possuem uma propriedade prototype, entretanto, existe uma exceção que pôde ser mostrada na <strong>Listagem 3, </strong>onde, ao tentarmos acessar o prototype de Object.prototype temos um retorno <strong>null. </strong>Com isso reforçamos que Object.prototype está no topo da prototype chain.</p>
+<p>O mesmo acontece quando tentamos acessar uma propriedade que não existe em nenhum objeto da prototype chain, veja um exemplo na <strong>Listagem 4.</strong></p>
+<p>[sourcecode language="javascript"]</p>
+<p>var arr = new Array();<br />
+//undefined<br />
+arr.teste<br />
+//undefined</p>
+<p>[/sourcecode]</p>
+<p><strong> Listagem 4 -</strong> <strong>Tentando acessar uma propriedade que não existe em nenhum objeto da prototype chain</strong></p>
+<p>Na <strong>Listagem 4, </strong>ao tentar acessar a propriedade teste, é percorrido toda a prototype chain tentando encontrá-lo em algum objeto prototype. Essa busca termina no mesmo momento onde temos o retorno <strong>null</strong> na <strong>Listagem 3 </strong>e nesse caso temos um retorno <strong>undefined.</strong></p>
+<p>Pessoal, era isso o que eu queria mostrar nessa primeira parte. No próximo artigo sobre prototype mostrarei como criar nossa própria cadeia de herança e como adicionar / sobrescrever métodos e propriedades já existentes em objetos.</p>
+<p>Encontrou algum erro ou não concorda com algo? Deixe um comentário e vamos discutir isso para que todos possam acompanhar.</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><strong>Object.prototype</strong> - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype<br />
+</a></p>
+<p><strong>Understanding JavaScript Prototypes </strong><a href="https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/" target="_blank">- https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes</a>/</p>
+<p><strong>Gosta de javaScript mas não encontra bom conteúdo em pt-br? De uma olhada no site do Suissa</strong> - <a href="http://nomadev.com.br/" target="_blank">http://nomadev.com.br/</a></p>

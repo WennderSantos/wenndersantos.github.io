@@ -1,0 +1,46 @@
+---
+layout: post
+title: ASP.NET MVC - Problema com MIME Type
+date: 2015-04-30 19:18:10.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+tags:
+- Asp.net mvc
+- fonts
+- mime type
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, tudo certo?</p>
+<p>Um post rápido mostrando como resolvi um problema que tive com MIME Type no asp.net mvc em um ambiente onde eu não tinha acesso ao servidor de produção.</p>
+<p>Algum tempo atrás tive um problema com videos no asp.net mvc, onde o arquivo não estava sendo carregado para o usuário. Nessa situação, eu tinha acesso ao servidor de produção e para resolver o problema simplesmente fui até o IIS e adicionei o MIME Type referente a extensão do vídeo que eu precisava. Veja na <strong>Figura 1 e na Figura 2</strong> como fazer isso:<!--more--></p>
+<p>[caption id="attachment_2681" align="alignnone" width="1366"]<a href="http://wenndersantos.net/wp-content/uploads/2015/04/Figura2.png"><img class="size-full wp-image-2681" src="{{ site.baseurl }}/assets/img/Figura2.png" alt="Figura2 - Configuração de MIME Type no IIS." width="1366" height="720" /></a> Figura 1 - Configuração de MIME Type no IIS.[/caption]</p>
+<p>[caption id="attachment_2691" align="alignnone" width="1366"]<a href="http://wenndersantos.net/wp-content/uploads/2015/04/figura3.png"><img class="size-full wp-image-2691" src="{{ site.baseurl }}/assets/img/figura3.png" alt="Figura 3 - Configuração de MIME Type no IIS." width="1366" height="724" /></a> Figura 2 - Adicionando MIME Type no IIS.[/caption]</p>
+<p>Bom, embora a solução acima tenha funcionado, existem casos onde não temos acesso ao IIS que está sendo executado em produção e para fazer esse tipo de configuração só nos resta o web.config.<!--more--></p>
+<p><strong>Solução através do web.config</strong></p>
+<p>Pelo web.config, dentro de <strong>&lt;system.webServer&gt;, </strong>caso não exista, crie a tag <strong>&lt;staticContent&gt;</strong> e adicione o MIME Type que você está precisando, no meu caso era o <strong> &lt;mimeMap fileExtension=".woff" mimeType="font/x-woff" /&gt;. </strong>Feito isso, o IIS já reconhecerá arquivos com extensão especificada no atributo fileExtension.</p>
+<p>A solução do web.config resolveu meu problema no servidor de produção, entretanto gerou um problema local, onde ele diz que já existe uma configuração para o mime type em questão e que essa configuração não pode ser duplicada, veja a imagem do erro na <strong>Figura 3</strong>:</p>
+<p>[caption id="attachment_2661" align="alignnone" width="762"]<a href="http://wenndersantos.net/wp-content/uploads/2015/04/erroMimeType.png"><img class=" wp-image-2661" src="{{ site.baseurl }}/assets/img/erroMimeType.png" alt="Figura 2 - Erro web.config" width="762" height="347" /></a> Figura 3 - Erro web.config[/caption]</p>
+<p>Resolvi o que estava acontecendo no servidor de produção, mas criei um problema na minha maquina (normal, né? rs)</p>
+<p>Para corrigir o problema local, eu poderia remover a configuração de MIME Type do web.config e NUNCA esquecer de colocá-la novamente antes de fazer um deploy em produção. Claro que um dia eu ia esquecer de algum dos passos, por isso tinha que encontrar uma forma de automatizar isso. E encontrei, veja como fazer no <strong>Snippet 1.</strong></p>
+<p>//Snippet 1</p>
+<p>[sourcecode language="xml"]<br />
+&lt;staticContent&gt;<br />
+ &lt;remove fileExtension=&quot;.woff&quot; /&gt;<br />
+ &lt;mimeMap fileExtension=&quot;.woff&quot; mimeType=&quot;font/x-woff&quot; /&gt;<br />
+&lt;/staticContent&gt;<br />
+[/sourcecode]</p>
+<p>Basicamente, eu automatizei a remoção da configuração antes de adicioná-la e assim tive meu problema resolvido em ambos ambientes (desenvolvimento e produção).</p>
+<p>Tem alguma outra solução? Deixe nos comentários.</p>
+<p>Até o próximo post.</p>

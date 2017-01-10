@@ -1,17 +1,14 @@
 # Site settings
-title: Willian Justen - Desenvolvedor Front End
-description: A blog about lorem ipsum dolor sit amet
-baseurl: "/cards-jekyll-template" # the subpath of your site, e.g. /blog
-url: "https://willianjusten.com.br" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
+title: Wennder dos Santos - Software developer
+description: Posts about Cordova, IONIC, ASP.NET, C#, JS, Azure and other things
+# url: "http://wenndersantos.net"
 
 # User settings
-username: Lorem Ipsum
-user_description: Anon Developer at Lorem Ipsum Dolor
-email: anon@anon.com
-twitter_username: lorem_ipsum
-github_username:  lorem_ipsum
-gplus_username:  lorem_ipsum
-disqus_username: lorem_ipsum
+username: Wennder dos santos
+user_description: Software developer
+email: wennder.santos@outlook.com
+twitter_username: wenndersantos
+github_username:  wenndersantos
 
 # Build settings
 markdown: kramdown
@@ -31,12 +28,12 @@ compress_html:
 links:
   - title: Home
     url: /
-  - title: Series
-    url: /series
-  - title: Tags
-    url: /tags
-  - title: About Me
-    url: /about
+ # - title: Series
+  #  url: /series
+  #- title: Tags
+   # url: /tags
+  #- title: About Me
+   # url: /about
 
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']

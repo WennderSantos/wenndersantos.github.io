@@ -1,0 +1,46 @@
+---
+layout: post
+title: CORDOVA/IOS 9 – APP NÃO RESPEITA A STATUS BAR
+date: 2016-01-15 05:01:24.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- Cordova
+tags:
+- iOS9
+meta:
+  _edit_last: '1'
+  _oembed_689b40942dc4c91079882f7286b8c797: '{{unknown}}'
+  _oembed_7fd2e134f404ddd0c34e89280af67fac: '{{unknown}}'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo bom?</p>
+<p>Hoje, o post será uma dica rápida.</p>
+<p>Costumo responder perguntas no stackoverflow e vi várias pessoas com problemas na statusbar do iOS 9. A maioria dos problemas era em relação a statusbar estar ficando sobre o app.</p>
+<p>Pesquisando sobre o assunto, a solução que encontrei e que está 100% funcionando foi através desse plugin:<br />
+<a href="https://www.npmjs.com/package/cordova-plugin-statusbar" target="_blank">https://www.npmjs.com/package/cordova-plugin-statusbar</a></p>
+<p>Mas, não é só instalar que tudo vai estar ‘ok’.</p>
+<p><!--more--></p>
+<p><strong>Inserir feature no config.xml</strong></p>
+<p>Nos doc’s do plugin, está falando que para a statusbar não ficar sobre o app, a configuração de overlay deve ser setada para false. Dessa forma:</p>
+<blockquote><p>
+StatusBar.overlaysWebView(false);</p></blockquote>
+<p>Legal, #sqn funciona para o iOS 9. Pelo menos, não hoje.</p>
+<p>Bom, para que a configuração funcione é necessário que seja feita no config.xml. Dessa forma:</p>
+<blockquote><p><code class="xml plain">&lt;</code><code class="xml keyword">preference</code> <code class="xml color1">name</code><code class="xml plain">=</code><code class="xml string">"StatusBarOverlaysWebview"</code> <code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"false"</code><code class="xml plain">/&gt;</code></p></blockquote>
+<p>E para setar uma cor, use a seguinte configuração:</p>
+<blockquote><p><code class="xml plain">&lt;</code><code class="xml keyword">preference</code> <code class="xml color1">name</code><code class="xml plain">=</code><code class="xml string">"StatusBarBackgroundColor"</code> <code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"#ff0000"</code><code class="xml plain">/&gt;</code></p></blockquote>
+<p>Você já passou por esse problema? Resolveu de uma forma diferente? Poderia deixar nos comentários como resolveu?</p>
+<p>Era isso que queria falar :)</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p>Referências</p>
+<p>https://www.npmjs.com/package/cordova-plugin-statusbar</p>
+<p>https://forum.ionicframework.com/t/navbar-is-under-the-status-bar-on-ios-simulator/187/38</p>

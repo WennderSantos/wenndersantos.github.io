@@ -1,0 +1,145 @@
+---
+layout: post
+title: ASP.NET MVC - Utilizando o ReportViwer para exibir relatórios em PDF
+date: 2015-02-13 16:52:48.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+- C#
+- ReportViwer
+tags:
+- Asp.net mvc
+- pdf
+- Relatório
+- ReportViwer
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+  _oembed_9e1cd83e58b9087c5571c408481ca2bb: '{{unknown}}'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>E aê pessoal, tudo certo?</p>
+<p>No post anterior, <a href="http://wenndersantos.net/2015/02/12/asp-net-mvc-utilizando-o-controle-reportviwer-para-exibir-relatorios/" target="_blank">Utilizando o controle ReportViwer do webforms para exibir relatórios,</a> mostrei como utilizar o controle do ReportViwer no asp.net mvc.</p>
+<p>Nessa publicação mostrarei como exibir relatórios utilizando o ReportViwer, porém, sem o controle do webforms. Desta vez, veremos como exibir um relatório em PDF e como fazer o download do mesmo.</p>
+<p><!--more--></p>
+<p><strong>Criando a aplicação</strong></p>
+<p>Os exemplos abaixo foram feitos utilizando o Visual Studio 2013.</p>
+<p>Para começar, crie um novo projeto do tipo <strong>C#  &gt;&gt;  Web  &gt;&gt;  ASP.NET Web Application</strong>. Dê o nome de <strong>ReportViwerRelatorioEmPDF</strong>. Escolha o template MVC.</p>
+<p>Na pasta Models, crie uma nova classe chamada <strong>ProdutoModels </strong>e insira o seguinte código:</p>
+<p>[sourcecode language="csharp"]<br />
+namespace UtilizandoControleReportViwer.Models<br />
+{<br />
+ public class ProdutoModels<br />
+ {<br />
+ public int Codigo { get; set; }<br />
+ public string Nome { get; set; }<br />
+ public double Preco { get; set; }<br />
+ public double QtdEmEstoque { get; set; }<br />
+ }<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Listagem 1 - Código do ProdutoModels</strong></p>
+<p>Crie uma nova pasta na solution chamada <strong>Relatorio. </strong>Com a pasta criada, adicione um novo item do tipo <strong>Data  &gt;&gt;  DataSet </strong>com o nome <strong>dsProduto.xsd</strong>.</p>
+<p>[caption id="attachment_2021" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/ReportViwerRelatorioEmPDF_Figura-1.png"><img class="size-full wp-image-2021" src="{{ site.baseurl }}/assets/img/ReportViwerRelatorioEmPDF_Figura-1.png" alt="Figura 1 - Criando o dataset dsProduto" width="1600" height="857" /></a> Figura 1 - Criando o dataset dsProduto[/caption]</p>
+<p>Com o dataset criado, dê um duplo clique em dsProduto.xsd para abrir seu modo design. Ao abrir o modo design, crie uma table. Para fazer isso, clique com o botão direito em qualquer local <strong>Add  &gt;&gt;  DataTable</strong>. Renomeie o DataTable para <strong>dsProduto </strong>e crie as seguintes colunas:</p>
+<ol>
+<li>Codigo</li>
+<li>Nome</li>
+<li>Preco</li>
+<li>QtdEmEstoque</li>
+</ol>
+<p>As colunas criadas no dataset são relacionadas as propriedades da classe ProdutoModels. Vale lembrar que o nome das colunas do datatable dsProduto devem ter exatamente o mesmo nome das propriedades da classe ProdutoModels.</p>
+<p>Ainda na pasta Relatorio, adicione um novo item do tipo <strong>Reporting  &gt;&gt;  Report </strong>com o nome <strong>ListaProduto.rdlc</strong>.</p>
+<p>[caption id="attachment_2031" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/ReportViwerRelatorioEmPDF_Figura-2.png"><img class="size-full wp-image-2031" src="{{ site.baseurl }}/assets/img/ReportViwerRelatorioEmPDF_Figura-2.png" alt="Figura 2 - Adicionando um arquivo rdlc ao projeto." width="1600" height="856" /></a> Figura 2 - Adicionando um arquivo rdlc ao projeto.[/caption]</p>
+<p>Com o arquivo ListaProduto.rdlc criado, dê um duplo clique no mesmo para abrir o modo design. Ao abrir o modo design, vamos criar uma table. Para fazer isso, clique com o botão direito no local branco <strong>Insert  &gt;&gt;  Table. </strong>Nesse momento a janela Dataset Properties será aberta para setarmos um data source para a table que estamos criando. Na opção <strong>name</strong> dessa janela informe <strong>dsProduto. </strong>Na opção <strong>Data Source</strong> selecione o dataset dsProduto que criamos anteriormente e clique em ok.</p>
+<p>[caption id="attachment_2041" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/ReportViwerRelatorioEmPDF_Figura-3.png"><img class="size-full wp-image-2041" src="{{ site.baseurl }}/assets/img/ReportViwerRelatorioEmPDF_Figura-3.png" alt="Figura 3 - Configurando Data Source para a table." width="1600" height="855" /></a> Figura 3 - Configurando Data Source para a table.[/caption]</p>
+<p>Ao clicar em ok a table será criada. O próximo passo é configurar a ordem que os dados serão exibidos na table. Clique no canto superior direito de uma célula na linha Data da tabela, ao fazer isso veremos as opções de data source que configuramos. Coloque os dados na seguinte ordem:</p>
+<ol>
+<li>Codigo</li>
+<li>Nome</li>
+<li>Preco</li>
+<li>QtdEmEstoque</li>
+</ol>
+<p>Bom, agora partiremos para a código do controller. Precisamos instalar e referênciar a dll do report viwer em nosso projeto. Faremos isso com o nuget. Digite o comando abaixo no package manager console:</p>
+<blockquote><p>Install-Package MicosoftReportViewerWebForms_v11</p></blockquote>
+<p>Na pasta Controllers, abra o controller Home e insira uma action chamada <strong>Relatorio </strong>e adicione o seguinte código:</p>
+<p>[sourcecode language="csharp"]<br />
+ public ActionResult Relatorio()<br />
+ {<br />
+ //instanciando e populando lista de produtos<br />
+ var listaProduto = new List&lt;ProdutoModels&gt;()<br />
+ {<br />
+ new ProdutoModels{Codigo = 1, Nome = &quot;Teclado&quot;, Preco = 31.50, QtdEmEstoque = 100},<br />
+ new ProdutoModels{Codigo = 2, Nome = &quot;Mouse&quot;, Preco = 20, QtdEmEstoque = 75},<br />
+ new ProdutoModels{Codigo = 3, Nome = &quot;Monitor&quot;, Preco = 350.99, QtdEmEstoque = 83},<br />
+ new ProdutoModels{Codigo = 4, Nome = &quot;Fone de ouvido&quot;, Preco = 59.60, QtdEmEstoque = 18},<br />
+ new ProdutoModels{Codigo = 5, Nome = &quot;Mousepad&quot;, Preco = 8.30, QtdEmEstoque = 33},<br />
+ new ProdutoModels{Codigo = 6, Nome = &quot;Notebook&quot;, Preco = 2500.70, QtdEmEstoque = 20},<br />
+ new ProdutoModels{Codigo = 7, Nome = &quot;HD SSD 120 GB&quot;, Preco = 240, QtdEmEstoque = 17},<br />
+ new ProdutoModels{Codigo = 8, Nome = &quot;Placa de vídeo&quot;, Preco = 999, QtdEmEstoque = 42},<br />
+ new ProdutoModels{Codigo = 9, Nome = &quot;Gabinete&quot;, Preco = 60, QtdEmEstoque = 23},<br />
+ new ProdutoModels{Codigo = 10, Nome = &quot;Iphone 6&quot;, Preco = 3000, QtdEmEstoque = 50}<br />
+ };</p>
+<p> LocalReport relat = new LocalReport();<br />
+ //caminho do arquivo rdlc<br />
+ relat.ReportPath = Server.MapPath(&quot;~/Relatorio/ListaProduto.rdlc&quot;);</p>
+<p> //vinculando dataset ao objeto relat<br />
+ var ds = new ReportDataSource();<br />
+ ds.Name = &quot;dsProduto&quot;;<br />
+ ds.Value = listaProduto;<br />
+ relat.DataSources.Add(ds);</p>
+<p> //definindo tipo que o relatório será renderizado<br />
+ string reportType = &quot;PDF&quot;;<br />
+ string mimeType;<br />
+ string encoding;<br />
+ string fileNameExtension;</p>
+<p> //configurações da página ex: margin, top, left ...<br />
+ string deviceInfo =<br />
+ &quot;&lt;DeviceInfo&gt;&quot; +<br />
+ &quot;&lt;OutputFormat&gt;PDF&lt;/OutputFormat&gt;&quot; +<br />
+ &quot;&lt;PageWidth&gt;8.5in&lt;/PageWidth&gt;&quot; +<br />
+ &quot;&lt;PageHeight&gt;11in&lt;/PageHeight&gt;&quot; +<br />
+ &quot;&lt;MarginTop&gt;0.5in&lt;/MarginTop&gt;&quot; +<br />
+ &quot;&lt;MarginLeft&gt;1in&lt;/MarginLeft&gt;&quot; +<br />
+ &quot;&lt;MarginRight&gt;1in&lt;/MarginRight&gt;&quot; +<br />
+ &quot;&lt;MarginBottom&gt;0.5in&lt;/MarginBottom&gt;&quot; +<br />
+ &quot;&lt;/DeviceInfo&gt;&quot;;</p>
+<p> Warning[] warnings;<br />
+ string[] streams;<br />
+ byte[] bytes;</p>
+<p> //Renderizando o relatório o bytes<br />
+ bytes = relat.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);</p>
+<p> //Retornondo o arquivo renderizado<br />
+ //dessa forma o arquivo será aberto na mesma aba do navegador em que foi chamado<br />
+ return File(bytes, mimeType);</p>
+<p> //para fazer o download, informe um terceiro parametro ao método file.<br />
+ //O terceiro parametro será definido como nome do arquivo<br />
+ //ex:<br />
+ //return File(bytes, mimeType, &quot;ListadeProduto&quot;);<br />
+ }<br />
+[/sourcecode]</p>
+<p><strong>Listagem 2 - Código da action Relatorio.</strong></p>
+<p>Na pasta <strong>Views  &gt;&gt; Home</strong>, abra a view Index apague seu conteúdo e insira o código abaixo:</p>
+<p>[sourcecode language="html"]<br />
+@{<br />
+ ViewBag.Title = &quot;Home Page&quot;;<br />
+}<br />
+&lt;a href=&quot;/Home/Relatorio&quot;&gt;Lista de Produto&lt;/a&gt;<br />
+[/sourcecode]</p>
+<p><strong>Listagem 3 - Código da view Index.</strong></p>
+<p>A view Index só terá um link que executará a ação que renderiza o relatório no controller Home.</p>
+<p>Executando a aplicação e clicando no link <strong>Lista de Produtos </strong>teremos o seguinte resultado:</p>
+<p>[caption id="attachment_2071" align="alignnone" width="1600"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/ReportViwerRelatorioEmPDF_Figura-4.png"><img class="size-full wp-image-2071" src="{{ site.baseurl }}/assets/img/ReportViwerRelatorioEmPDF_Figura-4.png" alt="Figura 4 - Resultado final da aplicação" width="1600" height="483" /></a> Figura 4 - Resultado final da aplicação[/caption]</p>
+<p>Você pode optar por não usar dataset e obter o mesmo resultado usando um dto, veja como:</p>
+<p><a href="http://rafaelzaccanini.net.br/2011/04/05/criando-relatorios-report-viewer-em-aplicacoes-asp-net-mvc-parte-1-renderizacao-pelo-controller/" target="_blank">http://rafaelzaccanini.net.br/2011/04/05/criando-relatorios-report-viewer-em-aplicacoes-asp-net-mvc-parte-1-renderizacao-pelo-controller/</a></p>
+<p>Bom, era isso que eu queria mostrar.</p>
+<p>O código do projeto está <a href="https://github.com/WennderSantos/ReportViwerRelatorioEmPDF" target="_blank">aqui</a>.</p>
+<p>Até o próximo post!</p>

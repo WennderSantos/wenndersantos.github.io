@@ -1,0 +1,201 @@
+---
+layout: post
+title: HTML 5 - Web Workers
+date: 2014-10-01 00:06:09.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- HTML5
+tags:
+- collatz
+- HTML5
+- javascript
+- web worker
+- workers
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo bom?</p>
+<p>Saindo um pouco do mundo back-end, hoje falarei sobre um recurso do HTML5 que nos fornece a capacidade de executar javaScript em segundo plano. Este é o Web Worker.</p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2014/09/html5_logo-e1422121029739.png"><img class="  wp-image-262 aligncenter" src="{{ site.baseurl }}/assets/img/html5_logo-e1422121029739.png" alt="HTML5_logo" width="202" height="202" /></a> <!--more--></p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p>Há uns dois anos atrás eu escutei um podcast onde um desenvolvedor que é referência técnica no Brasil dizia: "programador web que não souber javascritpt, css e html não terá espaço no mercado num futuro bem próximo". Acredito que já alcançamos o futuro que ele se referia.</p>
+<p>[editado data="01/10/2014 11:52:00"]</p>
+<p>Atualmente, muito javascript está sendo usado em aplicações web, tanto no lado do cliente como no servidor. É comum em alguns momentos encontrarmos problemas relacionados a maneira que nossos scripts são executados.</p>
+<p>[/editado]</p>
+<p>Javascript roda em uma única thread, realizando uma tarefa de cada vez. Ao executar um algoritmo que exige um  pouco mais de processo, a tela do navegador ficará "travada" até que essa tarefa seja finalizada. Quando fazemos chamadas ao servidor conseguimos resolver isso facilmente utilizando Ajax. Mas, como fazer para que tarefas longas sejam executadas sem que a página pare de responder para o cliente enquanto essa tarefa não for finalizada? A resposta para essa pergunta está no tema dessa publicação, <strong>Web Worker</strong>.</p>
+<p><strong>WEB WORKER</strong></p>
+<p>Web Worker ou workers é um recurso do HTML5 que nos permite executar javascript em segundo plano. Dessa forma, mesmo execuções de longa duração não irão fazer que o navegador pare de responder até o termino dessa execução. Todos os principais browsers em suas ultimas versões dão suporte ao web worker. Embora seja um recurso muito interessante devemos utilizá-lo com cautela, pois, o uso de workers nos custa uma considerável porção de desempenho e memória, não podemos nos esquecer de que essas tarefas estão sendo executadas na máquina cliente. Vejamos alguns exemplos: Utilizarei o mesmo algoritmo em todos os exemplos, o algoritmo é um dos "problemas matemáticos" conhecido como Problema de Collatz, onde, para definir uma sequência a partir de um número inteiro positivo, temos as seguintes regras:</p>
+<p>Se n é par, o próximo valor é n/2</p>
+<p>Se n é ímpar, o próximo valor é 3n + 1</p>
+<p>Usando a regra acima e iniciando com o número 13, geramos a seguinte sequência:</p>
+<p>13 -&gt; 40 -&gt; 20 -&gt; 10 -&gt; 5 -&gt; 16 -&gt; 8 -&gt; 4 -&gt; 2 -&gt; 1</p>
+<p>Podemos ver que esta sequência (iniciando em 13 e terminando em 1) contém 10 termos. Embora ainda não tenha sido comprovada, sabemos que com qualquer número que você começar, a sequência resultante chega no número 1 em algum momento. Pois bem, o snippet  abaixo armazena na variável <strong>resultado </strong>o menor número inicial entre 1 e 20 que gera a maior sequencia, veja:</p>
+<p>[sourcecode language="javascript"]<br />
+var contadorGeral = 0, contadorAux = 1, aux, resultado = 1;<br />
+for (var i = 1; i &lt;= 20; i++) {<br />
+  aux = i;<br />
+  do {<br />
+    contadorAux += 1;<br />
+    if (aux % 2 == 0) {<br />
+      aux /= 2;<br />
+    }<br />
+    else {<br />
+      aux = ((aux * 3) + 1) / 2;<br />
+      contadorAux += 1;<br />
+    }<br />
+  } while (aux != 1);<br />
+  if (contadorAux &gt; contadorGeral) {<br />
+    resultado = i;<br />
+    contadorGeral = contadorAux;<br />
+    contadorAux = 1;<br />
+  }<br />
+}<br />
+[/sourcecode]</p>
+<p>Se o script acima for executado com um range de números inicial e final muito alto (ex: 1 e 1 000 000) o navegador ficará sem resposta ("travado") durante alguns segundos até que a execução seja finalizada. Podemos resolver esse problema fazendo com que esse script seja executado em segundo plano através de um Worker. Para fazer isso primeiramente devemos criar um novo arquivo .js e colocar nosso algoritmo dentro desse arquivo. No meu caso eu criei o arquivo <strong>Collatz.js</strong>. Seguindo em frente, vamos voltar ao nosso arquivo .js original, que no meu caso se chama <strong>app.js. </strong>Mesmo que todos os browsers atuais deem suporte para Workers, vamos fazer uma validação para verificar, fazemos isso utilizando o trecho de código abaixo:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+if(typeof(Worker) !== undefined){<br />
+  //com suporte<br />
+}<br />
+else{<br />
+  //sem suporte<br />
+}<br />
+[/sourcecode]</p>
+<p>Ao validar que o browser suporta o uso de Workers vamos criar um objeto Worker passando um argumento para seu construtor, esse argumento será o caminho do arquivo .js onde se encontra o script que será executado em segundo plano, nesse caso o arquivo <strong>Collatz.js, </strong>ficando da seguinte forma:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+if(typeof(Worker) !== undefined)<br />
+{<br />
+  var w = new Worker('/Assets/js/Collatz.js');<br />
+}<br />
+else{<br />
+  //sem suporte<br />
+}<br />
+[/sourcecode]</p>
+<p>Repare que eu precisei navegar pela pasta Assets e js até chegar ao arquivo Collats.js. Bom, já temos quase tudo pronto,  agora veremos como executar o script que está no arquivo externo <strong>Collatz</strong>. O Objeto worker se “comunica” com o arquivo externo através de mensagens, para iniciar a execução do script que está no arquivo <strong>Collatz </strong>devemos enviar uma mensagem para ele, fazemos isso utilizando o método postMessage(), dessa forma:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+if(typeof(Worker) !== undefined){<br />
+  var w = new Worker('/Assets/js/Collatz.js');<br />
+  w.postMessage();<br />
+}<br />
+else{<br />
+  //sem suporte<br />
+}<br />
+[/sourcecode]</p>
+<p>No exemplo acima, <strong>w.postMessage() </strong>inicia o download do arquivo "/Assets/js/Collatz.js" que foi informado na criação do objeto Worker, o download é assíncrono e caso o arquivo não exista será retornado um erro 404 (not found). Ao finalizar o download do arquivo sua execução será iniciada. Beleza, executamos o arquivo e nada aconteceu. Na verdade aconteceu sim, nós só não estamos tratando isso. Da mesma forma que o <strong>postMessage() </strong>envia mensagem para o arquivo externo, esse arquivo também pode usar o método <strong>postMessage()</strong> para enviar mensagem para o objeto que o chamou, então vamos fazer isso e retornar o resultado do algorítimo para que quem o chamou possa tratá-lo. Veja abaixo o arquivo <strong>Collatz.js </strong>alterado para enviar o resultado para quem fez sua chamada:</p>
+<p>[sourcecode language="javascript"]<br />
+//Collatz.js<br />
+var contadorGeral = 0, contadorAux = 1, aux, resultado = 1;<br />
+for (var i = 1; i &lt;= 20; i++) {<br />
+  aux = i;<br />
+  do {<br />
+    contadorAux += 1;<br />
+    if (aux % 2 == 0) {<br />
+      aux /= 2;<br />
+    }<br />
+    else {<br />
+      aux = ((aux * 3) + 1) / 2;<br />
+      contadorAux += 1;<br />
+    }<br />
+  } while (aux != 1);<br />
+  if (contadorAux &gt; contadorGeral) {<br />
+    resultado = i;<br />
+    contadorGeral = contadorAux;<br />
+    contadorAux = 1;<br />
+  }<br />
+}<br />
+//retornando o resultado<br />
+postMessage(resultado);<br />
+[/sourcecode]</p>
+<p>Pronto, estamos enviando para o objeto Worker o resultado da execução do script <strong>Collats.js, </strong>mas, isso não é tudo que precisamos fazer para conseguir recuperar esse resultado, agora precisamos criar um <em>listener</em> no arquivo <strong>app.js</strong> para ficar “escutando” as mensagens que serão enviadas para o objeto Worker, veja a criação desse <em>listener</em> abaixo:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+if(typeof(Worker) !== undefined){<br />
+  var w = new Worker('/Assets/js/Collatz.js');<br />
+  w.postMessage(); //iniciando o worker<br />
+  //listener<br />
+  w.onmessage = function(retorno){<br />
+    console.log(retorno.data); //tratando o retorno<br />
+  }<br />
+}<br />
+else{<br />
+  //sem suporte<br />
+}<br />
+[/sourcecode]</p>
+<p>Agora tudo certo, criamos o <em>listener</em> <strong>onmessage </strong>para tratar o retorno do script <strong>Collatz.js</strong>. Existe outro <em>listener </em>que podemos usar, dessa vez para tratar erros, o <strong>onerror</strong>. Sua declaração é bem parecida com a do onmessage, veja:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+w.onerror = function(event) {<br />
+  console.log('Erro no arquivo: ' + event.filename + 'nlinha: ' + event.lineno +  'nDescrição: ' + event.message);<br />
+};<br />
+[/sourcecode]</p>
+<p>O tratamento de erro acima será executado quando um erro for disparado e nos mostrará em qual arquivo, número da linha que ocorreu e descrição do erro respectivamente, o ‘n’ foi usado para quebrar linha entre uma informação e outra.</p>
+<p>Para finalizar, vamos deixar o código um pouco mais dinâmico, fazendo com que o script <strong>Collatz.js </strong>receba dois parâmetros, que serão o número inicial e final usados no calculo. Primeiro vamos alterar o arquivo <strong>Collatz.js </strong>para que ele passe a receber parâmetros. Como o Worker se comunica através de mensagens, você verá que o código usado é bem parecido com o código usado para tratar o retorno do script, vejamos:</p>
+<p>[sourcecode language="javascript"]<br />
+/Collatz.js<br />
+//listener &quot;escutando&quot; mensagens<br />
+onmessage = function (param) {<br />
+  var contadorGeral = 0, contadorAux = 1, aux, resultado = 1, numInicial = param.data[0], numFinal = param.data[1];<br />
+  for (var i = 1; i &lt;= 20; i++) {<br />
+    aux = i;<br />
+    do {<br />
+      contadorAux += 1;<br />
+      if (aux % 2 == 0) {<br />
+        aux /= 2;<br />
+      }<br />
+      else {<br />
+        aux = ((aux * 3) + 1) / 2;<br />
+        contadorAux += 1;<br />
+      }<br />
+    } while (aux != 1);<br />
+    if (contadorAux &gt; contadorGeral) {<br />
+      resultado = i;<br />
+      contadorGeral = contadorAux;<br />
+      contadorAux = 1;<br />
+    }<br />
+}<br />
+postMessage(resultado);<br />
+};<br />
+[/sourcecode]</p>
+<p>Basicamente o que fizemos foi criar um <em>listener </em>que ficará “escutando” as mensagens, que nesse caso será um parâmetro, que são enviados para ele. Repare que <strong>param</strong> é um Array, quando precisamos enviar mais de um valor para o Worker devemos fazer isso utilizando um Array ou um objeto json. Agora que o arquivo <strong>Colatz.js</strong> já está preparado para receber parâmetros, vamos fazer com que a chamada do Worker envie parâmetros, veja isso logo abaixo:</p>
+<p>[sourcecode language="javascript"]<br />
+//app.js<br />
+if(typeof(Worker) !== undefined){<br />
+  var w = new Worker('/Assets/js/Collatz.js');<br />
+  //iniciando o worker<br />
+  var parametro= new Array; //Criando objeto Array<br />
+  parametro.push(1);<br />
+  parametro.push(20);<br />
+  w.postMessage(parametro);  //enviando parametro para o Worker<br />
+  //listener<br />
+  w.onmessage = function(retorno){<br />
+    //tratando o retorno<br />
+    console.log(retorno.data);<br />
+  }<br />
+}<br />
+else{<br />
+  //sem suporte<br />
+}<br />
+[/sourcecode]</p>
+<p>Para enviar dois números como parâmetros, criamos o Array <strong>parâmetro </strong>e usando o método push(), que adiciona um elemento no final do Array, adicionamos o número 1 e o número 20 para que sejam enviados para o script <strong>Colatz.js.</strong></p>
+<p>Bom pessoal, era isso, fácil e com poucas linhas de código é possível implementar um Worker, para ler a documentação do web worker acesse o site da w3c em <a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a>.</p>
+<p>Até o próximo post!</p>

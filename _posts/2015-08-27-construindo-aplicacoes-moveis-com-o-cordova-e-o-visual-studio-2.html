@@ -1,0 +1,82 @@
+---
+layout: post
+title: 'Construindo aplicações móveis com o Cordova e o Visual Studio #2'
+date: 2015-08-27 04:40:41.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Cordova
+- Mobile
+tags:
+- Visual Studio
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<div>Fala pessoal, tudo bom?<br />
+Nesse post, vou criar uma pequena demo que acessa a câmera e o álbum de fotos de um dispositivo móvel e mostrar como é fácil desenvolver um aplicativo híbrido no Visual Studio com o Apache Cordova. Com um único código, o app funcionará para Android, Windows Phone e IOS.</div>
+<div></div>
+<div>Essa publicação é a continuação do vídeo <a href="http://wenndersantos.net/2015/07/construindo-aplicacoes-moveis-com-o-cordova-e-o-visual-studio-1/" target="_blank">Construindo aplicações móveis com o Cordova e o Visual Studio #1</a> que publiquei alguns dias atrás. Então, vamos lá!</div>
+<div></div>
+<p><!--more--></p>
+<div>Para seguir com a demonstração, será necessário o <a href="https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx" target="_blank">Visual Studio Community 2015 com os seguintes recursos</a>:</div>
+<p style="text-align: left;"><a href="http://wenndersantos.net/wp-content/uploads/2015/08/Recursos_vs2015_cordova.png"><img class="size-full wp-image-3183 aligncenter" src="{{ site.baseurl }}/assets/img/Recursos_vs2015_cordova.png" alt="Imagem 1 - Recursos necessários" width="461" height="361" /></a></p>
+<p style="text-align: left;">É possível usar outras versões do Visual Studio, só mencionei a Community porque ela é free*. Você pode, até mesmo, usar o Visual Studio 2013 <strong>a partir do update 4</strong> com a extensão <a href="http://www.microsoft.com/en-us/download/details.aspx?id=42675" target="_blank">Visual Studio Tools for Apache Cordova</a>.</p>
+<p style="text-align: left;">Ao finalizar a instalação, crie um novo projeto do tipo <strong>JavaScript</strong> &gt; <strong>Apache Cordova Apps</strong>:</p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2015/08/newProject_Cordova.png"><img class="wp-image-3184 size-full" src="{{ site.baseurl }}/assets/img/newProject_Cordova.png" alt="newProject_Cordova" width="941" height="653" /></a></p>
+<p style="text-align: left;">Essa demo será pequena, portanto, teremos somente uma tela e não usaremos frameworks javacript (Angular, jquery, etc.) e nem bibliotecas css (bootstrap, materialize, etc.).</p>
+<p style="text-align: left;">Na solution explorer, abra o arquivo <strong>index.js </strong>dentro da pasta <strong>www</strong>. No código do arquivo index.html, vamos adicionar dois botões (um para abrir a câmera e outro para abrir o álbum de fotos) e uma imagem para exibirmos a foto, como mostra o código abaixo:</p>
+<p>[sourcecode language="html"]<br />
+&lt;body&gt;</p>
+<p>Demo Câmera</p>
+<p>&lt;button id=&quot;camera&quot;&gt;Tirar foto&lt;/button&gt;</p>
+<p>&lt;button id=&quot;albumFoto&quot;&gt;Abrir o álbum de fotos&lt;/button&gt;</p>
+<p> &lt;img id=&quot;foto&quot; /&gt;<br />
+&lt;!-- Cordova reference, this is added to your app when it's built. --&gt;<br />
+&lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;<br />
+&lt;script src=&quot;scripts/platformOverrides.js&quot;&gt;&lt;/script&gt;</p>
+<p>&lt;script src=&quot;scripts/index.js&quot;&gt;&lt;/script&gt;<br />
+&lt;/body&gt;<br />
+[/sourcecode]</p>
+<p>Antes de escrever o comportamento dos botões, vamos adicionar um plugin que, através de uma api javascript, nos permitirá acesso aos recursos de câmera do dispositivo. Para adiciona-lo ao projeto, dê dois click's no arquivo <strong>config.xml</strong>, na raiz da solution. Na janela que abrir, selecione <strong>Plugins </strong>no menu do lado esquerdo. Uma lista de Plugins será listada, selecione Camera e clique no botão Add, como na imagem abaixo. Aguarde a instalação.</p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2015/08/addPluginCamera.png"><img class="alignnone size-full wp-image-3199" src="{{ site.baseurl }}/assets/img/addPluginCamera.png" alt="addPluginCamera" width="1920" height="1020" /></a></p>
+<p>Tudo preparado, estamos prontos para definir o comportamento dos botões. Abra o arquivo <strong>index.js, </strong>dentro da pasta <strong>www &gt; scripts</strong> e escreva o seguinte código:</p>
+<p>[sourcecode language="javascript"]</p>
+<p>(function () {<br />
+ document.getElementById(&quot;camera&quot;).addEventListener(&quot;click&quot;, capturarFoto);<br />
+ document.getElementById(&quot;albumFoto&quot;).addEventListener(&quot;click&quot;, abrirAlbumDeFotos);</p>
+<p> function capturarFoto() {<br />
+   navigator.camera.getPicture(captureSuccess, onFail, {<br />
+   quality: 50,<br />
+   destinationType: navigator.camera.DestinationType.FILE_URI //Tipo de retorno da imagem<br />
+  });<br />
+ }</p>
+<p> function abrirAlbumDeFotos() {<br />
+   navigator.camera.getPicture(captureSuccess, onFail, {<br />
+   quality: 50,<br />
+   destinationType: navigator.camera.DestinationType.FILE_URI, //Tipo de retorno da imagem<br />
+   sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM //Local da onde buscará a imagem, o padrão é abrir a camera<br />
+  });<br />
+ }</p>
+<p> //callback que receberá o caminho da imagem e atribuirá no source da tag img<br />
+ function captureSuccess(foto) {<br />
+   document.getElementById(&quot;foto&quot;).setAttribute(&quot;src&quot;, foto);<br />
+ }</p>
+<p> //callback de falha<br />
+ function onFail(message) {<br />
+   alert(&quot;Erro: &quot; + message);<br />
+ }<br />
+})();</p>
+<p>[/sourcecode]</p>
+<p>Coloquei alguns comentários em itens que defini como importantes, mas, caso você queira saber mais sobre a api de camera, <a href="http://cordova.apache.org/docs/en/2.5.0/cordova_camera_camera.md.html" target="_blank">acesse a documentação</a>.</p>
+<p>Com essa implementação, já conseguimos testar o app. Normalmente uso o meu device pessoal (android) ou um emulador. A Microsoft tem um <a href="https://www.visualstudio.com/en-us/features/msft-android-emulator-vs.aspx" target="_blank">emulador muito bom</a> e de graça, caso você não queira usar o do google.</p>
+<p>Galera, era isso que eu queria mostrar nesse post. No próximo, será mostrado em um vídeo a execução dessa demo em emuladores Android e Windows Phone.</p>
+<p>Até o próximo post!</p>

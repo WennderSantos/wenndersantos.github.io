@@ -1,0 +1,195 @@
+---
+layout: post
+title: Introdução ao .Net Framework – Parte 7/3 – Membros de tipos - Propriedades
+date: 2014-04-23 23:28:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- C#
+- Propriedades
+meta:
+  geo_public: '0'
+  _publicize_pending: '1'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>E aê, pessoal!</p>
+<p>Chegamos ao terceiro artigo que compõe a sétima parte da série introdução ao .Net Framework. Nessa sétima parte estamos falando sobre membros de tipos. Nessa publicação falarei sobre propriedades. <!--more-->Como de costume, em todas as publicações dessa série estou postando os link`s dos post`s anteriores para aqueles que caíram aqui de paraquedas e tem interesse em conferir os outros tópicos, segue abaixo:</p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p>4 - <a href="http://wenndersantos.net/2014/04/04/introducao-ao-net-framework-conversaocasting-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 4 - Conversão/Casting de tipos.</a></p>
+<p>5 - <a href="http://wenndersantos.net/2014/04/08/introducao-ao-net-framework-parte-5-namespaces-e-assemblies/" target="_blank">Introdução ao .Net Framework - Parte 5 - Namespace e Assemblies.</a></p>
+<p>6 - <a href="http://wenndersantos.net/2014/04/11/introducao-ao-net-framework-parte-6-boxing-e-unboxing/" target="_blank">Introdução ao .Net Framework - Parte 6 - Boxing e Unboxing.</a></p>
+<p>7 - <a href="//wenndersantos.net/2014/04/14/introducao-ao-net-framework-parte-71-membros-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 7/1 - Membros de tipos - Constantes, Campos.</a></p>
+<p>8 - <a href="http://wenndersantos.net/2014/04/21/introducao-ao-net-framework-72-membros-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 7/2 - Mebros de tipos - Métodos.</a></p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p><strong>            </strong>Uma propriedade é um membro de um tipo que permite definir informações referentes ao mesmo. Mais conhecida como <em>property</em>, as propriedades oferecem flexibilidade para ler, gravar ou calcular seus valores.</p>
+<p>Propriedades permitem que métodos sejam utilizados de uma forma simples, como se fossem campos. Propriedades podem ser declaradas sem parâmetros ou com parâmetros, nesse segundo caso, são denominadas indexadores. Não falaremos de indexadores nesse artigo.</p>
+<p><strong>Propriedades</strong></p>
+<p>Durante o tempo de execução de uma aplicação, informações de campos de tipos são usadas e ou alteradas diversas vezes. Veja no Exemplo 1 a definição de um tipo com alguns campos.</p>
+<p>Exemplo 1:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]</p>
+<p>public class Carro<br />
+{<br />
+  public string Cor;<br />
+  public decimal Km;<br />
+}<br />
+[/sourcecode]</p>
+<p>Veja agora o uso desses campos através de uma instância do tipo no Exemplo2.</p>
+<p>Exemplo 2:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]</p>
+<p>class Program<br />
+{<br />
+  static void Main(string[] args)<br />
+  {<br />
+   Carro Carro = new Carro(); //criando uma instância de carro<br />
+   Carro.Cor = &quot;Branco&quot;; //gravando valor no campo Cor<br />
+   Carro.Km = 10.000; //gravando valor no campo Km</p>
+<p>   System.Console.WriteLine(&amp;amp;quot;Meu carro é da cor &amp;amp;quot; + Carro.Cor + &amp;amp;quot; e está com &amp;amp;quot; + Carro.Km + &amp;amp;quot; quilometros rodados.&amp;amp;quot;); //Lendo os campos Cor e Km<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>Com o advento da programação orientada a objeto temos a disposição o benefício de encapsulamento de dados. Isso significa que podemos proteger as informações de estado de um tipo. Proteger? Isso mesmo, observe novamente o Exemplo 2, o que impediria de informarmos o valor -200 para o campo quilometragem? Se você disse: Nada! Acertou. Se isso acontecesse, as informações referentes a essa instância do tipo ficariam inconsistentes, pois, não existe um carro com a quilometragem -200. Veja no Exemplo 3 o mesmo tipo <strong>Carro</strong> mostrado no Exemplo 1 implementado com propriedades.</p>
+<p>Exemplo 3</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class Carro<br />
+{<br />
+ private string Cor<br />
+ {<br />
+  get {return Cor;}<br />
+  set {Cor = value;}<br />
+ }</p>
+<p> private decimal Km<br />
+ {<br />
+  get {return Km;}<br />
+  set {Km = value;}<br />
+ }<br />
+}<br />
+[/sourcecode]</p>
+<p>Pessoas espertas aquelas que disseram “Uou! Quanto código!”. Quando trabalhamos com propriedades nós deixamos os campos que contém informações visíveis somente dentro do tipo onde foram declarados e para utilizar essas informações são declarados dois métodos, sendo um para ler a informação e retornar seu valor e outro para gravar a informação. Veja no Exemplo 4 um exemplo de leitura e gravação de informação usando propriedades:</p>
+<p>Exemplo 4</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+class Program<br />
+{<br />
+   static void Main(string[] args)<br />
+   {<br />
+     Carro Carro = new Carro(); //criando uma instância de carro<br />
+     Carro.Cor = &quot;Branco&quot;; //gravando valor no campo Cor<br />
+     Carro.Km = 10.000; //gravando valor no campo Km</p>
+<p>     System.Console.WriteLine(&amp;amp;quot;Meu carro é da cor &amp;amp;quot; + Carro.Cor + &amp;amp;quot; e está com &amp;amp;quot; + Carro.Km + &amp;amp;quot; quilometros rodados.&amp;amp;quot;); //Lendo os campos Cor e Km<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>É possível criar propriedades que permitem somente a leitura, somente gravação ou leitura e gravação. Uma propriedade que permite leitura e gravação é declarada como mostrado no Exemplo 3. Propriedades somente leitura são declaradas sem o método <strong>set</strong> e propriedades somente gravação sem o método <strong>get</strong> como mostra o Exemplo 5.</p>
+<p>Exemplo5:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+ public class Carro<br />
+ {<br />
+   private string Cor<br />
+   {<br />
+    get {return Cor;}<br />
+    set {Cor = value;}<br />
+   }</p>
+<p>   private double Km<br />
+   {<br />
+    get {return Km;}<br />
+    set { Km = value;}<br />
+   }</p>
+<p>   private string Montadora //Propriedade somente leitura<br />
+   {<br />
+    get {return &quot;Montadora Brasil&quot;;}<br />
+   }</p>
+<p>   private string NumeroMotor //Propriedade somente gravação<br />
+   {<br />
+    set { NumeroMotor = value;}<br />
+   }<br />
+}<br />
+ [/sourcecode]</p>
+<p>Embora a segurança das informações seja a principal razão para se encapsular campos de informações de um tipo, existem outras. Por exemplo, suponha que você queira tratar a entrada de dados na classe <strong>Carro</strong>, veja no Exemplo 6 como poderia ser feito.</p>
+<p>Exemplo 6:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+ public class Carro<br />
+ {<br />
+   private string Cor<br />
+   {<br />
+    get {return Cor;}<br />
+    set {Cor = value;}<br />
+   }</p>
+<p>   private double Km<br />
+   {<br />
+    get {return Km;}   <br />
+    Set{<br />
+     if (Value &lt; 0)<br />
+      {      throw new ArgumentOutOfRangeException(&quot;Quilometragem&quot;, &quot;Não é permitido uma quilometragem negativa.&quot;);<br />
+      }<br />
+     Km = Value;<br />
+    }<br />
+ }</p>
+<p> private string Montadora<br />
+ {<br />
+  get {return &quot;Montadora Brasil&quot;;}<br />
+ }</p>
+<p> private string NumeroMotor<br />
+ {<br />
+  set { NumeroMotor = value;}<br />
+ }</p>
+<p>}<br />
+ [/sourcecode]</p>
+<p>Dessa forma será verificado se o valor informado para a quilometragem é menor que zero, caso seja, retorne uma <em>exception</em> informando que o valor não é valido para essa propriedade.</p>
+<p>De fato quando trabalhamos com propriedades temos diversas vantagens, porém, há também suas desvantagens. Uma delas é o aumento de código, se comparado ao uso de campos.  Mas, tenho uma boa notícia, essa forma de se trabalhar com propriedades é passado! Desde a versão 3.0 do C# um recurso chamado <em>Automatic Properties </em>foi inserido na linguagem. Veja a declaração de uma propriedade utilizando esse recurso no Exemplo 7:</p>
+<p>Exemplo 7:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]<br />
+public class Carro<br />
+ {<br />
+   public string Cor { get; set; } //Propriedade simples, sem tratamento, leitura e gravação</p>
+<p>   private double Km //propriedade com tratamento de entrada de informações. Leitura e gravação<br />
+   {<br />
+    get{return Km;}<br />
+    set{<br />
+       if (value &lt; 0)<br />
+throw new ArgumentOutOfRangeException(&quot;Quilometragem inválida&quot;, &quot;Não é permitido uma quilometragem negativa.&quot;);<br />
+       Km = value;<br />
+    }<br />
+   }<br />
+  public string Montadora { get { return &quot;MontadoraBrasil&quot;; } } //Propriedade somente Leitura<br />
+public string NumeroMotor { set; } //Propriedade somente gravação<br />
+}<br />
+[/sourcecode]</p>
+<p>Agora sim, perfeito! Não precisamos mais declarar a variável interna e nem os métodos <strong>Get</strong> e <strong>Set </strong>quando não houver necessidade de tratamento de dados, tanto os métodos quanto a variável são gerenciados automaticamente pelo compilador. O Exemplo 7 também mostra como declarar propriedades somente leitura e somente gravação. Agora podemos tratar propriedades como se fossem campos.</p>
+<p>As coisas boas não param no recurso <em>Automatic properties. </em>A partir do Visual Studio 2008 é possível utilizar um atalho para criar propriedades, basta digitar a palavra “<strong>prop</strong>”e teclar <strong>tab </strong>duas vezes, pronto a propriedade está criada e com o foco no tipo para que somente tenhamos que digita-lo e teclando <strong>tab </strong>novamente o foco vai para o nome da propriedade para que novamente só tenhamos que informar. Ao finalizar a declaração, tecle <strong>enter</strong> para que o curso pule de linha e possamos declarar uma nova propriedade.</p>
+<p>É importante saber algumas informações sobre propriedades, são elas:</p>
+<ul>
+<li>O CLR suporta propriedades de instância, estáticas e virtuais;</li>
+<li>Qualquer modificador de acesso pode ser usada na declaração de propriedades;</li>
+<li>Uma propriedade deve ter um nome e um tipo (não é permitido uma propriedade do tipo <strong>void</strong>).</li>
+<li>Uma propriedade deve ter um método <strong>get </strong>e um método <strong>set</strong> ou pelo menos um dos dois, sendo que, utilizando o recurso de <em>automatic properties</em>, esses podem ser omitidos.</li>
+<li>Mesmo que os métodos <strong>get </strong>e <strong> set </strong>sejam omitidos, quando compilado, o código completo desses métodos serão gerados no módulo gerenciado.</li>
+</ul>
+<p>Utilizar propriedades é muito importante para manter as informações de um tipo mais seguras.</p>
+<p><strong> </strong>Até o próximo post!</p>
+<p><strong>Referências</strong></p>
+<p>Propriedades (Guia de Programação em C#) - <a href="http://msdn.microsoft.com/pt-br/library/x9fsa0sw.aspx">http://msdn.microsoft.com/pt-br/library/x9fsa0sw.aspx</a></p>
+<p>Programação aplicada com Microsoft .Net Framework – Jeffrey Richter</p>

@@ -1,0 +1,120 @@
+---
+layout: post
+title: Introdução ao .Net Framework – Parte 6 – Boxing e Unboxing
+date: 2014-04-11 10:00:16.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- Boxing
+- Unboxing
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Sexta publicação da série introdução ao .Net <em>Framework</em>. Nesse post falarei sobre <em>boxing e unboxing </em>de tipos. Você sabia que pode estar realizando operações que podem estar diminuindo a performance do seu código?<!--more--></p>
+<p>Para quem não leu os post anteriores, recomendo que leiam, segue os link’s.</p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p>4 - <a href="http://wenndersantos.net/2014/04/04/introducao-ao-net-framework-conversaocasting-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 4 - Conversão/Casting de tipos.</a></p>
+<p>5 - <a href="http://wenndersantos.net/2014/04/08/introducao-ao-net-framework-parte-5-namespaces-e-assemblies/" target="_blank">Introdução ao .Net Framework - Parte 5 - Namespace e Assemblies.</a></p>
+<p><strong>INTRODUÇÃO</strong><strong> </strong></p>
+<p>Diferente dos tipos de referência os tipos de valor não são alocados na memória heap, não são referenciados e não sofrem coleta de lixo. Até aqui está claro que um tipo valor, quando falamos em desempenho, é melhor que um tipo-referência. Então porque não utilizamos mais tipos de valor? Existem várias respostas para essa pergunta, mas, em minha opinião, o principal fator é a facilidade de se trabalhar com classes.</p>
+<p>Já sabemos como funciona a conversão entre um tipo de referência para outro tipo referência e de um tipo-valor para outro tipo-valor. Agora vamos entender como o <em>framework</em> se comporta na conversão de um tipo valor para um tipo-referência. Esse tipo de conversão é chamado de <em>Boxing</em>.</p>
+<p><strong><em>BOXING</em></strong><strong> DE TIPOS-VALOR</strong></p>
+<p>É comum declararmos uma variável de tipo valor e em algum momento precisar obter uma referência da instancia criada desse tipo. Irei mostrar um exemplo passo a passo para ficar fácil o entendimento. Veja o código abaixo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]</p>
+<p>public class MinhaClasse<br />
+{<br />
+ //declarando uma struct<br />
+ //struct é um tipo valor<br />
+ struct ExemploStruct<br />
+ {<br />
+ public int a, b;<br />
+ }</p>
+<p> void Main()<br />
+ {<br />
+ //declarando um objeto ArrayList<br />
+ //esse objeto se encontra no namespace System.Collections<br />
+ ArrayList Aux = new ArrayList();</p>
+<p> //declarando uma variavel do tipo ExemploStruct<br />
+ //Como esse tipo é uma struct<br />
+ //seu valor será guardado na memória stack<br />
+ ExemploStruct Ex;</p>
+<p> }</p>
+<p>}<br />
+[/sourcecode]</p>
+<p>No código acima foi criada a classe <strong>MinhaClasse </strong>e dentro da classe foi criado um tipo <strong>struct </strong>chamado <strong>ExemploStruct</strong> e um método void, por enquanto você só precisa saber que void é um tipo de método que não tem retorno, chamando Main. O tipo struct é um tipo valor que é tipicamente usado para encapsular pequenos grupos de variáveis, como por exemplo, coordenadas ou características de um retângulo.  Dentro de <strong>ExemploStruct</strong> foram criadas duas variáveis do tipo System.Int32, “a” e “b”. No método Main() foi criado um objeto do tipo <strong>ArrayList</strong> e logo abaixo declarado uma variável do tipo <strong>ExemploStruct</strong>. O tipo <strong>ArrayList</strong> está presente dentro do namespace System.Collections. Com esse tipo é possível se trabalhar com lista, sendo que, seu tamanho pode ser aumentando de acordo com a necessidade. O <strong>ArrayList</strong> possui alguns métodos e um deles é muito usado, o <strong>Add</strong>. O método Add adiciona um objeto no final do <strong>ArrayList</strong>. Veja agora o mesmo código com mais um trecho implementado, usando o método <strong>Add</strong>:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"]</p>
+<p>public class MinhaClasse<br />
+{<br />
+ //declarando uma struct<br />
+ //struct é um tipo valor<br />
+ struct ExemploStruct<br />
+ {<br />
+ public int a, b;<br />
+ }</p>
+<p>void Main()<br />
+ {<br />
+ //declarando um objeto ArrayList<br />
+ //esse objeto se encontra no namespace System.Collections<br />
+ ArrayList Aux = new ArrayList();</p>
+<p>//declarando uma variavel do tipo ExemploStruct<br />
+ //Como esse tipo é uma struct<br />
+ //seu valor será guardado na memória stack<br />
+ ExemploStruct Ex;</p>
+<p>for (int i = 0; i &amp;amp;lt; 5; i++)<br />
+ {<br />
+ Ex.a = 1; //Atribuindo valor a variavel a do tipo ExemploStruct<br />
+ Ex.b = 2; //Atribuindo valor b variavel a do tipo ExemploStruct<br />
+ Aux.Add(Ex);<br />
+ }</p>
+<p> }</p>
+<p>[/sourcecode]</p>
+<p>Veja que foi criado um laço de repetição usando um for. Nesse laço eu inicializado as variáveis do tipo <strong>ExemploStruct </strong>e uso o método <strong>Add</strong> do meu objeto <strong>ArrayList</strong> para adicionar a instancia de <strong>ExemploStruct</strong> dentro de sua lista. Todo loop que ocorrer dentro desse for uma nova instancia de <strong>ExemploStruct </strong>será criada e adicionada dentro do <strong>ArrayList.</strong> Lembra quando eu disse quando que o método Add do tipo ArrayList adiciona um objeto no final da lista? Lembram também que um objeto é uma referência (ponteiro) que aponta para o local onde está armazenado seus valores na memória heap? Ou seja, para que o método <strong>Add </strong>funcione vamos ter que converter o tipo <strong>ExemploStruct</strong> em um objeto, essa conversão é chamada de <strong><em>boxing</em></strong>. Mas, só precisamos fazer essa conversão explicitamente em algumas linguagens, como o C++. O compilador do C# faz isso automaticamente!</p>
+<p>Lembrando que, para se trabalhar com objetos, mais recursos de processamento são usados como foi explicado no início desse post.  Tranquilo o <em>boxing </em> né? Vejamos agora o <em>Unboxing.</em></p>
+<p><strong><em>UNBOXING </em></strong><strong>DE TIPOS VALOR</strong></p>
+<p>Ainda analisando o código usado como exemplo para entendermos o <em>boxing</em>, imagine que em um momento da aplicação seja necessário obter um determinado valor do ArrayList, como isso seria feito? Veja o exemplo abaixo:</p>
+<p>C#</p>
+<p>[sourcecode language="csharp"] </p>
+<p>//Declarando um tipo valor ExemploStruct<br />
+ ExemploStruct ExUnboxing;</p>
+<p>/*Atribuindo o primeiro valor do ArrayList para a variavel ExUnboxing<br />
+ usando casting*/<br />
+ ExUnboxing = (ExemploStruct) Aux[0];</p>
+<p>[/sourcecode]</p>
+<p>Neste exemplo estou pegando o ponteiro contido no objeto do primeiro elemento do <strong>ArrayList</strong> e tentando coloca-lo na variável de tipo valor <strong>ExUnboxing. </strong>Para isso funcionar o CLR realizará dois passo.</p>
+<p>1. Obter o endereço do objeto (<strong>boxed</strong>) na memória heap<strong>, </strong>esse primeiro passo é chamado do <strong><em>unboxing.</em></strong></p>
+<p>2. Os valores armazenados na memória heap são copiados para a instancia criada de tipo valor armazenada na memória stack.</p>
+<p>Se juntarmos esses dois passos realizados a operação de <strong><em>unboxing</em></strong> se torna exatamente o oposto de <strong><em>boxing</em></strong>, entretanto, não se confunda, pois, o processo denominado <strong><em>unboxing</em></strong> é somente o primeiro.</p>
+<p>Reforçando o que eu já disse, as operações realizadas no <strong><em>boxing </em></strong>e <strong><em>unboxing </em></strong>podem causar uma queda de desempenho na aplicação. Deve-se tomar cuidado com o <strong><em>casting</em> </strong>realizado no <strong><em>unboxing </em></strong>para que exceções não sejam disparadas caso o objeto contido no elemento do ArrayList seja nulo ou de um tipo diferente do tipo que o receberá.</p>
+<p><strong>CONCLUSÃO</strong></p>
+<p>Em alguns momentos pode ser necessário realizar o <em>boxing</em> de um tipo valor para poder utilizar um método que requer um tipo referência. Eu mostrei um exemplo com essa publicação, mas, não quer dizer que seja o único.</p>
+<p>Espero que esse conteúdo seja útil para alguém.</p>
+<p>Até o próximo post!</p>
+<p><strong>REFERÊNCIAS</strong></p>
+<p><strong>               struct (C# Reference)</strong> - <a href="http://msdn.microsoft.com/en-us/library/ah19swz4.aspx">http://msdn.microsoft.com/en-us/library/ah19swz4.aspx</a></p>
+<p><strong>               Classe ArrayList</strong> - <a href="http://msdn.microsoft.com/pt-br/library/system.collections.arraylist(v=vs.110).aspx">http://msdn.microsoft.com/pt-br/library/system.collections.arraylist(v=vs.110).aspx</a></p>
+<p><strong>              Programação aplicada com Microsoft .Net Framework – </strong>Jeffrey Richter</p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>

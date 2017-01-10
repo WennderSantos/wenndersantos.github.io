@@ -1,0 +1,47 @@
+---
+layout: post
+title: 'SharePoint Terminology – #1 – Farm, SharePoint Farm e Topology'
+date: 2016-07-19 04:18:05.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- SharePoint
+tags:
+- SharePoint Terminology
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala pessoal, blz?</p>
+<p>Como vocês viram no <a href="http://wenndersantos.net/2016/07/sharepoint-terminology-0-comecando-a-estudar/" target="_blank">primeiro post dessa série</a>, entrei em um projeto SharePoint (SP) e comecei a estudar essa plataforma nos últimos dias.</p>
+<p>Logo no começo dos estudos, encontrei um "mar" de novos termos. Tentando entender um pouco sobre cada um deles, acabei descobrindo que uma parte desses termos veio com o produto, mas uma grande parte deles foram introduzidos pelo mercado.</p>
+<p>A partir desse post vou escrever o que venho entendendo sobre cada um desses termos. Fiquem a vontade para acrescentar informações ou corrigir algo.</p>
+<p>Nessa publicação falarei sobre <strong>Farm.</strong><!--more--></p>
+<p>PS: O objetivo desse post não é ser um tutorial de como criar uma farm para "subir" um SP.</p>
+<p>&nbsp;</p>
+<h2>Farm</h2>
+<p>O conceito de farm não é exclusivo do SP, inclusive, quando estamos falando de SP é comum usar a expressão <strong>SharePoint Farm. </strong>Segundo o Wikipedia, um farm é:</p>
+<blockquote><p><em>[...] a collection of <a class="mw-redirect" title="Computer server" href="https://en.wikipedia.org/wiki/Computer_server">computer servers</a> - usually maintained by an <a title="Organization" href="https://en.wikipedia.org/wiki/Organization">organization</a> to supply server functionality far beyond the capability of a single machine. Server farms often consist of thousands of computers which require a large amount of power to run and to keep cool. At the optimum performance level, a server farm has enormous costs (both financial and environmental) associated with it.[...]</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Server_farm" target="_blank">https://en.wikipedia.org/wiki/Server_farm</a></p></blockquote>
+<p>Entendendo o que é um farm, vejamos o que é um SharePoint Farm.</p>
+<p>&nbsp;</p>
+<h2>SharePoint Farm</h2>
+<p>No SP, um SharePoint farm pode ser um único ou vários servidores trabalhando para prover todos os serviços necessários para o SP funcionar.</p>
+<blockquote><p>Mas, como um único servidor pode ser considerado um farm?</p></blockquote>
+<p>Em uma única máquina, é possível subir todos os "servidores" que proveem os serviços que o SP precisa, como por exemplo o IIS, o SQL Server, etc. E por isso também é um farm.</p>
+<p>Um SharePoint farm instalado em um único servidor é chamado de <strong><em>Single Server</em> </strong>ou<em><strong> Single Farm</strong></em>.</p>
+<p>Uma instalação usando um único servidor é chamada de <em><strong>Simple Installation Mode </strong></em>e foi como fiz minha primeira instalação para fins de testes.</p>
+<p>Acredito que o <em>Simple Installation Mode seja</em> mais comum para ambientes de desenvolvimento. Para uso em produção, de pequeno à médio porte, é bem melhor/seguro que cada serviço esteja rodando em um servidor dedicado. Entretanto, para usos que exigem uma infra "mais parruda", também é possível que várias SharePoint farms estejam provendo a infraestrutura para o SP rodar.</p>
+<p>Ao finalizar a instalação do SP, usando qualquer uma das possíveis formas, teremos uma arquitetura de infraestrutura. Essa arquitetura é chamada de <strong>Topologia </strong> ou <strong>Topology.</strong></p>
+<p>&nbsp;</p>
+<p>Era isso que queria falar, até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><a href="https://azure.microsoft.com/pt-br/documentation/articles/virtual-machines-windows-sharepoint-farm/" target="_blank">Criar farm do SharePoint no Microsoft Azure</a></p>

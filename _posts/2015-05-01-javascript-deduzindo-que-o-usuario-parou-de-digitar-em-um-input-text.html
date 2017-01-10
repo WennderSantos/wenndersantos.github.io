@@ -1,0 +1,56 @@
+---
+layout: post
+title: javaScript - Deduzindo que o usuário parou de digitar em um input text
+date: 2015-05-01 20:36:34.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+tags:
+- keyup
+- quando o usuário parar de digitar
+- setTimeout
+- temporizadores
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, blz?</p>
+<p>Ao implementar uma busca, que precisava fazer uma requisição ao servidor, queria que fosse feita uma requisição a cada tecla que o usuário digitasse dentro do campo de busca. Bom, fiz isso e ficou uma bosta!</p>
+<p>Tentando melhorar essa implementação, resolvi fazer a requisição somente quando o usuário terminasse de digitar o que ele estava querendo usar como filtro na busca. Mas, como saber que ele já terminou de digitar? Acredito que seja impossível de se ter com exatidão essa informação, embora podemos tentar deduzir. Veja como fiz isso.<!--more--></p>
+<p><strong> Deduzindo que o usuário parou de digitar em um input text</strong></p>
+<p>[sourcecode language="javascript"]<br />
+//Snippet 1<br />
+(function () {<br />
+  $('#filtroDeBusca').keyup(function () {<br />
+  setTimeout(funcaoQueRealizaBusca, 1000);<br />
+ });<br />
+})();<br />
+[/sourcecode]</p>
+<p>No <strong>Snippet 1,</strong> criei um escopo com um listener para o evento <strong>keyup </strong>do filtro de busca em questão. A cada tecla pressionada dentro desse filtro, uso o <strong>setTimeout</strong>, um temporizador que executa um callback após determinado tempo, nesse caso o callback é a <strong>funcaoQueRealizaBusca</strong> e o tempo é 1 segundo.</p>
+<p>A solução apresentada no <strong>Snippet 1</strong> não funcionou muito bem, pois, toda vez que o evento keyup do filtroDeBusca era executado, uma nova requisição era feita ao servidor e esse era o problema inicial.</p>
+<p>Para resolver, antes do setar o setTimeout bastava cancelar o que havia sido "agendado" anteriormente para que não fosse executado e isso é bem simples de se fazer. Veja como ficou essa implementação no <strong>Snippet 2.</strong></p>
+<p>[sourcecode language="javascript"]<br />
+//Snippet2<br />
+(function () {<br />
+ $('#filtroDeBusca').keyup(function () {<br />
+  clearTimeout(this.interval);<br />
+  this.interval = setTimeout(funcaoQueRealizaBusca, 1000);<br />
+ });<br />
+})();<br />
+[/sourcecode]</p>
+<p>Antes de setar o <strong>setTimeout</strong> uso o <strong>clearTimeout</strong>, que recebe o id do "agendamento" que você quer cancelar. Como conseguir esse id? O <strong>setTimeout</strong> retorna para você. No Snippet 2 armazeno esse id dentro de uma propriedade que chamei de <strong>interval</strong>, ou seja, na próxima vez que o keyup for acionado, o id do setTimeout da execução anterior estará armazenado nessa propriedade.</p>
+<p>Com isso, se o usuário começar a digitar no filtro e parar por um segundo, deduzo que ele terminou de digitar e a busca é iniciada.</p>
+<p>Problema: E se o usuário digitar devagar? Paciência, serão realizadas mais requisições.</p>
+<p>Conhece alguma outra forma de implementar essa solução? Deixe um comentário.</p>
+<p>Para conhecer mais sobre temporizadores no javascript, recomendo a leitura do artigo <a href="http://blog.da2k.com.br/2015/01/29/javascript-usando-temporizadores-like-a-ninja/" target="_blank">Usando termporizadores like a ninja</a>.</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>

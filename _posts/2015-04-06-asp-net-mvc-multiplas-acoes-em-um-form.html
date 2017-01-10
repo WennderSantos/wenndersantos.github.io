@@ -1,0 +1,178 @@
+---
+layout: post
+title: ASP.NET MVC - Múltiplas ações em um form
+date: 2015-04-06 17:11:01.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- ASP.NET MVC
+- C#
+tags:
+- Asp.net mvc
+- multiplos submits
+- submit
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Olá pessoal, tudo certo?</p>
+<p>É algo bem comum um form ter várias ações diferentes, como por exemplo um salvar/excluir.  Contudo, ao setar o atributo action da tag form como mostrado abaixo:</p>
+<blockquote><p>&lt;form action="/Usuario/Salvar"&gt;&lt;/form&gt;</p></blockquote>
+<p>qualquer submit executará a ação Salvar do controller usuário. Como fazer para que várias ações sejam executadas no mesmo form?<!--more--></p>
+<p>Os exemplos abaixo foram escritos usando dados fictícios e chumbados para não prolongar o desnecessário.</p>
+<p><strong>Múltiplos submit's em um form</strong></p>
+<p>Conheço quatro formas de fazer isso, algumas menos "bonitas" e uma que acredito ser a melhor opção, que é usando ajax. Mostrarei um exemplo para cada uma dessas opções, começando pelas menos recomendadas até chegar no exemplo com ajax.</p>
+<p><b>Tratando m<strong>últiplas ações pelo atributo value</strong></b></p>
+<p>//View</p>
+<p>[sourcecode language="html"]<br />
+&lt;form action=&quot;/Usuario/Submit&quot;&gt;</p>
+<p>  &lt;input type=&quot;submit&quot; value=&quot;salvar&quot; name=&quot;inputSubmit&quot; /&gt;<br />
+  &lt;input type=&quot;submit&quot; value=&quot;excluir&quot; name=&quot;inputSubmit&quot; /&gt;</p>
+<p>&lt;/form&gt;<br />
+[/sourcecode]</p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Submit(string inputSubmit, FormCollection form)<br />
+{<br />
+ if (inputSubmit == &quot;Salvar&quot;)<br />
+ {<br />
+  //salvar<br />
+ }<br />
+ else<br />
+ {<br />
+  //excluir<br />
+ }<br />
+return RedirectToAction(&quot;Index&quot;);;<br />
+}<br />
+[/sourcecode]</p>
+<p>Saiba que o exemplo acima funciona, entretanto, não considere usar nunca, sério! Esse tipo de validação jamais deve ser feita no controller.</p>
+<p><strong>Tratando múltiplas ações utilizando várias tag's form's</strong></p>
+<p>//View</p>
+<p>[sourcecode language="html"]<br />
+&lt;form action=&quot;/Home/Salvar&quot; method=&quot;post&quot;&gt;</p>
+<p>&lt;input type=&quot;text&quot; name=&quot;nome&quot; /&gt;<br />
+&lt;input type=&quot;number&quot; name=&quot;idade&quot; /&gt;</p>
+<p>&lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;1&quot; /&gt;</p>
+<p>&lt;button id=&quot;btnSalvar&quot;&gt;Salvar&lt;/button&gt;</p>
+<p>&lt;/form&gt;</p>
+<p>&lt;form action=&quot;/Home/Excluir?id=1&quot; method=&quot;post&quot;&gt;</p>
+<p>&lt;button id=&quot;btnExcluir&quot;&gt;Excluir&lt;/button&gt;</p>
+<p>&lt;/form&gt;<br />
+[/sourcecode]</p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Salvar(FormCollection form)<br />
+{<br />
+ //To Do<br />
+ return RedirectToAction(&quot;Index&quot;);<br />
+}<br />
+public ActionResult Excluir(int id)<br />
+{<br />
+ //To Do<br />
+ return RedirectToAction(&quot;Index&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p>Pessoalmente, não gosto do exemplo acima. Acho que polui muito meu html, tornando-o difícil de ler.</p>
+<p><b>Tratando m<strong>últiplas ações alterando dinamicamente o atributo action do form</strong></b></p>
+<p>//View</p>
+<p>[sourcecode language="html"]<br />
+&lt;form&gt; </p>
+<p> &lt;input type=&quot;text&quot; name=&quot;nome&quot; /&gt;<br />
+ &lt;input type=&quot;number&quot; name=&quot;idade&quot; /&gt;<br />
+ &lt;input type=&quot;hidden&quot; name=&quot;id&quot; /&gt;</p>
+<p> &lt;button class=&quot;submit&quot; data-action=&quot;/Usuario/Salvar&quot;&gt;Salvar&lt;/button&gt;<br />
+ &lt;button class=&quot;submit&quot; data-action=&quot;/Usuario/Excluir&quot;&gt;Excluir&lt;/button&gt; </p>
+<p>&lt;/form&gt;<br />
+[/sourcecode]</p>
+<p>//js</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+$(document).ready(function () {<br />
+(function () {<br />
+ $(&quot;.submit&quot;).on(&quot;click&quot;, function (e) {<br />
+  e.preventDefault();</p>
+<p>  var action = $(this).data(&quot;action&quot;);<br />
+  var form = $(&quot;form&quot;).first();</p>
+<p>  form.attr(&quot;action&quot;, action);<br />
+  form.submit();<br />
+ });<br />
+})();<br />
+});<br />
+&lt;script&gt;<br />
+[/sourcecode]</p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Excluir(int id)<br />
+{<br />
+ //To Do<br />
+ return RedirectToAction(&quot;Index&quot;);;<br />
+}</p>
+<p>public ActionResult Salvar(FormCollection form)<br />
+{<br />
+//To Do<br />
+ return RedirectToAction(&quot;Index&quot;);;<br />
+}<br />
+[/sourcecode]</p>
+<p>No exemplo acima as action's Salvar e Excluir foram implementadas separadas, como devem ser. Usando um atributo data, eu decido qual ação será executada e assim modifico a ação do form antes de fazer o submit. Porém, essa ainda não é a melhor solução na minha opinião.</p>
+<p><b>Tratando m<strong>últiplas ações com ajax</strong></b></p>
+<p>//View</p>
+<p>[sourcecode language="html"]<br />
+&lt;form&gt;</p>
+<p>&lt;input type=&quot;text&quot; name=&quot;nome&quot; /&gt;<br />
+&lt;input type=&quot;number&quot; name=&quot;idade&quot; /&gt;<br />
+&lt;input type=&quot;hidden&quot; name=&quot;id&quot; /&gt;</p>
+<p>&lt;button id=&quot;btnSalvar&quot;&gt;Salvar&lt;/button&gt;<br />
+&lt;button id=&quot;btnExcluir&quot;&gt;Excluir&quot;&lt;/button&gt;</p>
+<p>&lt;/form&gt;<br />
+[/sourcecode]</p>
+<p>//js</p>
+<p>[sourcecode language="javascript"]<br />
+&lt;script&gt;<br />
+$(document).ready(function () {<br />
+ $(&quot;#btnSalvar&quot;).on(&quot;click&quot;, function () {<br />
+  $.ajax({<br />
+   url: '/Usuario/Salvar',<br />
+   type: &quot;POST&quot;,<br />
+   data: $('form').serialize()<br />
+  }).done(function (data) {<br />
+  //tratar sucesso<br />
+  }).fail(function (data) {<br />
+  //tratar falha<br />
+  });<br />
+});</p>
+<p>$(&quot;#btnExcluir&quot;).on(&quot;click&quot;, function () {<br />
+ $.ajax({<br />
+  url: '/Usuario/Excluir',<br />
+  data: {id : 1}<br />
+  }).done(function (data) {<br />
+  //tratar sucesso<br />
+  }).fail(function (data) {<br />
+  //tratar falha<br />
+  });<br />
+ });<br />
+});<br />
+&lt;/script&gt;<br />
+[/sourcecode]</p>
+<p>//Controller</p>
+<p>[sourcecode language="csharp"]<br />
+public ActionResult Salvar(FormCollection form)<br />
+{<br />
+ //To Do<br />
+ return RedirectToAction(&quot;Index&quot;);;<br />
+}</p>
+<p>public ActionResult Excluir(int id)<br />
+{<br />
+ //To Do<br />
+ return RedirectToAction(&quot;Index&quot;);;<br />
+}<br />
+[/sourcecode]</p>
+<p>Era isso que eu queria mostrar, conhece uma abordagem diferente das mostradas ou não concorda com o que foi escrito? Participe deixando um comentário.</p>
+<p>Até o próximo post!</p>

@@ -1,0 +1,66 @@
+---
+layout: post
+title: Introdução ao .Net Framework - Parte 5 - Namespaces e Assemblies
+date: 2014-04-08 23:36:21.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- Assemblie
+- Namespace
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Boa noite, pessoal! Blz?</p>
+<p>Este é o quinto post da série introdução ao .Net Framework. Será uma curta publicação falando sobre <em>namespace </em>e <em>assemblie.</em></p>
+<p>Para quem não leu as outras publicações, recomendo que leiam, segue os link`s:<!--more--></p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p>4 - <a href="http://wenndersantos.net/2014/04/04/introducao-ao-net-framework-conversaocasting-de-tipos/" target="_blank">Introdução ao .Net Framework - Parte 4 - Conversão/Casting de tipos.</a></p>
+<p>&nbsp;</p>
+<p><strong>Namespace</strong></p>
+<p>Em alguma publicação dessa série eu havia comentando um pouco sobre <em>namespace</em>. Basicamente a usabilidade de um <em>namespace</em> se resume em realizar um agrupamento de tipos que se relacionam entre si. Parece pouco? Não pense assim! Imagine ter que procurar um tipo dentro de milhares de tipos sem ter <em>namespaces</em> como uma opção de filtro, seria terrível! Rs</p>
+<p>Os <em>namespace</em> também são uma forma de deixar o nome de um tipo maior, deixando-o com uma probabilidade maior de ser único.</p>
+<p>Veja no código abaixo o tipo <strong>System.Console.WriteLine</strong> sendo usado.</p>
+<p>[sourcecode language="csharp"]<br />
+class MyClass<br />
+  {<br />
+     void Main()<br />
+       {<br />
+          System.Console.WriteLine(&quot;Alô mundo!&quot;);<br />
+       }<br />
+  }<br />
+[/sourcecode]</p>
+<p>Imaginem uma aplicação que faça milhões de chamadas desse tipo, qualquer palavra a menos na chamada desse método seria de grande ajuda para o programador. Para ajudar nessa situação é possível utilizar a palavra chave <strong>Using</strong>. Veja o mesmo exemplo de código utilizando essa palavra chave.</p>
+<p>[sourcecode language="csharp"]<br />
+using System;<br />
+class MyClass<br />
+{<br />
+   void Main()<br />
+   {<br />
+    Console.WriteLine(&quot;Alô mundo!&quot;);<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>No exemplo acima quando foi digitado Console.WriteLine o compilador não entendeu de primeira, para encontrar a classe Console e o método WriteLine o compilador foi até as diretivas <strong>Using </strong>declaradas no inicio da aplicação e as usou como prefixo até localizar sua correspondência. A palavra chave <strong>Using</strong> é opcional, você pode usar o nome completo do tipo se assim desejar sem nenhum problema.</p>
+<p>Para desenvolver uma aplicação usamos várias referências a tipos que não foram implementados por nós. Mas aonde estão escritos esses tipos? A resposta é “nos Assemblies”.</p>
+<p><strong>Assemblies</strong></p>
+<p>Em uma linguagem menos formal <em>assemblies</em> são arquivos com códigos pré-compilados que podem ser lidos pelo <em>runtime</em> do .net Framework. Para utilizar o código existente dentro desses arquivos, antes, deve-se dizer ao compilador onde o arquivo está adicionando uma referência desse arquivo em sua aplicação. Depois de referenciar um <em>assemblie</em> em uma aplicação todos seus tipos estarão disponíveis.</p>
+<p>É isso ae, espero que tenha sido útil para o conhecimento de alguém! Hehe</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><strong>Programação aplicada com Microsoft .Net Framework – Jeffrey Richter</strong></p>
+<p><strong>Assemblies in the Common Language Runtime - http://msdn.microsoft.com/en-us/library/hk5f40ct(v=vs.90).aspx</strong></p>

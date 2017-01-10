@@ -1,0 +1,64 @@
+---
+layout: post
+title: Introdução ao .Net Framework - Parte 4 – Conversão/Casting de tipos
+date: 2014-04-04 14:07:56.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- .NET Framework
+tags:
+- Casting
+- Conversão de tipos
+meta:
+  _publicize_pending: '1'
+  geo_public: '0'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _edit_last: '1'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>E aí pessoal, tudo bom?</p>
+<p>Começamos agora a quarta publicação da série Introdução ao .Net Framework. Nesse post falarei sobre conversão (casting) de tipos. Para quem ainda não leu as publicações anteriores recomendo que leiam, segue os links:<!--more--></p>
+<p>1 - <a href="http://wenndersantos.net/2014/03/21/48/" target="_blank">Introdução ao .Net Framework - Parte 1 - Do que é composto, compialçao.</a></p>
+<p>2 - <a href="http://wenndersantos.net/2014/03/23/introducao-ao-net-framework-clr-cts-fcl-e-cls/" target="_blank">Introdução ao .Net Framework - Parte 2 - CLR, CTS, FCL, CLS.</a></p>
+<p>3 - <a href="http://wenndersantos.net/2014/03/27/introducao-ao-net-framework-tipos/" target="_blank">Introdução ao .Net Framework - Parte 3 - Tipos.</a></p>
+<p><strong>INTRODUÇÃO</strong></p>
+<p><strong>                </strong>Quando estamos desenvolvendo uma aplicação é muito comum que em algum momento surja a necessidade de transformar uma referência (variável ou objeto) de um tipo em outro tipo. No .Net essa transformação é  chamada de conversão ou <em>casting</em>.</p>
+<p><strong> Conversão/<em>Casting </em>entre tipos</strong></p>
+<p><strong>            </strong>Um dos recursos mais importantes do CLR é a sua segurança de tipos, o CLR sempre sabe de qual tipo é um objeto, para descobrirmos de qual tipo um objeto pertence podemos usar o método GetType(), este método retornará essa informação. O método GetType() é um método Public() do tipo System.Objetc. Veja na Figura 1 um exemplo do retorno do método GetType().</p>
+<p><strong><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-1.png"><img class="alignnone size-medium wp-image-92" src="{{ site.baseurl }}/assets/img/figura-1.png?w=300" alt="Figura 1" width="300" height="155" /></a></strong><strong>           </strong></p>
+<p>Figura 1 - Usando o método GetType()</p>
+<p>Vejam que na Figura 1 foi criada a classe Produto. Na classe Form1 foi criado o objeto Produto que está referenciando a classe Produto. Como sabemos disso em tempo de execução? Usando o método GetType()! A Figura 1 mostra a criação de uma variável do tipo string e nessa variável está sendo atribuído o retorno do tipo que o objeto Produto está referenciando. Está sendo usado um MessageBox para exibir esse retorno na tela. Repare que na atribuição está sendo usado outro método, o ToString(), esse método também pertence ao namespace System.Object e serve para realizar uma conversão implícita de tipos, transformando um tipo em string. Conversão explícita? Isso mesmo! Existem dois tipos de conversões, as explícitas e as implícitas.</p>
+<p><strong>Conversão implícita</strong></p>
+<p>Podemos usar conversão implícita quando queremos transformar um tipo em um de seus tipos base. Veja na Figura 2 um exemplo de conversão implícita.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-2.png"><img class="alignnone size-medium wp-image-93" src="{{ site.baseurl }}/assets/img/figura-2.png?w=300" alt="Figura 2" width="300" height="156" /></a></p>
+<p>Figura 2 - Conversão implícita</p>
+<p>Na Figura 2 foi criada a classe Produto. No método Form1_load da classe Form1 declarada uma variável do tipo System.Object e nessa variável foi atribuída uma instância do tipo Produto. Isso é uma conversão/<em>casting </em>entre tipos, no momento que eu fiz isso o CLR entenderá que o objeto Obj é uma instância de Produto. O CLR permite conversão implícita somente quando considera que a conversão é segura. Como assim segura? É entendido como conversão segura quando o tipo ao qual o objeto será transformado é um tipo de sua base. Veja na Figura 3 o que acontece quando se tenta fazer uma conversão implícita considerada não segura.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-3.png"><img class="alignnone size-medium wp-image-94" src="{{ site.baseurl }}/assets/img/figura-3.png?w=300" alt="figura 3" width="300" height="156" /></a></p>
+<p>Figura 3 - Conversão implícita não segura</p>
+<p>Na Figura 3 foram criadas as classes Produto e Empresa. No método Form1_Load da classe Form1 foi declarada uma variável do tipo Produto e sendo atribuída a essa variável uma instância da classe Empresa. Essa atribuição é considerada uma conversão implícita não segura e por isso a mensagem de erro foi apresentada. Para realizar conversões consideradas não seguras deve-se fazer isso explicitamente.</p>
+<p><strong>Conversão explícita</strong></p>
+<p><strong>            </strong>O CLR não faz conversões não seguras implicitamente porque tais conversões podem falhar gerando erros em tempo de execução, mas, nesses casos é possível forçar a conversão. Vejamos um exemplo de conversão explícita na Figura 4.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-4.png"><img class="alignnone size-medium wp-image-95" src="{{ site.baseurl }}/assets/img/figura-4.png?w=300" alt="figura 4" width="300" height="155" /></a></p>
+<p>Figura 4 - Conversão explícita</p>
+<p>Repare que duas conversões foram feitas na Figura 4, entretanto, na primeira foi gerado um erro. Porque? O tipo Produto deriva de System.Objetc, como foi dito anteriormente isso é considerado uma conversão não segura e por isso o CLR exige que essa conversão seja feita explicitamente. A Figura 4 mostra também um exemplo de conversão explícita onde o objeto Produto2 do tipo Produto recebe um (Produto) new Object();.</p>
+<p>A conversão explícita é uma forma de fazer o compilador entender que se trata de uma conversão válida, mas, não quer dizer que essa conversão funcionará. Como assim? Bom, é simples, na conversão explícita mostrada na Figura 4 basicamente foi dito ao compilador “ei, esse object é do tipo Produto”, dessa forma o compilador aceitará e irá compilar perfeitamente. Veja na Figura 5 dois exemplos de conversões explícitas, sendo que um deles lançaria uma <em>exception</em>.</p>
+<p><a href="http://wenndersantos.azurewebsites.net/wp-content/uploads/2014/04/figura-5.png"><img class="alignnone size-medium wp-image-96" src="{{ site.baseurl }}/assets/img/figura-5.png?w=300" alt="Figura 5" width="300" height="155" /></a></p>
+<p>Figura 5 - Conversão explícita válida e não válida</p>
+<p>Na Figura 5 foram criadas as classes Empresa e Produto. Na classe Form1 foi criado o método Teste(), que recebe um parâmetro do tipo object. No método Form1_Load da classe Form1 foi criada uma instância do tipo Produto. Após criada a instância do tipo Produto, foi chamado o método Teste() passando como parâmetro o objeto do tipo Produto. Como o método Teste() recebe como parâmetro um tipo object e System.Objetc é um tipo base do tipo Produto então o método aceita o objeto Produto. Dentro do método será executado uma conversão explícita transformando um tipo System.Objetct no tipo Produto. A conversão funcionará perfeitamente, pois, o tipo recebido por parâmetro foi do tipo Produto. Após feita a conversão a aplicação continuará e retornará para o método Form1_Load, executando a próxima linha criando uma instância da classe Empresa e chamando novamente o método Teste() , mas, passando como parâmetro o objeto Empresa do tipo Empresa. Como anteriormente, o método teste vai aceitar o parâmetro, pois, o tipo Empresa também deriva de System.Object. Na execução do método, quando o jit tentar compilar a conversão o CLR lançará uma exceção <strong>InvalidCastException</strong>, pois, houve uma tentativa de conversão não válida, sendo que, o tipo Empresa não é derivado e nem base do tipo Produto.</p>
+<p>Aqui finalizo a quarta publicação da série introdução ao .Net Framework. Espero que tenha conseguido ser claro sobre o assunto tratado nesse post.</p>
+<p>Fiquem a vontade para comentarem alguma dúvida, sugestão ou crítica.</p>
+<p>Até o próximo post!</p>
+<p><strong>Referências</strong></p>
+<p><strong>Conversão de tipos no .NET Framework</strong> - <a href="http://msdn.microsoft.com/pt-br/library/98bbex99(v=vs.110).aspx">http://msdn.microsoft.com/pt-br/library/98bbex99(v=vs.110).aspx</a></p>
+<p><strong>PROGRAMAÇÃO APLICADA COM MICROSOFT .NET FRAMEWORK – JEFFREY RICHTER</strong></p>

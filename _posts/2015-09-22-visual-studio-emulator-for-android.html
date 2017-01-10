@@ -1,0 +1,54 @@
+---
+layout: post
+title: Visual Studio Emulator For Android
+date: 2015-09-22 04:38:18.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Cordova
+- Mobile
+tags:
+- Emulador
+- Visual Studio Emulator For Android
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>Fala galera, blz?</p>
+<p>Quem trabalha com desenvolvimento para dispositivos móveis sabe como é complicado fazer testes usando o emulador que vem com o sdk do android, pois, além de ter que esperar uma eternidade para a inicialização do s.o, a navegação é lenta.</p>
+<p>Uma opção muito boa de emulador, é o <a href="https://www.genymotion.com/#!/download" target="_blank">Genymotion</a>. Ser rápido e multiplataforma são dois itens importantes que o Genymotion atende. Mas, nem tudo são flores, se você quiser usá-lo para fins comerciais, terá de comprar uma licensa (mensal). Caso você queira usar a versão free, só terá acesso a api de camêra e do gps do dispositvo. Outro ponto que vale levar em consideração, é que ele roda em uma vm do virtual box, ou seja, se você desenvolve para windows phone, onde o emulador roda numa vm do hyper-v, algumas coisas chatas acontecerão, como por exemplo, ter que ficar desligando/ligando o recurso do hyper-v no windows, uma vez que o virtual box tem alguns conflitos com o hyper-v que por sua vez impacta o Genymotion.</p>
+<p>Bom, resolvendo o problema de lentidão da maioria dos emuladores e dos conflitos do genymotion, temos uma terceira opção que é o <a href="https://www.visualstudio.com/pt-br/msft-android-emulator-vs.aspx" target="_blank">Visual Studio emulator for Android</a>.</p>
+<p><!--more--></p>
+<p><strong>Visual Studio Emulator For Android</strong></p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2015/09/2860.BUILD2015-JohnRollUp-VS-Emulator-for-Android.jpg"><img class="alignnone size-large wp-image-3243" src="{{ site.baseurl }}/assets/img/2860.BUILD2015-JohnRollUp-VS-Emulator-for-Android-1024x648.jpg" alt="2860.BUILD2015-JohnRollUp-VS Emulator for Android" width="646" height="409" /></a></p>
+<p>Inicialmente, só era possível usar esse emulador junto ao Visual Studio 2015 (VS2015). Hoje, ele é totamente independente e pode até ser usado por outras ferramentas de desenvolvimento, como o <a href="https://eclipse.org/" target="_blank">eclipse </a>e o <a href="https://developer.android.com/sdk/index.html" target="_blank">android studio</a>.</p>
+<p>Como ele roda em cima do hyper-v, nos possibilita trabalhar lado a lado com o emulador do windows phone, com isso temos um ganho de tempo consideravel. Outra facilidade, é que o wifi já é configurado automáticamente quando o emulador é inicializado.</p>
+<p>Algo muito bom, é que ele $$FREE$$. Mesmo sendo de graça, temos acesso a diversas api's do dispositivo, tais como: acelerômetro, orientação de tela, cartão SD, bateria, multitoque, GPS, câmera, áudio e teclado.</p>
+<p>Quer instalar um app da loja no emulador? Simples, baixe o apk, arraste e solte :)</p>
+<p>Usará o visual studio para desenvolvimento? Show, terá o recurso de debug!</p>
+<p>Ainda não acabou, pra quem escreve testes automatizados, temos a disposição uma command line interface para interação com o gerenciador do emulador. Para digitar alguns comandos, abra o cmd e navegue até:</p>
+<blockquote><p>%programfiles(x86)%\Microsoft Emulator Manager\1.0\</p></blockquote>
+<p>os seguinte comando são suportados:</p>
+<ul>
+<li>list – lista todas as plataformas instaladas</li>
+<li>launch – inicializa um perfil específico</li>
+<li>detail – lista as iformações de um perfil específico</li>
+<li>install – instala um perfil específico</li>
+<li>uninstall – desinstala um perfil específico</li>
+<li>manage – abre o gerenciador</li>
+</ul>
+<p>Para conseguir o identificador e poder trabalhar com os comandos para um perfil específico, é preciso listar as plataformas e visualiza-lo. Na imagem abaixo, eu usei o list e depois o detail para um perfil específico, veja:</p>
+<p><a href="http://wenndersantos.net/wp-content/uploads/2015/09/cmd1.png"><img class="alignnone size-large wp-image-3247" src="{{ site.baseurl }}/assets/img/cmd1-1024x539.png" alt="cmd" width="646" height="340" /></a></p>
+<p>Bom, era isso que eu queria mostrar. Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Links úteis</strong></p>
+<p><a href="http://blogs.msdn.com/b/visualstudioalm/archive/2015/07/20/visual-studio-emulator-for-android-in-vs2015-rtm.aspx" target="_blank">http://blogs.msdn.com/b/visualstudioalm/archive/2015/07/20/visual-studio-emulator-for-android-in-vs2015-rtm.aspx</a></p>
+<p><a href="https://www.visualstudio.com/pt-br/msft-android-emulator-vs.aspx" target="_blank">https://www.visualstudio.com/pt-br/msft-android-emulator-vs.aspx</a></p>
+<p>&nbsp;</p>

@@ -1,0 +1,71 @@
+---
+layout: post
+title: 'TACO - #1 - Introdução'
+date: 2015-10-19 04:33:32.000000000 -02:00
+type: post
+published: true
+status: publish
+categories:
+- Cordova
+- Mobile
+tags:
+- taco cli
+meta:
+  _edit_last: '1'
+  _webdados_fb_open_graph_specific_image: ''
+  _oembed_1bd675a0cf7ad7068d0ba12e426bd035: '{{unknown}}'
+  _oembed_9a7874e8080dec472613151da531e2e4: '{{unknown}}'
+  _oembed_8740c22bc002c54dc2e1758ae2c847c7: '{{unknown}}'
+author:
+  login: wennder.santos
+  email: wennder.santos@outlook.com
+  display_name: Wennder Santos
+  first_name: ''
+  last_name: ''
+---
+<p>E aê pessoal, tudo certo?</p>
+<p>Durante as últimas semanas, publiquei vários post's / vídeos sobre desenvolvimento hibrido com o <a href="http://cordova.apache.org/" target="_blank">Apache Cordova</a> e como funciona esse tipo de desenvolvimento dentro do Visual Studio.</p>
+<p>Recentemente, o time de desenvolvimento do Visual Studio criou uma command line interface (CLI) que encpasula a CLI do Cordova. Essa CLI é o Tools For Apache Cordova (TACO).</p>
+<p>No dia 01/10/15, foi anunciado a versão 1.0.0 do TACO, ou seja, é algo bem recente. Antes da versão 1.0.0, já era possível utilizá-lo e dar feedback direto para o time de desenvolvimento através do programa para <a href="http://www.instant.ly/s/rgjqo/nav#p/186a0" target="_blank">earlier adopters </a>:)</p>
+<p>Mas, se esse TACO encapsula o Cordova, por que eu usaria ele e não o próprio Cordova? Bom, não sei responder essa pergunta, mas, posso dizer o porque estou brincando/testando ele :)</p>
+<p><!--more--></p>
+<p><strong>O que é o TACO?</strong></p>
+<p>Bom, como já disse, o TACO oferece algumas funcionalidades construídas em cima do <a href="https://cordova.apache.org/docs/en/5.1.1/guide/cli/index.html" target="_blank">Cordova CLI</a>. Se você estiver pensando "deixa pra lá, não quero ter que aprender outra CLI", calma lá. Tudo o que você sabe sobre a CLI de frameworks como Cordova ou <a href="http://ionicframework.com/" target="_blank">IONIC</a> serão aproveitados. Você conseguirá usar o TACO em qualquer projeto baseado no Cordova, como por exemplo em projetos IONIC.</p>
+<p>Para instala-lo:</p>
+<blockquote><p>npm install -g taco-cli</p></blockquote>
+<p>Por default, tudo o que você fizer usando o TACO será usado como feedback da ferramenta para a Microsoft. Mas, você pode desativar essa configuração com o comando</p>
+<blockquote><p>taco feedback</p></blockquote>
+<p>Veja na imagem abaixo:</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/taco-feedback-1024x546.png"><img class="alignnone size-full wp-image-8063" src="{{ site.baseurl }}/assets/img/taco-feedback-1024x546.png" alt="taco-feedback-1024x546" width="1024" height="546" /></a></p>
+<p>&nbsp;</p>
+<p>Eu escolhi deixar a opção ativa, bora ajudar sapoha! ^^</p>
+<p>&nbsp;</p>
+<p><strong>Não perca tempo, deixe que o TACO instale sdk's, build tools e outras dependências</strong></p>
+<p>Mesmo no desenvolvimento híbrido, é preciso configurar todo um ambiente nativo antes de começar a "buildar" nossos app's. Não é um trabalho difícil, embora seja muito chato instalar sdk's e configurar variáveis de ambiente para cada plataforma que vamos desenvolver. Visual Studio, Xcode, Android SDK, java ... da até uma canseira só de pensar rs</p>
+<p>Pensando em toda essa chatice, o time que desenvolveu o TACO criou um utilitário chamado<strong> install-reqs. </strong>Esse cara, faz todo o serviço chato :) É sério, ele fará o download, instalação e configuração de todo o ambiente necessário para cada plataforma que você setar. Vejam abaixo, uma imagem retirada do site do TACO:</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/DependencyInstaller.png"><img class="alignnone size-full wp-image-8064" src="{{ site.baseurl }}/assets/img/DependencyInstaller.png" alt="DependencyInstaller" width="929" height="727" /></a></p>
+<p>&nbsp;</p>
+<p>Doidera, heim?</p>
+<p>&nbsp;</p>
+<p><strong>Kits</strong></p>
+<p>Um problema comum no desenvolvimento híbrido, é ter a certeza de que todos os plugins / plataformas vão funcionar em upgrade de sua CLI ou plataforma. Os kit's tentam, não de uma forma definitiva, solucionar isso. Como? Cada kit oferece um conjunto de plugins e plataformar, onde suas versões são compatíveis.</p>
+<p>&nbsp;</p>
+<p><strong>Ajuda com o próximo passo</strong></p>
+<p>Isso é algo focado em iniciantes, contudo, não deixa de ser legal. Toda vez que você executa um comando, um output com uma lista de possíveis próximos comandos será apresentada, veja:</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/help.png"><img class="alignnone size-full wp-image-8065" src="{{ site.baseurl }}/assets/img/help.png" alt="help" width="1366" height="729" /></a></p>
+<p>&nbsp;</p>
+<p>Após criar um novo projeto (taco create novoProjeto), ele me retornou uma série de comandos que talvez possam ser os próximos que devo usar.</p>
+<p>&nbsp;</p>
+<p><strong>Build para IOS, mesmo no Windows, através do build remoto</strong></p>
+<p>O visual Studio também oferece essa sollução, onde, você deve startar um agent de build em um mac e configurar o ip desse mac no serviço que irá fazer o build na sua máquina Windows. É bem simples, o TACO oferece isso através de sua CLI.</p>
+<p>&nbsp;</p>
+<p><strong>Conclusão</strong></p>
+<p>Como comecei dizendo, é algo bem recente, mas é legal ver a Microsoft cada vez mais dentro do mundo open source e suas comunidades. O TACO é mais uma iniciativa que mostra isso, é possível enviar feedback direto para o time de desenvolvimento através de email's e comentários em blog's.</p>
+<p>Nesse post, só queria mostrar o que eles estão fazendo. Em uma próxima publicação vou criar, em um passo-a-passo, uma aplicação usando o TACO CLI.</p>
+<p>Até o próximo post!</p>
+<p>&nbsp;</p>
+<p><strong>Referências</strong></p>
+<p><a href="http://taco.tools/articles/introducingtaco.html" target="_blank">http://taco.tools/articles/introducingtaco.html</a></p>
+<p>http://taco.visualstudio.com/en-us/docs/get-started-vs-tools-apache-cordova/</p>
+<p>http://blogs.msdn.com/b/visualstudio/archive/2015/10/14/new-visual-studio-tools-for-apache-cordova-documentation-site-and-beginner-s-guide.aspx?utm_medium=twitter&amp;utm_source=twitterfeed</p>
+<p>http://blogs.msdn.com/b/visualstudio/archive/2015/10/01/announcing-tools-for-apache-cordova-aka-taco-v1-0-0.aspx</p>
