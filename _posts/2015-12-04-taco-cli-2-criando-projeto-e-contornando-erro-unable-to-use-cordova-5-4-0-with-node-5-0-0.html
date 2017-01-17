@@ -1,36 +1,29 @@
 ---
 layout: post
-title: 'TACO CLI - #2 - Criando projeto e contornando erro: unable to use Cordova
-  < 5.4.0 with Node > 5.0.0'
+title: 'TACO CLI - #2 - Criando projeto e contornando erro: unable to use Cordova < 5.4.0 with Node > 5.0.0'
 date: 2015-12-04 04:28:55.000000000 -02:00
-type: post
+description: 'Taco Cli: ferramenta de apoi para desenvolvimento híbrido'
+main-class: 'ionic'
+color: '#589ffb'
 published: true
 status: publish
 categories:
-- Cordova
-- Mobile
+- IONIC
 tags:
-- taco cli
-meta:
-  _edit_last: '1'
-  _webdados_fb_open_graph_specific_image: ''
-author:
-  login: wennder.santos
-  email: wennder.santos@outlook.com
-  display_name: Wennder Santos
-  first_name: ''
-  last_name: ''
+- taco-cli
+twitter_text: 'Taco Cli: ferramenta de apoi para desenvolvimento híbrido'
+introduction: 'Taco Cli: ferramenta de apoi para desenvolvimento híbrido'
 ---
 <p>Fala pessoal, tudo bom?</p>
 <p>No post de hoje mostrarei como criar um projeto usando<a href="https://github.com/Microsoft/TACO" target="_blank"> taco cli</a> e também como contornar um erro.</p>
-<p>Vocês conhecem a command line que encapsula o Cordova desenvolvida pelo time do Visual Studio? Se não, ela se chamo TACO, publiquei sobre isso algumas semanas atrás, da uma olha <a href="http://wenndersantos.net/2015/10/tools-for-apache-cordova-taco-1-introducao/" target="_blank">aqui</a>.</p>
+<p>Vocês conhecem a command line que encapsula o Cordova desenvolvida pelo time do Visual Studio? Se não, ela se chamo TACO, publiquei sobre isso algumas semanas atrás, da uma olha <a href="https://wenndersantos.github.io/taco-1-introducao/" target="_blank">aqui</a>.</p>
 <p>Recentemente, formatei meu note e instalei as ferramentas que uso no dia-a-dia (cordova, node, etc.) em suas últimas versões. Após todas as instalações concluídas, fui brincar um pouco com o TACO, ao tentar criar um projeto tive o seguinte retorno:</p>
 <blockquote><p>TACO5016: Incompatible configuration: Unable to use Cordova &lt; 5.4.0 with Node &gt;= 5.0.0. Either upgrade to a newer version of Cordova, or revert to an older version of node. See http://go.microsoft.com/fwlink/?LinkID=618471 for more details.</p></blockquote>
 <p><!--more--></p>
 <p>&nbsp;</p>
 <p><strong>O problema</strong></p>
 <p>A <strong>Figura 1,</strong> mostra a descrição do erro que coloquei acima.</p>
-<p>[caption id="attachment_8129" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-erro-version-1024x576.png"><img class="wp-image-8129 size-full" src="{{ site.baseurl }}/assets/img/taco-erro-version-1024x576.png" alt="taco-erro-version-1024x576" width="1024" height="576" /></a> Figura 1 – Taco error version[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-erro-version-1024x576.png"><img class="wp-image-8129 size-full" src="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-erro-version-1024x576.png" alt="taco-erro-version-1024x576" width="1024" height="576" /></a> Figura 1 – Taco error version</p>
 <p>A descrição do erro está bem clara, diz que o TACO não dá suporte ao seguinte conjunto:</p>
 <blockquote><p>Cordova &lt; 5.4.0</p>
 <p>Node &gt;= 5.0.0</p></blockquote>
@@ -44,19 +37,19 @@ author:
 <p>Ao final da instalação, utilize o seguinte comando para listar as versões do node instaladas:</p>
 <blockquote><p>nvm list</p></blockquote>
 <p>O asterisco mostra qual versão está sendo utilizada, como mostra a <strong>Figura 2.</strong></p>
-<p>[caption id="attachment_8130" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-list-1024x576.png"><img class="size-full wp-image-8130" src="{{ site.baseurl }}/assets/img/nvm-list-1024x576.png" alt="Figura 2 – NVM list" width="1024" height="576" /></a> Figura 2 – NVM list[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-list-1024x576.png"><img class="size-full wp-image-8130" src="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-list-1024x576.png" alt="Figura 2 – NVM list" width="1024" height="576" /></a> Figura 2 – NVM list</p>
 <p>Para alternar a versão em uso, utilize o seguinte comando:</p>
 <blockquote><p>nvm use VERSÃO</p></blockquote>
 <p>No meu caso, usei <strong>nvm use 4.2.2, </strong>como mostra  <b>Figura 3.</b></p>
-<p>[caption id="attachment_8131" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-use-1024x576.png"><img class="size-full wp-image-8131" src="{{ site.baseurl }}/assets/img/nvm-use-1024x576.png" alt="Figura 3 - nvm use" width="1024" height="576" /></a> Figura 3 - nvm use[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-use-1024x576.png"><img class="size-full wp-image-8131" src="http://blog.lambda3.com.br/wp-content/uploads//2015/12/nvm-use-1024x576.png" alt="Figura 3 - nvm use" width="1024" height="576" /></a> Figura 3 - nvm use</p>
 <p>&nbsp;</p>
 <p>Pronto, agora já estou usando a versão 4.2.2 do node e com isso, seguindo as instruções do erro, já devo ser capaz de usar o TACO normalmente. E é isso que acontece, nesse momento, ao utilizar o comando <strong>taco create teste, </strong>o projeto é criado como mostra a <strong>Figura 4.</strong></p>
-<p>[caption id="attachment_8132" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-create-success-1024x576.png"><img class="size-full wp-image-8132" src="{{ site.baseurl }}/assets/img/taco-create-success-1024x576.png" alt="Figura 4 - taco create teste" width="1024" height="576" /></a> Figura 4 - taco create teste[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-create-success-1024x576.png"><img class="size-full wp-image-8132" src="http://blog.lambda3.com.br/wp-content/uploads//2015/12/taco-create-success-1024x576.png" alt="Figura 4 - taco create teste" width="1024" height="576" /></a> Figura 4 - taco create teste</p>
 <p>&nbsp;</p>
 <p>Era isso que queria mostrar :)</p>
 <p>Até o próximo post!</p>
 <p>&nbsp;</p>
 <p><strong>Referências</strong></p>
-<p><a href="http://wenndersantos.net/2015/10/tools-for-apache-cordova-taco-1-introducao/" target="_blank">Tools for apache cordova (taco) - #1 - Introdução</a></p>
+<p><a href="https://wenndersantos.github.io/taco-1-introducao/" target="_blank">Tools for apache cordova (taco) - #1 - Introdução</a></p>
 <p><a href="https://github.com/creationix/nvm" target="_blank">NVM</a></p>
 <p><a href="https://github.com/coreybutler/nvm-windows" target="_blank">NVM for Windows</a></p>
