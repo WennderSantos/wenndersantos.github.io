@@ -3,52 +3,48 @@ layout: post
 title: 'Visual Studio Code - #3 - Customização'
 date: 2015-10-23 04:31:57.000000000 -02:00
 type: post
+description: 'É muito fácil customizar o vs code!'
+main-class: 'editores'
+color: '#d662ad'
 published: true
 status: publish
 categories:
-- Editores/IDE
+- Editores
 tags:
 - Visual Studio Code
-meta:
-  _edit_last: '1'
-  _webdados_fb_open_graph_specific_image: ''
-author:
-  login: wennder.santos
-  email: wennder.santos@outlook.com
-  display_name: Wennder Santos
-  first_name: ''
-  last_name: ''
+twitter_text: 'É muito fácil customizar o vs code!'
+introduction: 'É muito fácil customizar o vs code!'
 ---
-<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/IC794090-1024x483.png"><img class="aligncenter size-full wp-image-8078" src="{{ site.baseurl }}/assets/img/IC794090-1024x483.png" alt="IC794090-1024x483" width="1024" height="483" /></a></p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/IC794090-1024x483.png"><img class="aligncenter size-full wp-image-8078" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/IC794090-1024x483.png" alt="IC794090-1024x483" width="1024" height="483" /></a></p>
 <p>&nbsp;</p>
 <p>Fala pessoal, tudo bom?</p>
-<p>Terceiro post sobre Visual Studio Code (vscode), se você ainda não viu os outros, tem um <a href="http://wenndersantos.net/2015/09/visual-studio-code-1-introducao-2/" target="_blank">aqui </a>e outro <a href="http://wenndersantos.net/2015/09/visual-studio-code-2-introducao-video/" target="_blank">aqui</a>.</p>
+<p>Terceiro post sobre Visual Studio Code (vscode), se você ainda não viu os outros, tem um <a href="https://wenndersantos.github.io/visual-studio-code-1-introducao/" target="_blank">aqui </a>e outro <a href="https://wenndersantos.github.io/visual-studio-code-2-introducao-video/" target="_blank">aqui</a>.</p>
 <p>Nessa publicação, vou mostrar como fazer algumas customizações de layout e teclas de layout, além de  adicionar suporte a uma linguagem que vem por default.</p>
 <p><!--more--></p>
 <p>&nbsp;</p>
 <p><b>User Settings</b></p>
 <p>As configurações que fazemos no user settings são aplicadas globalmente, ou seja, para qualquer instância do vscode que for aberta.</p>
 <p>Diferente do Visual Studio, as configurações no vscode são feitas em um arquivo chamado <strong>settings.json.</strong> Para acessar esse arquivo, navegue até File &gt; Preferences &gt; User settings. Um arquivo, como o mostrado na <strong>Figura 1</strong>, será aberto.</p>
-<p>[caption id="attachment_8079" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/vscode-settings-1024x557.png"><img class="size-full wp-image-8079" src="{{ site.baseurl }}/assets/img/vscode-settings-1024x557.png" alt="Figura 1 – Arquivo de configurações" width="1024" height="557" /></a> Figura 1 – Arquivo de configurações[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/vscode-settings-1024x557.png"><img class="size-full wp-image-8079" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/vscode-settings-1024x557.png" alt="Figura 1 – Arquivo de configurações" width="1024" height="557" /></a> Figura 1 – Arquivo de configurações</p>
 <p>Na Figura 1, a tela do editor foi dividida em duas. No lado direito está sendo mostrada as configurações que vem por default, não é possível editá-las, para alterar uma configuração é necessário sobrescrevê-la. Para sobrescrever uma configuração usamos  a aba do lado direito, que é o conteúdo do arquivo settings.json. Como o arquivo de configuração está em json, é claro que para customizar vamos usar json :) É bem simples mudar, na <strong>Figura 2</strong> estou mostrando um exemplo, vejam:</p>
-<p>[caption id="attachment_8080" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/exemplo-altera-configuracao-1024x557.png"><img class="size-full wp-image-8080" src="{{ site.baseurl }}/assets/img/exemplo-altera-configuracao-1024x557.png" alt="Figura 2 – Sobrescrevendo configuração editor.lineNumbers" width="1024" height="557" /></a> Figura 2 – Sobrescrevendo configuração editor.lineNumbers[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/exemplo-altera-configuracao-1024x557.png"><img class="size-full wp-image-8080" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/exemplo-altera-configuracao-1024x557.png" alt="Figura 2 – Sobrescrevendo configuração editor.lineNumbers" width="1024" height="557" /></a> Figura 2 – Sobrescrevendo configuração editor.lineNumbers</p>
 <p>Como vocês podem ver, simplesmente copiei o nome da propriedade e setei o seu valor para false (não esqueça de salvar o arquivo, só assim a configuração é aplicada). Comparem a Figura 1 e a Figura 2, somente a primeira exibe o número da linha.</p>
 <p>Caso você já saiba o nome da configuração que quer alterar, use o atalho <strong>Ctrl + Shift + O</strong>. Esse atalho abrirá uma paleta com a listagem de todas as configurações, nessa listagem você consegue clicar em um botão que te colocará na aba do lado direito, exatamente na configuração que você selecionou. Veja isso na <strong>Figura 3.</strong></p>
-<p>[caption id="attachment_8081" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/busca-config-1024x546.png"><img class="size-full wp-image-8081" src="{{ site.baseurl }}/assets/img/busca-config-1024x546.png" alt="Figura 3 – Navegando para os comandos" width="1024" height="546" /></a> Figura 3 – Navegando para os comandos[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/busca-config-1024x546.png"><img class="size-full wp-image-8081" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/busca-config-1024x546.png" alt="Figura 3 – Navegando para os comandos" width="1024" height="546" /></a> Figura 3 – Navegando para os comandos</p>
 <p>&nbsp;</p>
 <p><strong>Workspace Settings</strong></p>
 <p>Para acessar essa configuração navegue até File &gt; Preferences &gt; Workspace Settings.</p>
 <p>Diferente da user settings, a working setting só será aplicada para o escopo em questão. Tentando ser mais claro, as configuração feitas aqui só serão aplicadas na estrutura de arquivos/projeto onde ela foi configurada. Tanto é, que nem é possível criar uma configuração de workspace sem que alguma pasta esteja aberta no vscode, quando tentamos fazer isso uma mensagem é apresentada como mostra a <strong>Figura 4.</strong></p>
-<p>[caption id="attachment_8082" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/info-workspace-setting-1024x545.png"><img class="size-full wp-image-8082" src="{{ site.baseurl }}/assets/img/info-workspace-setting-1024x545.png" alt="Figura 4 – Info workspace setting sem pasta aberta" width="1024" height="545" /></a> Figura 4 – Info workspace setting sem pasta aberta[/caption]</p>
-<p>Falei um pouco sobre workspace no primeiro post dessa série, se você ainda não viu, é só clicar <a href="http://wenndersantos.net/2015/09/visual-studio-code-1-introducao-2/" target="_blank">aqui</a>.</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/info-workspace-setting-1024x545.png"><img class="size-full wp-image-8082" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/info-workspace-setting-1024x545.png" alt="Figura 4 – Info workspace setting sem pasta aberta" width="1024" height="545" /></a> Figura 4 – Info workspace setting sem pasta aberta</p>
+<p>Falei um pouco sobre workspace no primeiro post dessa série, se você ainda não viu, é só clicar <a href="https://wenndersantos.github.io/visual-studio-code-1-introducao/" target="_blank">aqui</a>.</p>
 <p>Quando configuramos algo na workspace, um arquivo com essas configurações é armazenado dentro de uma pasta chamada <strong>.vscode. </strong>Ao abrir alguma pasta, já será possível acessar a configuração. Podemos fazer a mesma coisa que é feita na user settings, a diferença, como já foi falada, é que na workspace ela não será aplicada globalmente.</p>
 <p><b>Teclas de atalho</b></p>
 <p>Da mesma forma que os dois itens acima, as teclas de atalho também tem suas configurações default. Para acessar essa configuração navegue até File &gt; Preferences &gt; Keyboards Shortcuts. Aqui, as alterações funcionam da mesma forma como já foi mostrado no user e workspace setting. É possível também utilizar o atalho <strong>Ctrl + Shift + o </strong>para buscas.</p>
 <p>Ao configurar ou alterar uma tecla de atalho, é possível também falar <strong>quando </strong>você quer que a ação seja esperada. Por exemplo, quero comentar uma linha, não faz sentido que o comando seja executado se o cursor não estiver com foco em alguma linha. É bem simples fazer isso, vou usar como exemplo algo que costumo fazer, como usei o Visual Studio por muito tempo, estou acostumado ao atalho <strong>Ctrl + k + d </strong>para identar código, que no vscode é <strong>Ctrl + Alt + f.</strong> Veja como faço essa alteração na <strong>Figura 5.</strong></p>
-<p>[caption id="attachment_8083" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/atalho-format-1024x546.png"><img class="size-full wp-image-8083" src="{{ site.baseurl }}/assets/img/atalho-format-1024x546.png" alt="Figura 5 – Alterando atalho que identa o código" width="1024" height="546" /></a> Figura 5 – Alterando atalho que identa o código[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/atalho-format-1024x546.png"><img class="size-full wp-image-8083" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/atalho-format-1024x546.png" alt="Figura 5 – Alterando atalho que identa o código" width="1024" height="546" /></a> Figura 5 – Alterando atalho que identa o código</p>
 <p>Simplesmente coloco um ctrl + k :)</p>
 <p>Na figura 5, é possível ver o que podemos fazer quando alteramos uma tecla de atalho. Por exemplo, com a propriedade <strong>when, </strong>poderia ter setado que esse atalho só será executado quando estiver em um arquivo c#. Veja só como ficaria essa alteração na <strong>Figura 6.</strong></p>
-<p>[caption id="attachment_8084" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/when-1024x543.png"><img class="size-full wp-image-8084" src="{{ site.baseurl }}/assets/img/when-1024x543.png" alt="Figura 6 – Aplicando regra na tecla de talho" width="1024" height="543" /></a> Figura 6 – Aplicando regra na tecla de talho[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/when-1024x543.png"><img class="size-full wp-image-8084" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/when-1024x543.png" alt="Figura 6 – Aplicando regra na tecla de talho" width="1024" height="543" /></a> Figura 6 – Aplicando regra na tecla de talho</p>
 <p>Legal, heim?</p>
 <p>Se você usa linux ou mac, entre<a href="https://code.visualstudio.com/docs/customization/keybindings" target="_blank"> nesse link</a> para ver os atalhos.</p>
 <p>&nbsp;</p>
@@ -60,7 +56,7 @@ author:
 <p>O segundo comando instala um yeoman específico para essas customizações do vscode. No console, digite:</p>
 <blockquote><p>yo code</p></blockquote>
 <p>Algo como a <strong>Figura 7 </strong>será<strong> </strong>apresentado.</p>
-<p>[caption id="attachment_8085" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/figura7-1024x562.png"><img class="size-full wp-image-8085" src="{{ site.baseurl }}/assets/img/figura7-1024x562.png" alt="Figura 7 – yo code" width="1024" height="562" /></a> Figura 7 – yo code[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/figura7-1024x562.png"><img class="size-full wp-image-8085" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/figura7-1024x562.png" alt="Figura 7 – yo code" width="1024" height="562" /></a> Figura 7 – yo code</p>
 <p>Selecione <strong>New Language Support</strong>. Para esse exemplo, vamos adicionar suporte para <strong>ant.</strong> O mesmo exemplo é demonstrado na <a href="https://code.visualstudio.com/docs/customization/colorizer" target="_blank">documentação do vscode</a>.</p>
 <p>Após selecionar a opção para suportar uma nova linguagem, será necessário informar o local do arquivo .tmLanguage (pode ser um path ou uma url). É fácil encontrar esse tipo de arquivo na internet, usei esse -&gt;  <a href="http://raw.githubusercontent.com/textmate/ant.tmbundle/master/Syntaxes/Ant.tmLanguage" target="_blank">http://raw.githubusercontent.com/textmate/ant.tmbundle/master/Syntaxes/Ant.tmLanguage</a>. Simplesmente copie esse link, cole no console e tecle enter. Feito isso, as seguintes perguntas serão feitas:</p>
 <ul>
@@ -70,7 +66,7 @@ author:
 <li>Extensões de arquivos que serão suportadas.</li>
 </ul>
 <p>Você pode informar ou simplesmente teclar enter e deixar que o gerador cuide disso. Ao final, uma mensagem de sucesso será apresentada como mostra a <strong>Figura 8.</strong></p>
-<p>[caption id="attachment_8086" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/figura8-1024x559.png"><img class="size-full wp-image-8086" src="{{ site.baseurl }}/assets/img/figura8-1024x559.png" alt="Figura 8 – Extension created" width="1024" height="559" /></a> Figura 8 – Extension created[/caption]</p>
+<img class="size-full wp-image-8086" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/figura8-1024x559.png" alt="Figura 8 – Extension created" width="1024" height="559" />
 <p>Bom, como gerei o arquivo de extensão fora do local onde ele deveria ficar, terei que fazer um processo manual agora rs. Navegue até o local onde a extensão foi criada, no meu caso está na raiz do <b>D:. </b>Se você não alterou o nome da extensão, o nome da pasta gerada é <strong>ant</strong>. Copie/recorte a pasta e cole dentro de uma pasta chamada <strong>extensions</strong>, essa pasta fica no local da instalação do vscode, na minha máquina (windows) está em:</p>
 <blockquote><p>C:\Program Files (x86)\Microsoft VS Code\resources\app\extensions</p></blockquote>
 <p>Está feito, com isso adicionamos o suporte para uma linguagem. Para aplicar, reinicie o vscode. É possível visualizar as linguagens suportadas assim:</p>
@@ -79,13 +75,13 @@ author:
 <li>Digite <strong>language </strong>e tecle enter</li>
 </ol>
 <p>Uma listagem será apresentada e provavelmente a que acabamos de adicionar suporte será a primeira, veja isso na <strong>Figura 9.</strong></p>
-<p>[caption id="attachment_8087" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/suport-ant-1024x561.png"><img class="size-full wp-image-8087" src="{{ site.baseurl }}/assets/img/suport-ant-1024x561.png" alt="Figura 9 – Listagem de linguage mode" width="1024" height="561" /></a> Figura 9 – Listagem de linguage mode[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/suport-ant-1024x561.png"><img class="size-full wp-image-8087" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/suport-ant-1024x561.png" alt="Figura 9 – Listagem de linguage mode" width="1024" height="561" /></a> Figura 9 – Listagem de linguage mode</p>
 <p>Sobre temas, não faz muito tempo que adicionaram essa configuração. É possível trocar usando interface visual, navegue até File &gt; Preferences &gt; Color Theme ou através da Command Palete digitando <strong>Color. </strong>Uma listagem com os temas disponíveis será apresentada. Veja na <strong>Figura 10</strong> a listagem e<strong> </strong>o tema <strong>Ligth </strong>aplicado.</p>
-<p>[caption id="attachment_8088" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/colortheme-1024x561.png"><img class="size-full wp-image-8088" src="{{ site.baseurl }}/assets/img/colortheme-1024x561.png" alt="Figura 10 - Color theme" width="1024" height="561" /></a> Figura 10 - Color theme[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/colortheme-1024x561.png"><img class="size-full wp-image-8088" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/colortheme-1024x561.png" alt="Figura 10 - Color theme" width="1024" height="561" /></a> Figura 10 - Color theme</p>
 <p>&nbsp;</p>
 <p><strong>Tip</strong></p>
 <p>Coloque a sidebar no lado direito.</p>
-<p>[caption id="attachment_8089" align="aligncenter" width="1024"]<a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/11-1024x557.png"><img class="size-full wp-image-8089" src="{{ site.baseurl }}/assets/img/11-1024x557.png" alt="Figura 11 – Sidebar do lado direito" width="1024" height="557" /></a> Figura 11 – Sidebar do lado direito[/caption]</p>
+<p><a href="http://blog.lambda3.com.br/wp-content/uploads//2015/10/11-1024x557.png"><img class="size-full wp-image-8089" src="http://blog.lambda3.com.br/wp-content/uploads//2015/10/11-1024x557.png" alt="Figura 11 – Sidebar do lado direito" width="1024" height="557" /></a> Figura 11 – Sidebar do lado direito</p>
 <p>Para fazer o que está sendo mostrado na <strong>Figura 11, </strong>navegue até View &gt; Move sidebar.</p>
 <p>Era isso que eu queria mostrar :)</p>
 <p>Até o próximos post!</p>
