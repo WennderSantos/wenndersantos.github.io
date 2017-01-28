@@ -1,7 +1,8 @@
 ---
 layout: post
-title: ASP.NET MVC - Processando um HttpPostedFileBase (Stream) com multithread
+title: 'ASP.NET MVC - Processando um HttpPostedFileBase (Stream) com multithread'
 date: 2015-09-17 04:39:56.000000000 -03:00
+description: 'Processe upload de arquivos no ASP.NET MVC'
 type: post
 published: true
 status: publish
@@ -9,16 +10,8 @@ categories:
 - ASP.NET MVC
 tags:
 - HttpPostedFileBase
-meta:
-  _edit_last: '1'
-  _webdados_fb_open_graph_specific_image: ''
-  _syntaxhighlighter_encoded: '1'
-author:
-  login: wennder.santos
-  email: wennder.santos@outlook.com
-  display_name: Wennder Santos
-  first_name: ''
-  last_name: ''
+twitter_text: 'Processe upload de arquivos no ASP.NET MVC'
+introduction: 'Processe upload de arquivos no ASP.NET MVC'
 ---
 <p>Olá pessoal, tudo certo?</p>
 <p>Recentemente, tive um problema ao tentar processar um arquivo em uma <strong>thread </strong>separada da main thread da aplicação.</p>
@@ -29,23 +22,23 @@ author:
 <p><!--more--></p>
 <p><strong>O código inicial</strong></p>
 <p>//Controller</p>
-<p>[sourcecode language="csharp"]<br />
-[HttpPost]<br />
-public ActionResult Processo(HttpPostedFileBase arquivo)<br />
-{<br />
- try<br />
- {<br />
-  var stream = arquivo.InputStream;<br />
-  new Thread(() =&gt; ProcessarArquivo(stream)).Start();<br />
-  TempData[&quot;MensagemSucesso&quot;] = &quot;O arquivo está sendo processado.&quot;;<br />
- }<br />
- catch (Exception ex)<br />
- {<br />
-  TempData[&quot;MensagemErro&quot;] = ex.Message;<br />
- }<br />
-return RedirectToAction(&quot;MinhaView&quot;);<br />
-}<br />
-[/sourcecode]</p>
+[sourcecode language="csharp"]
+[HttpPost]
+public ActionResult Processo(HttpPostedFileBase arquivo)
+{
+ try
+ {
+  var stream = arquivo.InputStream;
+  new Thread(() =&gt; ProcessarArquivo(stream)).Start();
+  TempData[&quot;MensagemSucesso&quot;] = &quot;O arquivo está sendo processado.&quot;;
+ }
+ catch (Exception ex)
+ {
+  TempData[&quot;MensagemErro&quot;] = ex.Message;
+ }
+return RedirectToAction(&quot;MinhaView&quot;);
+}
+[/sourcecode]
 <p>//Metodo que processa o arquivo</p>
 <p>[sourcecode language="csharp"]<br />
 private void ProcessarArquivo(Stream file)<br />
