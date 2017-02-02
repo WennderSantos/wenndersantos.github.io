@@ -1,27 +1,19 @@
 ---
 layout: post
-title: javaScript - Deduzindo que o usuário parou de digitar em um input text
+title: 'javascript - Deduzindo que o usuário parou de digitar em um input text'
 date: 2015-05-01 20:36:34.000000000 -03:00
 type: post
+description: 'Espere o usuário parar de digitar para iniciar a ação desejada'
+main-class: 'javascript'
+color: '#dcc617'
 published: true
 status: publish
 categories:
-- JavaScript
+- javascript
 tags:
-- keyup
-- quando o usuário parar de digitar
-- setTimeout
 - temporizadores
-meta:
-  _edit_last: '1'
-  _syntaxhighlighter_encoded: '1'
-  _webdados_fb_open_graph_specific_image: ''
-author:
-  login: wennder.santos
-  email: wennder.santos@outlook.com
-  display_name: Wennder Santos
-  first_name: ''
-  last_name: ''
+twitter_text: 'javascript - Deduzindo que o usuário parou de digitar em um input text'
+introduction: 'javascript - Deduzindo que o usuário parou de digitar em um input text'
 ---
 <p>Olá pessoal, blz?</p>
 <p>Ao implementar uma busca, que precisava fazer uma requisição ao servidor, queria que fosse feita uma requisição a cada tecla que o usuário digitasse dentro do campo de busca. Bom, fiz isso e ficou uma bosta!</p>
@@ -34,7 +26,7 @@ author:
   setTimeout(funcaoQueRealizaBusca, 1000);<br />
  });<br />
 })();<br />
-[/sourcecode]</p>
+[/sourcecode</p>
 <p>No <strong>Snippet 1,</strong> criei um escopo com um listener para o evento <strong>keyup </strong>do filtro de busca em questão. A cada tecla pressionada dentro desse filtro, uso o <strong>setTimeout</strong>, um temporizador que executa um callback após determinado tempo, nesse caso o callback é a <strong>funcaoQueRealizaBusca</strong> e o tempo é 1 segundo.</p>
 <p>A solução apresentada no <strong>Snippet 1</strong> não funcionou muito bem, pois, toda vez que o evento keyup do filtroDeBusca era executado, uma nova requisição era feita ao servidor e esse era o problema inicial.</p>
 <p>Para resolver, antes do setar o setTimeout bastava cancelar o que havia sido "agendado" anteriormente para que não fosse executado e isso é bem simples de se fazer. Veja como ficou essa implementação no <strong>Snippet 2.</strong></p>
