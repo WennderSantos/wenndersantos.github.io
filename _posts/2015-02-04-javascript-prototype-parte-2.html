@@ -3,29 +3,22 @@ layout: post
 title: javaScript - Prototype - {Parte 2}
 date: 2015-02-04 20:08:50.000000000 -02:00
 type: post
+description: 'Entenda de vez prototype'
+main-class: 'javascript'
+color: '#dcc617'
 published: true
 status: publish
 categories:
-- JavaScript
-tags:
-- herança
 - javascript
-- prototype
-meta:
-  _edit_last: '1'
-  _webdados_fb_open_graph_specific_image: ''
-  _syntaxhighlighter_encoded: '1'
-author:
-  login: wennder.santos
-  email: wennder.santos@outlook.com
-  display_name: Wennder Santos
-  first_name: ''
-  last_name: ''
+tags:
+- temporizadores
+twitter_text: 'Entenda de vez prototype'
+introduction: 'Entenda de vez prototype'
 ---
 <p>Olá pessoal, tudo certo?</p>
-<p>Dando continuidade ao post <strong><a href="http://wenndersantos.net/2015/01/28/javascript-prototype-parte-1/" target="_blank">javaScript - Prototype  { Parte 1 }</a>, </strong>onde escrevi uma introdução sobre prototype, agora veremos alguns exemplos de como adicionar métodos e propriedades em objetos já existentes. Veremos também como sobrescrever métodos. No post passado eu comecei dizendo que cheguei no assunto prototype quando estava estudando para a <a href="https://www.microsoft.com/learning/pt-br/exam-70-480.aspx" target="_blank">prova de certificação 70-480 da Microsoft,</a> disse também que segundo o guia de estudos esse assunto não caia na prova, bom, após alguns feedback's de quem já fez a prova, gostaria de dizer para aqueles que estiverem se preparando para essa certificação que estude esse assunto sim :)</p>
+<p>Dando continuidade ao post <strong><a href="https://wenndersantos.github.io/javascript-prototype-parte-1/" target="_blank">javaScript - Prototype  { Parte 1 }</a>, </strong>onde escrevi uma introdução sobre prototype, agora veremos alguns exemplos de como adicionar métodos e propriedades em objetos já existentes. Veremos também como sobrescrever métodos. No post passado eu comecei dizendo que cheguei no assunto prototype quando estava estudando para a <a href="https://www.microsoft.com/learning/pt-br/exam-70-480.aspx" target="_blank">prova de certificação 70-480 da Microsoft,</a> disse também que segundo o guia de estudos esse assunto não caia na prova, bom, após alguns feedback's de quem já fez a prova, gostaria de dizer para aqueles que estiverem se preparando para essa certificação que estude esse assunto sim :)</p>
 <p><!--more--></p>
-<p><a href="http://wenndersantos.net/wp-content/uploads/2014/12/javascript_logo-e1422419935852.png"><img class=" size-full wp-image-368 aligncenter" src="{{ site.baseurl }}/assets/img/javascript_logo-e1422419935852.png" alt="javascript_logo" width="200" height="200" /></a></p>
+<p><a href="https://wenndersantos.github.io/assets/img/js-prototype1/prototype0.png"><img class=" size-full wp-image-368 aligncenter" src="https://wenndersantos.github.io/assets/img/js-prototype1/prototype0.png" alt="javascript_logo" width="200" height="200" /></a></p>
 <p>Todos os exemplos desse post foram testados utilizando o console do Google Chrome versão 40.0.2214.93 m.</p>
 <p><strong>Inserindo métodos e propriedades em objetos já existentes</strong></p>
 <p>Vamos inciar já com um pequeno snippet, veja a <strong>Listagem 1:</strong></p>
@@ -56,7 +49,7 @@ var fulano = new Pessoa('Fulano', 'da Silva', 21);<br />
 [/sourcecode]</p>
 <p><strong>Listagem 3 - Criando nova instância de Pessoa.</strong></p>
 <p>Criada nova instância de Pessoa, ao tentar chamar o método <strong>cumprimentar </strong>teremos como retorno o seguinte erro:</p>
-<p>[caption id="attachment_1391" align="alignnone" width="1900"]<a href="http://wenndersantos.net/wp-content/uploads/2015/02/Figura-1-prototype2.png"><img class="wp-image-1391 size-full" src="{{ site.baseurl }}/assets/img/Figura-1-prototype2.png" alt="Figura 1 - Uncaught TypeError: undefined is not a function" width="1900" height="750" /></a> Figura 1 - Uncaught TypeError: undefined is not a function[/caption]</p>
+<p>[caption id="attachment_1391" align="alignnone" width="1900"]<a href="https://wenndersantos.github.io/assets/img/js-prototype1/prototype1.png"><img class="wp-image-1391 size-full" src="https://wenndersantos.github.io/assets/img/js-prototype1/prototype1.png" alt="Figura 1 - Uncaught TypeError: undefined is not a function" width="1900" height="750" /></a> Figura 1 - Uncaught TypeError: undefined is not a function[/caption]</p>
 <p>Isso indica que o objeto fulano não tem acesso ao método cumprimentar criado no objeto wennder, fica simples de entender se imaginarmos que os dois estão lado a lado na prototype chain.</p>
 <p>Para que todas as instâncias de Pessoa possuam o método cumprimentar, deveríamos ter criado esse método no objeto prototype de Pessoa, o que também é bem simples de se fazer. Para exemplificar, vamos adicionar ao prototype de Pessoa a habilidade de "falar seu nome completo". Veja a <strong>Listagem 4</strong>:</p>
 <p>[sourcecode language="javascript"]<br />
