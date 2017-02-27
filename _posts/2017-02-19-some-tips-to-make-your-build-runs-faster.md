@@ -26,6 +26,11 @@ If you got interested to know more about incremental build, take a look at these
   * [Configure Team Foundation Build for an Incremental Build](https://msdn.microsoft.com/en-us/library/aa833876(v=vs.100).aspx)
 
 
+## Disable windows defender real-time protection
+When your build is running, open the task manager. You will see a process called **Antimalware Service Executable** using almost 100%
+ of the computer process.
+
+
 <a name="references"></a>
 ## References  
 <a href="http://ardalis.com/speed-up-visual-studio-build-times">http://ardalis.com/speed-up-visual-studio-build-times</a>  
