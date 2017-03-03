@@ -30,6 +30,11 @@ If you got interested to know more about incremental build, take a look at these
 When your build is running, open the task manager. You will see a process called **Antimalware Service Executable** using almost 100%
  of the computer process.
 
+## Disable windows defender for the project folders
+  Still on windows defender, add an verification exclusion to the project folders.
+
+## Disable windows defender for the some .exes
+  If you are on you developement machine, add an verification exclusion to devenv.exe process. In build machine, add and exclusion to MSBuild.exe process.
 
 <a name="references"></a>
 ## References  
