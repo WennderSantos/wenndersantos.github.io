@@ -36,6 +36,9 @@ When your build is running, open the task manager. You will see a process called
 ## Disable windows defender for the some .exes
   If you are on you developement machine, add an verification exclusion to devenv.exe process. In build machine, add and exclusion to MSBuild.exe process.
 
+## Add all cpus for the compilation
+  Parameter **/n** on msbuild
+
 <a name="references"></a>
 ## References  
 <a href="http://ardalis.com/speed-up-visual-studio-build-times">http://ardalis.com/speed-up-visual-studio-build-times</a>  
