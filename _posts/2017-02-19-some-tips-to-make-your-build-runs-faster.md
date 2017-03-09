@@ -33,7 +33,7 @@ When your build is running, open the task manager. You will see a process called
 ## Disable windows defender for the project folders
   Still on windows defender, add an verification exclusion to the project folders.
 
-## Disable windows defender for the some .exes
+## Disable windows defender for some .exes
   If you are on you developement machine, add an verification exclusion to devenv.exe process. In build machine, add and exclusion to MSBuild.exe process.
 
 ## Add all cpus for the compilation
