@@ -28,6 +28,8 @@ After years consuming video content there, I felt like to putting my content the
 ## Why I dind't got it
 
 
+You can see my audition on this video:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/INBScjZ1x2c" frameborder="0" allowfullscreen></iframe>
 
 I'll try again in a few weeks and, of course, I'will write the result here on my blog. So, stay in touch :)
 
