@@ -16,10 +16,17 @@ introduction: 'If you want to be a pluralsight author, you should read this post
 Some days ago, I was in contact with [PluralSight](https://www.pluralsight.com/).   
 Why?  
 I was trying to become a PluralSight author.  
-After years consuming video content there, I felt like to putting my content there too. But, I dit not pass on the audition in this time.  
- I'll explain you how the it works the process to become an author and tell you why I didn't got it.  
+After years consuming video content there, I felt like to putting my content there too. But, I did not pass on the audition in this time.  
+I'll explain how the process to become an PluralSight author works and tell you why I didn't got it.  
 
-## What motivates me?
+## What motivated me?
+As I said before, I want to publish part of the content that I produce on PluralSight.  
+I have some reasons to want that, two of them are:
+  * Sharing content in a place that lots of people will see
+  * Marketing myself as a developer/consultant abroad  
+
+
+After read the [post](http://www.andrealveslima.com.br/blog/index.php/2014/02/19/6-motivos-para-eu-ter-sido-reprovado-na-audicao-da-pluralsight/) written by André, I decided to apply myself as an author. But, technological knowledge is not the most important thing that you has to know to become a PluralSight author.
 
 
 ## The process
