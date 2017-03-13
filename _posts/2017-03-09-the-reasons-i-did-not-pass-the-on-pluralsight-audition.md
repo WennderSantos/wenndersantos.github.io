@@ -34,7 +34,7 @@ To become an author, technological knowledge is not the most important thing tha
 The process starts when you apply yourself to become an author on this [link](https://www.pluralsight.com/teach). To apply yourself is very simple, just fill the form. You need to inform the content audience of the course you are thinking about. I didn't like the content audience part, because the topics are too much generic.
 
 
-After two days, someone from PluralSight sent me an email telling me that the content audience that I had informed on the form had already a lot of good courses and authors. I replied the email tell them what the specific content of the course that I wanted to publish. After that, they become interested in my course.  
+After a couple of days, someone from pluralsight sent me an email saying that the type of content that I chose had already too many authors and good courses. I replied the email explaining more specifically about what I wanted to say. After that, they were interested on my course.  
 
 If PluralSight has interest in your content, the conversation will continue. They are very attentive and the process is very professional.  
 
