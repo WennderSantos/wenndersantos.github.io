@@ -67,7 +67,7 @@ The feedback pluralsight gave me was valuable, very professional and straight to
 
 I am learning lots of things studing those materials that I said in [The audition](#audtion). 
 
-It was a great experience and I didn't give up to publish a course on PluralSight. I'll try again in a few weeks and, of course, I'will write the result here on my blog. So, stay in touch :)
+It was a great experience and I didn't give up to publish a course on PluralSight. I'll try again in a few weeks and, of course, I'll write the result here on my blog. So, stay in touch :)
 
 
 See you on the next post!
