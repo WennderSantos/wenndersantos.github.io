@@ -59,7 +59,7 @@ In the begining of the emails, Matt sent to me the materials with the informatio
 
 Matt also said that the sample that I used on the video is not applicable in the real world. PluralSight want people who will watch video content have "a-haa" moments during the video.
 
-My video audition have a couple slides, this is not a problem, but they can not be white background with black letters. You can see the right way to create good slides presentation on the materials that pluralsight sent to you in the audtion process.
+My video audition have a couple slides, this is not a problem, but they can not be white background with black letters. You can see the right way to create good slides presentation on the materials that pluralsight sent to you in the audition process.
 
 
 ## Conclusion
