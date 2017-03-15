@@ -49,7 +49,7 @@ During the process, the person who will be helping you, will send some materials
   * How to produce a storytelling
 
 
-So, be very attention here, you need to follow some of tis "documentation".
+So, be very attention here, you need to follow this "documentation".
 
 You can see my audition on this video:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/INBScjZ1x2c" frameborder="0" allowfullscreen></iframe>
