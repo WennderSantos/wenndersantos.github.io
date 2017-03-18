@@ -1,3 +1,7 @@
+## What is this?
+  This is my personal blog, here I write things about my carrer, lectures that I gave and technologies that I use my day.
+
+## Who I am?
   I am Wennder, a software developer that always want to learn something new. But, not just only learn, I want to use it! So, if you are working with those cool new things, please let me work a few hours with you :)
 
   I have been working with software development for about 5 years, most of this time using tecnologies like C# and javascript
