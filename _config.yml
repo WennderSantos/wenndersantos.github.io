@@ -15,7 +15,6 @@ google_analytics: UA-54102626-1
 markdown: kramdown
 highlighter: rouge
 permalink: /:title/
-permalink: /404.md
 
 
 # html minify
