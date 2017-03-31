@@ -3,14 +3,9 @@ layout: post
 title: 'My impressions about Xamarin after a few projects'
 date: 2017-03-22 23:52:06
 image: '/assets/img/'
-description: 'I dind't like Xamarin in the beginning, but I need to tell you, I kind of started liking it :)'
-main-class: 'Xamarin'
+description: 'I did not like Xamarin in the beginning, but I need to tell you, I kind of started liking it :)'
+main-class: 'xamarin'
 color: '#085af5'
-tags:
-- Cordova
-- Xamarin
-- Mobile
-categories:
 twitter_text: 'My impressions about Xamarin after a few projects'
 introduction: 'My impressions about Xamarin after a few projects'
 ---
