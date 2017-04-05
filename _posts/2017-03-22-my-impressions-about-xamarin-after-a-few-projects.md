@@ -26,7 +26,12 @@ I tried to use two year ago and... I needed to write the views two times (Androi
 In the middle of the last year I discovered Xamarin Forms. Things started to change about the "need to write the views two times" and I kind of started liking Xamarin.
 
 ## Xamarin Forms
+My first Xamarin real project was with Xamarin forms. Before forms, I didn't see any advantage to use Xamarin instead of the other mobile developement methods.
 
+Xamarin forms allows you to write just once the view code and execute it on all the platforms (android, ios and uwp). This is great! I don't need to care about to learn three new languages to write the same app on diferent platforms, with Xamarin forms I can do this using xaml to write views for all the platforms and c#/f# to write the code behind (business code) for all the platforms.
+When I started coding with Xamarin forms, I stoped hate Xamarin :)
+
+But, as all of the technologies, nothing is perfect. You still have to deal with the mobile native developement problems. Actually, this is not a problem, it's a personal opinion. Think with me, if you are building a framework to allow people write just one time the code and compile it to multiple platforms, why not resolve at lest the most commons problems that happens in both technologies? for exemple: **maxlength**. I hate do maxlength on Xamarin!
 
 
 ## Why we shouldn't compare Xamarin and Cordova?
