@@ -35,6 +35,13 @@ But, no technology perfect. You still have to deal with the mobile native develo
 
 
 ## Why we shouldn't compare Xamarin and Cordova?
+I like to think about that because of some reasons, some of them are:
+*  Cordova will not give you a fully native experience, at least not in an easy way (but belive me, in most of the cases, a native experience doesn't matter)
+*  I have been working with Xamarin and Cordova for the last few years and can say: A person/team who knows c# and javascript can delivery an app using cordova faster than using xamarin. So, most of the time that I needded to test some ideas, I choosed IONIC framework
+*  They are different frameworks, in some aspects they have the same objective, but IMHO cordova based apps are more focused in line of business app, in the other hand, xamarin could be used for all of the scenarios
 
+Please, don't think that I like one framework more than the other. I really like to compare toolings, so I can choose the "right" tool for the job.
 
-## Keep in touch, this post is being written
+If you have different opinions, I would appreciate to hear and maybe disccus about :)
+
+See you on the next post!
