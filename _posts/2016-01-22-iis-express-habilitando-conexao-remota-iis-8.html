@@ -19,91 +19,24 @@ author:
   last_name: ''
 ---
 <p>Fala pessoal, tudo bom?</p>
-<p>Alguns meses atrás, mostrei como fazer para que um site rodando no iis express nas versões &lt; 8 fosse disponibilizado em uma rede local. Você pode ver esse post <a href="http://web.archive.org/web/20160324172904/http://wenndersantos.net/2015/03/iis-express-habilitando-conexao-remota/" target="_blank">aqui</a>.</p>
+<p>Alguns meses atrás, mostrei como fazer para que um site rodando no iis express nas versões &lt; 8 fosse disponibilizado em uma rede local. Você pode ver esse post <a href="{{ site.baseurl }}/iis-express-habilitando-conexao-remota" target="_blank">aqui</a>.</p>
 <p>No que me ajudaria fazer isso? Bom, no meu caso, consigo acessar o site/api’s de dispositivos móveis. Como tenho trabalhado bastante com desenvolvimento móvel, ter esse recurso é uma baita ajuda.</p>
 <p>No post de hoje, vou mostrar como fazer essa mesma configuração, mas nas versões mais atuais do iis (8 &gt;).</p>
-<p>&nbsp;</p>
-<p><strong>É bem simples, só mudou de local <img class="wp-smiley" src="{{ site.baseurl }}/assets/img/simple-smile.png" alt=":)" /></strong></p>
+<p><strong>É bem simples, só mudou de local :)</strong></p>
 <p>Para mostrar como fazer, criei um projeto web &gt; aspnet mvc no Visual Studio 2015. Ao criar o projeto, já clique no “play” para ver se tudo está funcionando. Se tudo estiver ok, um site com o template default será apresentado.</p>
-<p>Com o site rodando, um processo do iis express estará em execução. Perto do relógio, você encontrará o ícone do iis express, clique com o botão direito e na janela será aberta selecione <strong>Show all aplications. </strong>As Figuras 1, 2 e 3 mostram esses passos.</p>
-<p>&nbsp;</p>
-<p><a href="http://web.archive.org/web/20160324172904/http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-1.png" rel="attachment wp-att-3543"><img class="size-large wp-image-3543" src="{{ site.baseurl }}/assets/img/iis-express-1-1024x614.png" sizes="(max-width: 1024px) 100vw, 1024px" srcset="http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-1-300x180.png 300w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-1-768x460.png 768w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-1-1024x614.png 1024w" alt="Figura 1 - iis express" width="1024" height="614" /></a></p>
-<p>&nbsp;</p>
-<p><a href="http://web.archive.org/web/20160324172904/http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-2.png" rel="attachment wp-att-3544"><img class="size-large wp-image-3544" src="{{ site.baseurl }}/assets/img/iis-express-2-1024x619.png" sizes="(max-width: 1024px) 100vw, 1024px" srcset="http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-2-300x181.png 300w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-2-768x465.png 768w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-2-1024x619.png 1024w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-2-240x145.png 240w" alt="Figura 2 - Botão direito iisexpress" width="1024" height="619" /></a></p>
-<p>&nbsp;</p>
-<p><a href="http://web.archive.org/web/20160324172904/http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-3.png" rel="attachment wp-att-3545"><img class="size-large wp-image-3545" src="{{ site.baseurl }}/assets/img/iis-express-3-1024x608.png" sizes="(max-width: 1024px) 100vw, 1024px" srcset="http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-3-300x178.png 300w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-3-768x456.png 768w, http://wenndersantos.net/wp-content/uploads/2016/01/iis-express-3-1024x608.png 1024w" alt="Figura 3 - Show all applications" width="1024" height="608" /></a></p>
-<p>&nbsp;</p>
+<p>Com o site rodando, um processo do iis express estará em execução. Perto do relógio, você encontrará o ícone do iis express, clique com o botão direito e na janela será aberta selecione <strong>Show all aplications. </strong>As Figuras 1 e 2 mostram esses passos.</p>
+<p><a href="{{ site.baseurl }}/assets/img/iis-express-1-1024x614.png"><img src="{{ site.baseurl }}/assets/img/iis-express-1-1024x614.png" alt="Figura 1 - iis express" width="1024" height="614" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/img/iis-express-2-1024x619.png"><img src="{{ site.baseurl }}/assets/img/iis-express-2-1024x619.png" alt="Figura 2 - Botão direito iisexpress" width="1024" height="619" /></a></p>
 <p>Se você chegou até aqui e seu site está aparecendo na lista, tudo certo até o momento. Pode ser que mais sites estejam aparecendo, caso você esteja rodando mais sites rs.</p>
 <p>Selecione a aplicação que deseja habilitar acesso, com isso serão mostrado dois link’s, um com o caminho onde estão os arquivos do projeto (<strong>path</strong>) e outro que abrirá o arquivo de configuração de host da aplicação selecionada (<strong>config). </strong>Clique no <strong>Config.</strong></p>
 <p>Dentro do arquivo de configuração, faça uma busca pela tag <strong>&lt;sites&gt;. </strong>Ao encontrar a tag, você deverá procurar pela configuração com o nome do seu projeto. No meu caso, dentro da tag &lt;sites&gt;, está a configuração do projeto <strong>WebApplication1, </strong>dessa forma:</p>
-<div>
-<div id="highlighter_484955" class="syntaxhighlighter  xml">
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-<div class="line number2 index1 alt1">2</div>
-<div class="line number3 index2 alt2">3</div>
-<div class="line number4 index3 alt1">4</div>
-<div class="line number5 index4 alt2">5</div>
-<div class="line number6 index5 alt1">6</div>
-<div class="line number7 index6 alt2">7</div>
-<div class="line number8 index7 alt1">8</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">site</code> <code class="xml color1">name</code><code class="xml plain">=</code><code class="xml string">"WebApplication1"</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"2"</code><code class="xml plain">&gt;</code></div>
-<div class="line number2 index1 alt1"><code class="xml spaces"> </code><code class="xml plain">&lt;</code><code class="xml keyword">application</code> <code class="xml color1">path</code><code class="xml plain">=</code><code class="xml string">"/"</code> <code class="xml color1">applicationPool</code><code class="xml plain">=</code><code class="xml string">"Clr4IntegratedAppPool"</code><code class="xml plain">&gt;</code></div>
-<div class="line number3 index2 alt2"><code class="xml spaces">   </code><code class="xml plain">&lt;</code><code class="xml keyword">virtualDirectory</code> <code class="xml color1">path</code><code class="xml plain">=</code><code class="xml string">"/"</code> <code class="xml color1">physicalPath</code><code class="xml plain">=</code><code class="xml string">"c:\users\wennder\documents\visual studio 2015\Projects\WebApplication1\WebApplication1"</code> <code class="xml plain">/&gt;</code></div>
-<div class="line number4 index3 alt1"><code class="xml spaces"> </code><code class="xml plain">&lt;/</code><code class="xml keyword">application</code><code class="xml plain">&gt;</code></div>
-<div class="line number5 index4 alt2"><code class="xml spaces"> </code><code class="xml plain">&lt;</code><code class="xml keyword">bindings</code><code class="xml plain">&gt;</code></div>
-<div class="line number6 index5 alt1"><code class="xml spaces">  </code><code class="xml plain">&lt;</code><code class="xml keyword">binding</code> <code class="xml color1">protocol</code><code class="xml plain">=</code><code class="xml string">"http"</code> <code class="xml color1">bindingInformation</code><code class="xml plain">=</code><code class="xml string">"*:63210:localhost"</code> <code class="xml plain">/&gt;</code></div>
-<div class="line number7 index6 alt2"><code class="xml spaces"> </code><code class="xml plain">&lt;/</code><code class="xml keyword">bindings</code><code class="xml plain">&gt;</code></div>
-<div class="line number8 index7 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">site</code><code class="xml plain">&gt;</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+
+<script src="https://gist.github.com/WennderSantos/d50aa35487024b450cf713eb69adf428.js"></script>
+
 <p>O que precisamos fazer é adicionar mais um <strong>binding </strong>informando o protocolo, porta e domínio que a aplicação estará disponível. Nesse caso, vamos disponibilizar o site em uma rede local, dessa forma o domínio será o ip da máquina onde está o iis express. Após adicionar o novo binding, o código acima deverá estar assim:</p>
-<p>&nbsp;</p>
-<div>
-<div id="highlighter_940154" class="syntaxhighlighter  xml">
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-<div class="line number2 index1 alt1">2</div>
-<div class="line number3 index2 alt2">3</div>
-<div class="line number4 index3 alt1">4</div>
-<div class="line number5 index4 alt2">5</div>
-<div class="line number6 index5 alt1">6</div>
-<div class="line number7 index6 alt2">7</div>
-<div class="line number8 index7 alt1">8</div>
-<div class="line number9 index8 alt2">9</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">site</code> <code class="xml color1">name</code><code class="xml plain">=</code><code class="xml string">"WebApplication1"</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"2"</code><code class="xml plain">&gt;</code></div>
-<div class="line number2 index1 alt1"><code class="xml spaces"> </code><code class="xml plain">&lt;</code><code class="xml keyword">application</code> <code class="xml color1">path</code><code class="xml plain">=</code><code class="xml string">"/"</code> <code class="xml color1">applicationPool</code><code class="xml plain">=</code><code class="xml string">"Clr4IntegratedAppPool"</code><code class="xml plain">&gt;</code></div>
-<div class="line number3 index2 alt2"><code class="xml spaces">   </code><code class="xml plain">&lt;</code><code class="xml keyword">virtualDirectory</code> <code class="xml color1">path</code><code class="xml plain">=</code><code class="xml string">"/"</code> <code class="xml color1">physicalPath</code><code class="xml plain">=</code><code class="xml string">"c:\users\wennder\documents\visual studio 2015\Projects\WebApplication1\WebApplication1"</code> <code class="xml plain">/&gt;</code></div>
-<div class="line number4 index3 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">application</code><code class="xml plain">&gt;</code></div>
-<div class="line number5 index4 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">bindings</code><code class="xml plain">&gt;</code></div>
-<div class="line number6 index5 alt1"><code class="xml spaces">  </code><code class="xml plain">&lt;</code><code class="xml keyword">binding</code> <code class="xml color1">protocol</code><code class="xml plain">=</code><code class="xml string">"http"</code> <code class="xml color1">bindingInformation</code><code class="xml plain">=</code><code class="xml string">"*:63210:localhost"</code> <code class="xml plain">/&gt;</code></div>
-<div class="line number7 index6 alt2"><code class="xml spaces">  </code><code class="xml plain">&lt;</code><code class="xml keyword">binding</code> <code class="xml color1">protocol</code><code class="xml plain">=</code><code class="xml string">"http"</code> <code class="xml color1">bindingInformation</code><code class="xml plain">=</code><code class="xml string">"*:63210:10.0.0.65"</code> <code class="xml plain">/&gt;</code></div>
-<div class="line number8 index7 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">bindings</code><code class="xml plain">&gt;</code></div>
-<div class="line number9 index8 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">site</code><code class="xml plain">&gt;</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+
+<script src="https://gist.github.com/WennderSantos/74c9160a245f1007c21aec039f3af2bb.js"></script>
+
 <p>Basicamente, o que fiz foi trocar “localhost” pelo ip da minha máquina.</p>
 <p>Por default, quase todas as conexões externas são bloqueadas. Nesse caso, vamos liberar o acesso para essa aplicação. Abra o prompt de comando como administrador e execute o seguinte comando:</p>
 <blockquote><p>netsh http add urlacl url=http://192.168.0.12:17300/ user=USUARIO_COM_ACESSO_A_PASTA_DA_APLICAÇÃO</p></blockquote>
@@ -112,5 +45,5 @@ author:
 <p>PS-2: Ao finalizar os testes, remova as exceções do firewall, anti-vírus e remova a reserva de url com o seguinte comando:</p>
 <blockquote><p>netsh http delete urlacl url=http://192.168.0.12:17300/</p>
 <p>&nbsp;</p></blockquote>
-<p>Era isso que queria mostrar <img class="wp-smiley" src="{{ site.baseurl }}/assets/img/simple-smile.png" alt=":)" /></p>
+<p>Era isso que queria mostrar :)</p>
 <p>Até o próximo post</p>
