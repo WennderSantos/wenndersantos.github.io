@@ -19,7 +19,7 @@ Hello everyone!
 
 Yesterday I had to do some tests to ensure that I could connect Visual Studio 2010 on VSTS or TFS 2017. I am currently working as an ALM consultant, so is not uncommon to find this kind of scenario at companies.
 
-It wasn't difficult, I just searched on the internet about that and I find some clues that help to resolve. Basically, I just had to install the Visual Studio SP 1 and a [Visual Studio SP 1 KB](http://download.microsoft.com/download/C/5/D/C5D33D90-7C92-4672-82BB-E550E972F795/VS10SP1-KB2662296.exe).
+It wasn't difficult, I just searched on the internet about that and I found some clues that help to resolve. Basically, I just had to install the Visual Studio SP 1 and a [Visual Studio SP 1 KB](http://download.microsoft.com/download/C/5/D/C5D33D90-7C92-4672-82BB-E550E972F795/VS10SP1-KB2662296.exe).
 .
 
 After that, everything was working. So, now, the client can connect to their tfs2017 using their Visual Studio 2010. They are planning to migrate to Visual Studio 2017, but until there they can't stop work.
