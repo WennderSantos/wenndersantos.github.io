@@ -5,7 +5,7 @@ date: 2017-08-13 11:04:55
 image: '/assets/img/identityserve'
 description: "IdentityServer is an Open Source OpenID Connect and OAuth 2.0 framework for .NET"
 main-class: "podcast"
-color: "#79e1ec"
+color: "#8BC34A"
 tags: "IdentityServer"
 categories:
 twitter_text: "Podcast about IdentityServer, an Open Source OpenID Connect and OAuth 2.0 framework for .NET"

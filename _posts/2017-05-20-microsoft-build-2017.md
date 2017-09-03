@@ -5,7 +5,7 @@ date: 2017-05-20 01:21:26
 image: '/assets/img/microsoft-build-2017.png'
 description: 'Microsoft Build 2017 recap'
 main-class: 'talks'
-color: '#bf563d'
+color: '#009688'
 tags: 'conferences'
 categories:
 twitter_text: 'Microsoft Build 2017 recap'
