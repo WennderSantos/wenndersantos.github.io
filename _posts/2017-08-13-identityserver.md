@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Podcast - dentityServer"
+title: "Podcast - IdentityServer"
 date: 2017-08-13 11:04:55
 image: '/assets/img/identityserve'
 description: "IdentityServer is an Open Source OpenID Connect and OAuth 2.0 framework for .NET"
