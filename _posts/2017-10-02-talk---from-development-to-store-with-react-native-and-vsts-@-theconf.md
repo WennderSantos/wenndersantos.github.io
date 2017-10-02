@@ -24,7 +24,7 @@ You can see more about TheConf below:
 [THE CONF Initiative](http://www.akitaonrails.com/2016/10/20/the-conf-initiative)  
 [THE CONF - 2017 Edition Report](http://www.akitaonrails.com/2017/10/02/the-conf-2017-edition-report)
 
-My talk was "From development to store with React Native and VSTS". The main objective of this talk was to show how to we can use React Native and VSTS together.
+My talk was "From development to store with React Native and VSTS". The main objective of this talk was how we can use React Native and VSTS together.
 
 You can see the deck that I used below:
 <iframe src="//slides.com/wenndersantos/from-development-to-store-react-native-vsts/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
