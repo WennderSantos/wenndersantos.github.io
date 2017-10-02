@@ -15,8 +15,6 @@ twitter_text: "Talk: Agile practices in mobile projects"
 introduction: "This was a talk about automation, agile methods and devops in mobile projects"
 ---
 
-
-
 Last week, I was at [Univem](http://www.univem.edu.br/) to give a lecture about automation, agile methods and devops in mobile projects. The title was "Agile practices in mobile projects".
 
 This was my first presentation with this title and I liked the result.
