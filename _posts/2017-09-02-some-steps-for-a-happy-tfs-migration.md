@@ -14,14 +14,16 @@ twitter_text: "This is a live documentation, please help us with your experience
 introduction: "This is a live documentation, please help us with your experience in the comments"
 ---
 
-After some tfs migrations you become more confident in various aspects, but there are people passing for things that you passible already passed in the past. Let's learn and help my friends.
+After some tfs migrations, you become more confident in various aspects. There are people passing for things that you probably already passed in the past. So, why not help those people?
 
-The object of this post is to become a live doc that will always receiving updates and fixes. If you want to help, plese fell free to comment and I can update the content or much better: send a pull request to the post, I would apreciate that.
-
+The main goal of this post is to become a live doc and receive updates and fixes. If you want to help, please feel free let comments. I will update the content of the post using your comments. Or much better: send a pull request to the post, I would appreciate that.
 
 
 ## After the migration, let's see what we broke with some basic tests.  
 You didn't think that everything would be perfect, did you? Oh, poor padawan, soryy about that.
 
+## Tips and tricks
+
+  * TFS Updates are cumulative. For example, imagine the scenario where you have a TFS 2017 with update 1. The TFS 2017 update 3 will come with all the feature of update 2 and, of course, with all the features of update 3.
 
 # Stay in touch, this post is being written
