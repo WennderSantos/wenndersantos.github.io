@@ -35,7 +35,7 @@ Second, your update can't depend on third part software. For example, imagine a 
 ![Warning server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/warning-server-without-internet.png)
 
 And if you try to install features that depends on third part software, you will see an error like this:
-![Warning server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/error-server-without-internet.png)
+![Error server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/error-server-without-internet.png)
 
 
 
