@@ -26,4 +26,17 @@ You didn't think that everything would be perfect, did you? Oh, poor padawan, so
 
   * TFS Updates are cumulative. For example, imagine the scenario where you have a TFS 2017 with update 1. The TFS 2017 update 3 will come with all the feature of update 2 and, of course, with all the features of update 3.
 
+## Update an offline server
+Yes, you didn't read wrong, I really said **offline server**. It's possible to update a TFS on a server without internet connection.
+
+First, you need to download the .ISO version of the update.
+
+Second, your update can't depend on third part software. For example, imagine a scenario where your update will install the search code feature. This feature depends on JRE and the installation won't download this software. Look, you will see an alert like this:
+![Warning server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/warning-server-without-internet.png)
+
+And if you try to install features that depends on third part software, you will see an error like this:
+![Warning server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/error-server-without-internet.png)
+
+
+
 # Stay in touch, this post is being written
