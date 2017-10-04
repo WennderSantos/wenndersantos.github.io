@@ -18,7 +18,7 @@ Hey guys!
 
 Yesterday I was at [Lambda3](https://www.lambda3.com.br/) participating in the meetup [Develivering Software](https://www.meetup.com/DeliveringSoftware/)
 
-I gave a talk called "Do desenvolvimento a store com React Native e VSTS". Yes, the talk was in pt-BR.
+I gave a talk called "From development to store with React Native and VSTS". Yes, the talk was in pt-BR.
 
 You can see the deck that I used below:
 <iframe src="//slides.com/wenndersantos/from-development-to-store-react-native-vsts/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
