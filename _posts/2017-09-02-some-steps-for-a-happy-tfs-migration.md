@@ -24,7 +24,7 @@ You didn't think that everything would be perfect, did you? Oh, poor padawan, so
 
 ## Tips and tricks
 
-  * TFS Updates are cumulative. For example, imagine the scenario where you have a TFS 2017 with update 1. The TFS 2017 update 3 will come with all the feature of update 2 and, of course, with all the features of update 3.
+  * TFS Updates are cumulative. For example, imagine the scenario where you have a TFS 2017 with update 1. The TFS 2017 update 3 will come with all the features of update 2 and, of course, with all the features of update 3.
 
 ## Update an offline server
 Yes, you didn't read wrong, I really said **offline server**. It's possible to update a TFS on a server without internet connection.
