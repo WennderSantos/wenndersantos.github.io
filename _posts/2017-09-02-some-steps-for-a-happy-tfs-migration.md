@@ -14,13 +14,13 @@ twitter_text: "This is a live documentation, please help us with your experience
 introduction: "This is a live documentation, please help us with your experience in the comments"
 ---
 
-After some tfs migrations, you become more confident in various aspects. There are people passing for things that you probably already passed in the past. So, why not help those people?
+After some tfs migrations, you become more confident in various aspects. There are people passing for things that you probably already passed. So, why not help those people?
 
-The main goal of this post is to become a live doc and receive updates and fixes. If you want to help, please feel free let comments. I will update the content of the post using your comments. Or much better: send a pull request to the post, I would appreciate that.
+The main goal of this post is to become a live doc and receive updates and fixes. If you want to help, please feel free to leave comments. I will update the content of the post using your comments. Or even better: send a pull request to the post, I would appreciate that.
 
 
 ## After the migration, let's see what we broke with some basic tests.  
-You didn't think that everything would be perfect, did you? Oh, poor padawan, soryy about that.
+You didn't think that everything would be perfect, did you? Oh, poor padawan, sorry about that.
 
 ## Tips and tricks
 
