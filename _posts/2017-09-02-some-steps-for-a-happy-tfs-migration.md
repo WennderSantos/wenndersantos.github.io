@@ -31,10 +31,10 @@ Yes, you didn't read wrong, I really said **offline server**. It's possible to u
 
 First, you need to download the .ISO version of the update.
 
-Second, your update can't depend on third part software. For example, imagine a scenario where your update will install the search code feature. This feature depends on JRE and the installation won't download this software. Look, you will see an alert like this:
+Second, your update can't depend on third party software. For example, imagine a scenario where your update will install the search code feature. This feature depends on JRE and the installation won't download this software. Look, you will see an alert like this:
 ![Warning server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/warning-server-without-internet.PNG)
 
-And if you try to install features that depends on third part software, you will see an error like this:
+And if you try to install features that depends on third party software, you will see an error like this:
 ![Error server without internet]({{ site.baseurl }}/assets/img/steps-tfs-migration/error-server-without-internet.png)
 
 It's possible to install the update dependencies separately. So, you can download it using another computer.
