@@ -4,12 +4,13 @@ title: "TFVC - Unmapping a workspace using tf.exe"
 date: 2018-03-14 20:34:23
 image: '/assets/img/'
 description: Unmapping a workspace via command line
-main-class:
-color:
+main-class: "devops"
+color: '#985736'
 tags:
-- TFVC
+- tfvc
 - workspace
 categories:
+- devops
 twitter_text: Unmapping a workspace via command line
 introduction: Unmapping a workspace via command line
 ---
