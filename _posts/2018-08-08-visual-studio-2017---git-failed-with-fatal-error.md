@@ -25,11 +25,8 @@ VS 2017 has a few updated, depending on the updating you are, the fix can be dif
 
 
 ## Fix 1: Git proxy configuration
-> git config --global http.proxy http://proxy.server.com:port
 
-For authenticated proxies
-> git config --global http.proxy http://proxyUsername:proxyPassword@proxy.server.com:port
-
+<script src="https://gist.github.com/WennderSantos/22654aa01a88e58317f1f312ae03e5f1.js"></script>
 
 ## Fix 2: Visual Studio proxy configuration
 Edit the file **devenv.exe.config** in %ProgramFiles(x86)%\Microsoft Visual Studio\2017\Common7\IDE.
@@ -42,8 +39,11 @@ This seems to be a bug in the Visual Studio 2017 instalation witch is loading a 
 To handle this, you need to copy the right binaries to the right folder like the following:
 
 **From**
+
 > <VS_INSTALL>\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\TeamExplorer\Git\mingw32\bin\
+
 **To**
+
 > <VS_INSTALL>\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\TeamExplorer\Git\mingw32\libexec\git-core\
 
 I had two diferent scenarios for this fix, the first one I copied the bin folder and pasted inside the git-core folder. In the other scenario, I had to copy all the binaries insed the bin folder to the git-core root folder.
@@ -56,6 +56,6 @@ You need to configure Auternate authentication credentials. A few years ago I po
 
 
 ## Useful links
-[https://gist.github.com/evantoli/f8c23a37eb3558ab8765](Configure Git to use a proxy)
-[https://msdn.microsoft.com/en-us/library/dn771556.aspx](Proxy Authorization Required)
-[https://developercommunity.visualstudio.com/content/problem/19752/git-cant-clone-remote-repository.html](Copy VS Git binary files to another folder)
+(https://gist.github.com/evantoli/f8c23a37eb3558ab8765)[Configure Git to use a proxy]
+(https://msdn.microsoft.com/en-us/library/dn771556.aspx)[Proxy Authorization Required]
+(https://developercommunity.visualstudio.com/content/problem/19752/git-cant-clone-remote-repository.html)[Copy VS Git binary files to another folder]

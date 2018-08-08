@@ -44,6 +44,8 @@ After executing the command that deletes the mapping, I executed the command tha
 
 As the image above shows, we have 1 single mapping. Before running the deleting command, there were two.
 
+You can also do what I said in this post using a software called [Sidekicks](https://www.lambda3.com.br/2014/10/tfs-administracao-de-workspaces/) (link in pt-br)
+
 Here is the [documentation for the tf tool](https://www.visualstudio.com/en-us/docs/tfvc/use-team-foundation-version-control-commands).
 
 See you on the next post!
