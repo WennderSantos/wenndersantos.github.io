@@ -57,6 +57,6 @@ You need to configure Alternate authentication credentials. A few years ago I po
 
 
 ## Useful links
-[Configure Git to use a proxy](https://gist.github.com/evantoli/f8c23a37eb3558ab8765)
-[Proxy Authorization Required](https://msdn.microsoft.com/en-us/library/dn771556.aspx)
-[Copy VS Git binary files to another folder](https://developercommunity.visualstudio.com/content/problem/19752/git-cant-clone-remote-repository.html)
+[Configure Git to use a proxy](https://gist.github.com/evantoli/f8c23a37eb3558ab8765)  
+[Proxy Authorization Required](https://msdn.microsoft.com/en-us/library/dn771556.aspx)aa
+[Copy VS Git binary files to another folder](https://developercommunity.visualstudio.com/content/problem/19752/git-cant-clone-remote-repository.html)  
