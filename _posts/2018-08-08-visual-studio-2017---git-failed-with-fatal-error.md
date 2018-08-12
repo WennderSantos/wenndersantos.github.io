@@ -2,7 +2,7 @@
 layout: post
 title: "Visual Studio 2017 - Git failed with fatal error"
 date: 2018-08-08 12:25:43
-image: '/assets/img/'
+image: '/assets/img/vsgitfail.png'
 description: "Git failed with a fatal error. fatal: unable to access 'https://organization.visualstudio.com port:443: Timed out'"
 main-class: "editores"
 color: '#d662ad'
@@ -58,5 +58,5 @@ You need to configure Alternate authentication credentials. A few years ago I po
 
 ## Useful links
 [Configure Git to use a proxy](https://gist.github.com/evantoli/f8c23a37eb3558ab8765)  
-[Proxy Authorization Required](https://msdn.microsoft.com/en-us/library/dn771556.aspx)aa
+[Proxy Authorization Required](https://msdn.microsoft.com/en-us/library/dn771556.aspx)  
 [Copy VS Git binary files to another folder](https://developercommunity.visualstudio.com/content/problem/19752/git-cant-clone-remote-repository.html)  
