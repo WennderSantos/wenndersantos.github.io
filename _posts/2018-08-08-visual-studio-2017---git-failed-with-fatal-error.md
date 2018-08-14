@@ -4,7 +4,7 @@ title: "Visual Studio 2017 - Git failed with fatal error"
 date: 2018-08-08 12:25:43
 image: '/assets/img/vsgitfail.png'
 description: "Git failed with a fatal error. fatal: unable to access 'https://organization.visualstudio.com port:443: Timed out'"
-main-class: "editores"
+main-class: "editors"
 color: '#d662ad'
 tags:
 - vsts
